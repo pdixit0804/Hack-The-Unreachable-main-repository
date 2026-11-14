@@ -57,7 +57,7 @@ def _wss_bar(wss):
 
 
 def _concept_table(rows, batch2=False):
-    head = "<tr><th>Concept</th><th>Original</th><th>Spread</th><th>Noise</th><th>Stability (WSS)</th><th>p</th><th>Verdict</th>"
+    head = "<tr><th>Concept</th><th>Original</th><th>Spread</th><th>Noise</th><th>Stability (WSS)</th><th>p</th><th>BH p</th><th>Verdict</th>"
     head += "<th>Predicted</th>" if batch2 else ""
     head += "<th>Recommendation</th></tr>"
     body = []
@@ -99,7 +99,7 @@ def _concept_table(rows, batch2=False):
             f"{variants}<tr><td><code>repeat</code></td><td class='muted'>original, asked again (noise check)</td><td>{_fmt(r['repeat_mean'])}</td><td></td></tr></table></div>{dropped}</details>"
             f"{rewrite}</td>"
             f"<td>{_fmt(r['means']['original'])}</td><td><b>{_fmt(r['spread'])}</b></td><td>{_fmt(r['noise_range'])}</td>"
-            f"<td>{_wss_bar(r['wss'])}<div class='small'>{_fmt(r['wss'])}</div></td><td>{_fmt(r['p'], 3)}</td><td>{verdict}</td>{pred}"
+            f"<td>{_wss_bar(r['wss'])}<div class='small'>{_fmt(r['wss'])}</div></td><td>{_fmt(r['p'], 3)}</td><td>{_fmt(r.get('p_bh'), 3)}{' <span class="small muted">holds</span>' if r.get('survives_fdr') else ''}</td><td>{verdict}</td>{pred}"
             f"<td>{_rec_pill(r['recommendation'])}</td></tr>"
         )
     return f"<div class='wrap'><table>{head}{''.join(body)}</table></div>"
@@ -124,6 +124,10 @@ def _rules_table(rules, planted=None):
 
 
 def build(res: dict) -> Path:
+    from .analyzer import apply_fdr
+
+    if "fdr" not in res:
+        apply_fdr(res)
     b1, b2 = res["batch1"]["concepts"], res["batch2"]["concepts"]
     ev, imp = res["evaluation"], res["improvement"]
     fa = res.get("improvement_false_alarms")
@@ -193,7 +197,7 @@ Recommended next step: a real-world Market Experiment for each (about ${res['mar
 <div class="card small">
 <p><b>Wording spread</b>: highest minus lowest mean score across the original and its same-meaning variants (1–10 scale).
 <b>Noise</b>: the spread pure run-to-run randomness would produce for that many wordings: the standard error of one run's mean (from per-persona answers, or pooled original-vs-repeat gaps) × the expected range of k normal draws (2.33 for k=5).
-<b>WSS</b> = spread ÷ noise. A concept is <b>unstable</b> when WSS ≥ {config.UNSTABLE_WSS}, the spread is at least {config.MIN_SPREAD} point (big enough to change a decision), and a permutation test (answers shuffled across wordings, 2,000 times) gives p &lt; {config.UNSTABLE_P}.</p>
+<b>WSS</b> = spread ÷ noise. A concept is <b>unstable</b> when WSS ≥ {config.UNSTABLE_WSS}, the spread is at least {config.MIN_SPREAD} point (big enough to change a decision), and a permutation test (answers shuffled across wordings, 2,000 times) gives p &lt; {config.UNSTABLE_P}. <b>Multiple testing</b>: {res['fdr']['n_tested']} concepts were tested at once, so about one could pass p &lt; {config.UNSTABLE_P} by chance. With a Benjamini-Hochberg correction (false discovery rate {res['fdr']['q']}), {res['fdr']['n_survive']} of the {res['fdr']['n_flagged']} unstable concepts still hold: {e(', '.join(res['fdr']['survivors'])) or 'none'}. The "BH p" column shows each concept's adjusted p.</p>
 <p><b>Prediction</b>: for batch 2, Claude writes the variants and tags their features, and the rules from batch 1 predict each concept's spread before any panel run. "No memory" predicts no wording effects, so it flags nothing.</p>
 <p><b>Limits</b>: {len(b1)}+{n2} concepts is a proof of method, not a benchmark. Stable is not the same as correct: this tool says when a synthetic answer depends on wording, not whether real people agree. Question asked: <i>{e(res['question'])}</i></p>
 </div>

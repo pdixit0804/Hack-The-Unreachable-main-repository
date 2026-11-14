@@ -97,7 +97,9 @@
             "urgency": 0
           }
         },
-        "recommendation": "trust"
+        "recommendation": "trust",
+        "p_bh": 0.3684,
+        "survives_fdr": false
       },
       {
         "id": "C02",
@@ -186,7 +188,9 @@
             "urgency": 0
           }
         },
-        "recommendation": "trust"
+        "recommendation": "trust",
+        "p_bh": 0.3684,
+        "survives_fdr": false
       },
       {
         "id": "C03",
@@ -267,7 +271,9 @@
             "urgency": 0
           }
         },
-        "recommendation": "reword (not re-tested)"
+        "recommendation": "reword (not re-tested)",
+        "p_bh": 0.0107,
+        "survives_fdr": true
       },
       {
         "id": "C04",
@@ -348,7 +354,9 @@
             "urgency": 0
           }
         },
-        "recommendation": "trust"
+        "recommendation": "trust",
+        "p_bh": 0.1223,
+        "survives_fdr": false
       },
       {
         "id": "C05",
@@ -420,7 +428,9 @@
             "urgency": 0
           }
         },
-        "recommendation": "reword (not re-tested)"
+        "recommendation": "reword (not re-tested)",
+        "p_bh": 0.088,
+        "survives_fdr": false
       },
       {
         "id": "C06",
@@ -501,7 +511,9 @@
             "urgency": 0
           }
         },
-        "recommendation": "reword (not re-tested)"
+        "recommendation": "reword (not re-tested)",
+        "p_bh": 0.008,
+        "survives_fdr": true
       },
       {
         "id": "C07",
@@ -590,7 +602,9 @@
             "urgency": 1
           }
         },
-        "recommendation": "reword (not re-tested)"
+        "recommendation": "reword (not re-tested)",
+        "p_bh": 0.008,
+        "survives_fdr": true
       },
       {
         "id": "C08",
@@ -679,7 +693,9 @@
             "urgency": 0
           }
         },
-        "recommendation": "trust"
+        "recommendation": "trust",
+        "p_bh": 0.5491,
+        "survives_fdr": false
       }
     ],
     "flips": {
@@ -855,7 +871,9 @@
         "pred_spread": 1.0007143260491755,
         "pred_unstable": false,
         "pred_spread_before": 0.8839922961254845,
-        "pred_unstable_before": false
+        "pred_unstable_before": false,
+        "p_bh": 0.088,
+        "survives_fdr": false
       },
       {
         "id": "C10",
@@ -948,7 +966,9 @@
         "pred_spread": 0.8881214683127057,
         "pred_unstable": false,
         "pred_spread_before": 0.8839922961254845,
-        "pred_unstable_before": false
+        "pred_unstable_before": false,
+        "p_bh": 0.088,
+        "survives_fdr": false
       },
       {
         "id": "C11",
@@ -1041,7 +1061,9 @@
         "pred_spread": 0.9806125776158933,
         "pred_unstable": false,
         "pred_spread_before": 0.8839922961254845,
-        "pred_unstable_before": false
+        "pred_unstable_before": false,
+        "p_bh": 0.0906,
+        "survives_fdr": false
       },
       {
         "id": "C12",
@@ -1134,7 +1156,9 @@
         "pred_spread": 0.8881214683127057,
         "pred_unstable": false,
         "pred_spread_before": 0.8839922961254845,
-        "pred_unstable_before": false
+        "pred_unstable_before": false,
+        "p_bh": 0.088,
+        "survives_fdr": false
       },
       {
         "id": "C13",
@@ -1219,7 +1243,9 @@
         "pred_spread": 0.7942263808813372,
         "pred_unstable": false,
         "pred_spread_before": 0.7893911837811394,
-        "pred_unstable_before": false
+        "pred_unstable_before": false,
+        "p_bh": 0.016,
+        "survives_fdr": true
       },
       {
         "id": "C14",
@@ -1304,7 +1330,9 @@
         "pred_spread": 0.7893911837811394,
         "pred_unstable": false,
         "pred_spread_before": 0.7893911837811394,
-        "pred_unstable_before": false
+        "pred_unstable_before": false,
+        "p_bh": 0.5026,
+        "survives_fdr": false
       },
       {
         "id": "C15",
@@ -1389,7 +1417,9 @@
         "pred_spread": 0.8502990985053882,
         "pred_unstable": false,
         "pred_spread_before": 0.7893911837811394,
-        "pred_unstable_before": false
+        "pred_unstable_before": false,
+        "p_bh": 0.3684,
+        "survives_fdr": false
       },
       {
         "id": "C16",
@@ -1474,7 +1504,9 @@
         "pred_spread": 1.0409447753202505,
         "pred_unstable": false,
         "pred_spread_before": 0.7893911837811394,
-        "pred_unstable_before": false
+        "pred_unstable_before": false,
+        "p_bh": 0.6007,
+        "survives_fdr": false
       }
     ],
     "flips": {
@@ -1737,5 +1769,18 @@
   "rewrites_rejected": 0,
   "panel_runs": 87,
   "planted": null,
-  "market_experiment_cost": 4500
+  "market_experiment_cost": 4500,
+  "fdr": {
+    "method": "Benjamini-Hochberg",
+    "q": 0.05,
+    "n_tested": 16,
+    "n_flagged": 8,
+    "n_survive": 4,
+    "survivors": [
+      "C03",
+      "C06",
+      "C07",
+      "C13"
+    ]
+  }
 }

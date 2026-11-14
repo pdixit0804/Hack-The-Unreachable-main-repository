@@ -188,7 +188,7 @@ def render(r: dict) -> str:
     <h2>Round 2: did we call it? <small>{hits} of {len(r2)} right</small></h2>
     <div class="r2" id="r2"></div>
 
-    <p class="foot"><a href="report_details.html">Full technical report</a> · {"Practice data. The simulated panel has wording effects built in on purpose." if mock else "Synthetic panel results. A steady score is not proof real customers agree."} "Shaky" means the score moved more than 1 point and more than 1.5× normal noise.</p>
+    <p class="foot"><a href="report_details.html">Full technical report</a> · {"Practice data. The simulated panel has wording effects built in on purpose." if mock else "Synthetic panel results. A steady score is not proof real customers agree."} "Shaky" means the score moved more than 1 point and more than 1.5× normal noise.{(" " + str(r["fdr"]["n_survive"]) + " of the " + str(r["fdr"]["n_flagged"]) + " shaky ads still hold after correcting for testing " + str(r["fdr"]["n_tested"]) + " ads at once (Benjamini-Hochberg): " + ", ".join(r["fdr"]["survivors"]) + ".") if r.get("fdr") else ""}</p>
     </div></div>
     <script>
     const D = {data};

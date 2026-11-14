@@ -32,3 +32,14 @@ def test_result_payload_prefers_structured_then_json_text_then_embedded_json():
 def test_fill_keeps_native_types():
     out = _fill({"n_personas": "{n}", "q": "{question}", "mix": "seg={segment}"}, {"n": 40, "question": "Q?", "segment": "S"})
     assert out == {"n_personas": 40, "q": "Q?", "mix": "seg=S"}
+
+
+def test_job_status_ignores_task_envelope():
+    from stress_tester.panel.flashpoint import job_status
+
+    running = {"task_id": "t", "status": "completed", "result": {"status": "running", "stage": "answering", "progress": 0.4}}
+    assert job_status(running) == "running"
+    done = {"task_id": "t", "status": "completed", "result": {"status": "completed", "result": {"answers": []}}}
+    assert job_status(done) == "completed"
+    failed = {"status": "completed", "result": {"status": "failed", "error": "x"}}
+    assert job_status(failed) == "failed"

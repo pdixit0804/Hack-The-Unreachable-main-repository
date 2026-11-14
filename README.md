@@ -40,6 +40,15 @@ Claude (`claude-opus-5-5`) is used automatically when `ANTHROPIC_API_KEY` is set
 
 Output: `outputs/report.html` (the demo screen), `outputs/results.json`, `memory/rules.json`.
 
+## Tests
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+Covers the stability math, the Flashpoint response parser, the learner (recovers the mock panel's planted effects) and an offline end-to-end run. Tests run in a temp directory and never touch `outputs/` or `memory/`.
+
 ## How the numbers work
 
 | Metric | Definition |

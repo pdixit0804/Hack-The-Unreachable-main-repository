@@ -283,14 +283,14 @@
   "concept": "C07",
   "batch": "batch1",
   "kind": "alt",
-  "delta": -0.33749999999999947,
+  "delta": 0.7625000000000011,
   "x": {
    "jargon": 0,
    "negation": 0,
    "loss_frame": 0,
    "many_numbers": 0,
    "long": 0,
-   "urgency": 0
+   "urgency": -1
   }
  },
  {
@@ -367,7 +367,7 @@
   "concept": "C09",
   "batch": "batch2",
   "kind": "plain",
-  "delta": 1.4625000000000004,
+  "delta": 1.1625000000000005,
   "x": {
    "jargon": -1,
    "negation": 0,
@@ -622,6 +622,20 @@
   "delta": 0.9250000000000007,
   "x": {
    "jargon": -1,
+   "negation": 0,
+   "loss_frame": 0,
+   "many_numbers": 0,
+   "long": 0,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C15",
+  "batch": "batch2",
+  "kind": "alt",
+  "delta": -0.07499999999999929,
+  "x": {
+   "jargon": 0,
    "negation": 0,
    "loss_frame": 0,
    "many_numbers": 0,

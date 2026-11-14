@@ -28,8 +28,8 @@ Same offer, a 1.97-point swing. Asking the original twice moved it only 0.17 (8.
 * **It held on the held-out batch:** 4 of 8 in batch 1 and 4 of 8 in batch 2. In both batches, the top-scoring ad changed with the wording, so a single run can rank ads in the wrong order.
 * **Worst case, C06:** a 2.83-point swing, 3.1× the noise, p < 0.001.
 * **Memory learned one rule:** copy over about 22 words scores about 0.4 points lower (90% interval −0.65 to −0.1).
-* **Memory did not predict which unseen ads would be shaky.** It flagged 0 of the 4 shaky held-out ads in advance. Accuracy was 50%, the same as no memory, and the rank correlation between predicted and actual swing was about −0.05. Jargon and loss framing hurt scores on the simulated panel, where we built those effects in, but showed no clear effect on the live one. So you can't skip the stress test by eyeballing copy.
-* **Rewrites were not re-tested** in the live run (`--skip-rewrites`). To get suggested rewrites for the shaky held-out ads without touching the saved results, run `python scripts/rewrite_flagged.py`. It writes `outputs/rewrites_suggested.json` and `outputs/rewrite_requests.csv`. Those rewrites are unscored suggestions until someone runs them on a panel.
+* **Memory did not predict which unseen ads would be Flagged.** It flagged 0 of the 4 Flagged held-out ads in advance. Accuracy was 50%, the same as no memory, and the rank correlation between predicted and actual swing was about −0.05. Jargon and loss framing hurt scores on the simulated panel, where we built those effects in, but showed no clear effect on the live one. So you can't skip the stress test by eyeballing copy.
+* **Rewrites were not re-tested** in the live run (`--skip-rewrites`). To get suggested rewrites for the Flagged held-out ads without touching the saved results, run `python scripts/rewrite_flagged.py`. It writes `outputs/rewrites_suggested.json` and `outputs/rewrite_requests.csv`. Those rewrites are unscored suggestions until someone runs them on a panel.
 
 | Wording pattern (learned from batch 1) | Simulated panel | Live panel |
 |---|---|---|
@@ -44,8 +44,8 @@ Effects are in points on the 1–10 scale. "Weak" means the interval includes ze
 
 Open `outputs/report.html` in any browser; no server is needed. It's the FlashFeud board:
 
-* a scoreboard with three numbers: offers that changed score with wording, shaky new offers called before testing, and round 2 accuracy;
-* a board for each offer, with every wording ranked by score and a verdict: **Trust**, **Reword**, **Use the rewrite**, or **Test with real people**;
+* a scoreboard with three numbers: offers that changed score with wording, Flagged new offers that memory called before testing (an early experiment), and memory's round 2 accuracy;
+* a board for each offer, with every wording ranked by score and a verdict: **Trust**, or **Flagged** with a next step (**Reword**, **Use the rewrite**, or **Test with real people**);
 * the wording habits that cost points;
 * round 2 predictions next to what actually happened.
 
@@ -148,7 +148,7 @@ Covers the stability math (`test_analyzer.py`), the Flashpoint response parser (
 * **Stable is not correct.** This says when a synthetic answer depends on wording, not whether real people agree. Unstable concepts get routed to a real-world test (e.g. a Flashpoint Market Experiment).
 * 8 + 8 banking ads is a proof of method, not a benchmark. Counts and intervals are always shown.
 * **Memory did not beat no-memory on unseen ads** on the live panel (0 of 4 flagged). It learned one rule, long copy. What makes a score unstable on a real panel isn't explained by obvious wording traits. Don't tune the predictor after seeing batch 2, because that would break the held-out test.
-* Rewrites weren't re-tested on the live panel, and no shaky held-out ad was rewritten.
+* Rewrites weren't re-tested on the live panel, and no Flagged held-out ad was rewritten.
 * The rewriter's retry and independent meaning check have been tested with a fake Claude, but they haven't run against live Claude yet.
 * The Market Experiment cost in the report ($4,500) is a 2025 podcast figure and may be out of date.
 * Every number is labeled by source. The mock panel (`stress_tester/panel/mock.py`) has **planted** wording effects so the pipeline can be tested offline; mock results say nothing about real panels.

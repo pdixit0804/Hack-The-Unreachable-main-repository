@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-14T15:45:18+00:00",
+  "generated": "2026-11-14T16:00:44+00:00",
   "adapter": "mock",
   "data_source": [
     "mock (simulated, planted effects)"
@@ -517,22 +517,22 @@
         "text": "Open an account today and get a $200 bonus. Limited time only.",
         "means": {
           "original": 6.35,
-          "alt": 6.05,
+          "alt": 7.15,
           "frame_flip": 5.875,
           "reordered": 6.45
         },
         "repeat_mean": 6.425,
-        "spread": 0.5750000000000002,
-        "noise_range": 0.45149571214279915,
-        "se": 0.21927912197319044,
-        "wss": 1.2735447636280963,
-        "p": 0.296351824087956,
-        "unstable": false,
-        "best": "reordered",
+        "spread": 1.2750000000000004,
+        "noise_range": 0.45461489059422594,
+        "se": 0.22079402165819617,
+        "wss": 2.8045715755888487,
+        "p": 0.0014992503748125937,
+        "unstable": true,
+        "best": "alt",
         "worst": "frame_flip",
         "n": 40,
         "variants": {
-          "alt": "Start an account today and get a $200 bonus. Limited time only.",
+          "alt": "Open an account and get a $200 bonus.",
           "frame_flip": "Stop missing out: open an account today and get a $200 bonus. Limited time only.",
           "reordered": "Limited time only. Open an account today and get a $200 bonus."
         },
@@ -566,13 +566,13 @@
             "long": 0,
             "urgency": 1
           },
-          "Start an account today and get a $200 bonus. Limited time only.": {
+          "Open an account and get a $200 bonus.": {
             "jargon": 0,
             "negation": 0,
             "loss_frame": 0,
             "many_numbers": 0,
             "long": 0,
-            "urgency": 1
+            "urgency": 0
           },
           "Stop missing out: open an account today and get a $200 bonus. Limited time only.": {
             "jargon": 0,
@@ -591,7 +591,7 @@
             "urgency": 1
           }
         },
-        "recommendation": "trust"
+        "recommendation": "reword (not re-tested)"
       },
       {
         "id": "C08",
@@ -762,23 +762,23 @@
         "text": "High-yield savings at 4.10% APY, compounded daily, with zero fees.",
         "means": {
           "original": 4.75,
-          "plain": 6.0,
+          "plain": 5.7,
           "alt": 5.2,
           "frame_flip": 3.425,
           "reordered": 4.875
         },
         "repeat_mean": 4.325,
-        "spread": 2.575,
-        "noise_range": 0.4654639609030678,
-        "se": 0.2001134827614221,
-        "wss": 5.532114656103827,
+        "spread": 2.2750000000000004,
+        "noise_range": 0.4441116923813525,
+        "se": 0.19093365966524184,
+        "wss": 5.12258523931518,
         "p": 0.0004997501249375312,
         "unstable": true,
         "best": "plain",
         "worst": "frame_flip",
         "n": 40,
         "variants": {
-          "plain": "A savings account paying at 4.10% interest per year, with interest added every day, with zero fees.",
+          "plain": "A savings account paying 4.10% interest per year, with interest added every day and zero fees.",
           "alt": "High-yield savings at 4.10% APY, compounded daily, with $0 in fees.",
           "frame_flip": "Stop missing out: high-yield savings at 4.10% APY, compounded daily, with zero fees.",
           "reordered": "With zero fees, high-yield savings at 4.10% APY, compounded daily."
@@ -811,7 +811,7 @@
             "long": 0,
             "urgency": 0
           },
-          "A savings account paying at 4.10% interest per year, with interest added every day, with zero fees.": {
+          "A savings account paying 4.10% interest per year, with interest added every day and zero fees.": {
             "jargon": 0,
             "negation": 1,
             "loss_frame": 0,
@@ -844,34 +844,35 @@
             "urgency": 0
           }
         },
-        "recommendation": "test in market",
-        "pred_spread": 1.4286840079227996,
+        "recommendation": "use the rewrite",
+        "pred_spread": 1.4288746379173574,
         "pred_unstable": true,
-        "pred_spread_before": 0.5047238508548347,
+        "pred_spread_before": 0.5064683808908775,
         "pred_unstable_before": false,
         "rewrite": {
-          "text": "A savings account paying at 4.10% interest per year, with interest added every day, with $0 in fees.",
+          "text": "A savings account paying 4.10% interest per year, with interest added every day and $0 in fees.",
           "changed": "offline rules: plain words, positive phrasing, gain framing, no urgency",
           "same_meaning": true,
-          "source": "rules"
+          "source": "rules",
+          "no_change": false
         },
         "rewrite_result": {
           "id": "C09-R",
-          "text": "A savings account paying at 4.10% interest per year, with interest added every day, with $0 in fees.",
+          "text": "A savings account paying 4.10% interest per year, with interest added every day and $0 in fees.",
           "means": {
-            "original": 6.575,
-            "alt": 6.475,
-            "frame_flip": 5.525,
-            "reordered": 6.475
+            "original": 6.5,
+            "alt": 6.525,
+            "frame_flip": 5.975,
+            "reordered": 6.575
           },
-          "repeat_mean": 6.525,
-          "spread": 1.0499999999999998,
-          "noise_range": 0.44581705668946364,
-          "se": 0.21652115429308577,
-          "wss": 2.3552261723610615,
-          "p": 0.0029985007496251873,
-          "unstable": true,
-          "best": "original",
+          "repeat_mean": 6.575,
+          "spread": 0.6000000000000005,
+          "noise_range": 0.4803390475246866,
+          "se": 0.2332875412941654,
+          "wss": 1.2491176869587395,
+          "p": 0.3058470764617691,
+          "unstable": false,
+          "best": "reordered",
           "worst": "frame_flip",
           "n": 40
         }
@@ -956,36 +957,10 @@
           }
         },
         "recommendation": "test in market",
-        "pred_spread": 0.8319381345687127,
+        "pred_spread": 0.8327088373054214,
         "pred_unstable": false,
-        "pred_spread_before": 0.4507104415447485,
-        "pred_unstable_before": false,
-        "rewrite": {
-          "text": "Get paid up to two days early with direct deposit.",
-          "changed": "offline rules: plain words, positive phrasing, gain framing, no urgency",
-          "same_meaning": true,
-          "source": "rules"
-        },
-        "rewrite_result": {
-          "id": "C10-R",
-          "text": "Get paid up to two days early with direct deposit.",
-          "means": {
-            "original": 5.8,
-            "alt": 6.025,
-            "frame_flip": 4.95,
-            "reordered": 5.875
-          },
-          "repeat_mean": 5.875,
-          "spread": 1.0750000000000002,
-          "noise_range": 0.47551996952121955,
-          "se": 0.2309470468777171,
-          "wss": 2.260683186622785,
-          "p": 0.0069965017491254375,
-          "unstable": true,
-          "best": "alt",
-          "worst": "frame_flip",
-          "n": 40
-        }
+        "pred_spread_before": 0.45226827936339176,
+        "pred_unstable_before": false
       },
       {
         "id": "C11",
@@ -1067,15 +1042,16 @@
           }
         },
         "recommendation": "use the rewrite",
-        "pred_spread": 1.0854768963637698,
+        "pred_spread": 1.0863289931582263,
         "pred_unstable": true,
-        "pred_spread_before": 0.4507104415447485,
+        "pred_spread_before": 0.45226827936339176,
         "pred_unstable_before": false,
         "rewrite": {
           "text": "Keep your savings ahead of inflation. Move your money to an account that keeps up.",
           "changed": "offline rules: plain words, positive phrasing, gain framing, no urgency",
           "same_meaning": true,
-          "source": "rules"
+          "source": "rules",
+          "no_change": false
         },
         "rewrite_result": {
           "id": "C11-R",
@@ -1185,9 +1161,9 @@
           }
         },
         "recommendation": "trust",
-        "pred_spread": 0.8685956202809969,
+        "pred_spread": 0.8695172437661193,
         "pred_unstable": false,
-        "pred_spread_before": 0.5047238508548347,
+        "pred_spread_before": 0.5064683808908775,
         "pred_unstable_before": false
       },
       {
@@ -1261,9 +1237,9 @@
           }
         },
         "recommendation": "trust",
-        "pred_spread": 0.771259969529241,
+        "pred_spread": 0.7717988229616701,
         "pred_unstable": false,
-        "pred_spread_before": 0.3697582857564574,
+        "pred_spread_before": 0.3710363201399829,
         "pred_unstable_before": false
       },
       {
@@ -1337,9 +1313,9 @@
           }
         },
         "recommendation": "trust",
-        "pred_spread": 0.771259969529241,
+        "pred_spread": 0.7717988229616701,
         "pred_unstable": false,
-        "pred_spread_before": 0.3697582857564574,
+        "pred_spread_before": 0.3710363201399829,
         "pred_unstable_before": false
       },
       {
@@ -1348,21 +1324,23 @@
         "means": {
           "original": 4.3,
           "plain": 5.25,
+          "alt": 4.25,
           "frame_flip": 4.7,
           "reordered": 4.2
         },
         "repeat_mean": 4.35,
         "spread": 1.0499999999999998,
-        "noise_range": 0.4614676497537295,
-        "se": 0.22412221940443394,
-        "wss": 2.2753490966492476,
-        "p": 0.004997501249375313,
+        "noise_range": 0.5096124099929312,
+        "se": 0.21909389939506932,
+        "wss": 2.0603893849731096,
+        "p": 0.005997001499250375,
         "unstable": true,
         "best": "plain",
         "worst": "reordered",
         "n": 40,
         "variants": {
           "plain": "Act now: lock in a 12-month savings certificate at 4.5% interest per year before rates drop.",
+          "alt": "Lock in a 12-month CD at 4.5% APY before rates drop.",
           "frame_flip": "Act now: lock in a 12-month CD at 4.5% APY while rates are high.",
           "reordered": "Lock in a 12-month CD at 4.5% APY before rates drop. Act now."
         },
@@ -1384,9 +1362,7 @@
             "reason": "offline rules (not checked by Claude)"
           }
         },
-        "dropped": [
-          "alt"
-        ],
+        "dropped": [],
         "tags": {
           "Act now: lock in a 12-month CD at 4.5% APY before rates drop.": {
             "jargon": 1,
@@ -1398,6 +1374,14 @@
           },
           "Act now: lock in a 12-month savings certificate at 4.5% interest per year before rates drop.": {
             "jargon": 0,
+            "negation": 0,
+            "loss_frame": 1,
+            "many_numbers": 0,
+            "long": 0,
+            "urgency": 1
+          },
+          "Lock in a 12-month CD at 4.5% APY before rates drop.": {
+            "jargon": 1,
             "negation": 0,
             "loss_frame": 1,
             "many_numbers": 0,
@@ -1422,15 +1406,16 @@
           }
         },
         "recommendation": "use the rewrite",
-        "pred_spread": 0.9673209540162913,
-        "pred_unstable": false,
-        "pred_spread_before": 0.4507104415447485,
+        "pred_spread": 1.0309582556052574,
+        "pred_unstable": true,
+        "pred_spread_before": 0.5064683808908775,
         "pred_unstable_before": false,
         "rewrite": {
           "text": "Lock in a 12-month savings certificate at 4.5% interest per year while rates are high.",
           "changed": "offline rules: plain words, positive phrasing, gain framing, no urgency",
           "same_meaning": true,
-          "source": "rules"
+          "source": "rules",
+          "no_change": false
         },
         "rewrite_result": {
           "id": "C15-R",
@@ -1531,36 +1516,10 @@
           }
         },
         "recommendation": "test in market",
-        "pred_spread": 0.8319381345687127,
+        "pred_spread": 0.8327088373054214,
         "pred_unstable": false,
-        "pred_spread_before": 0.4507104415447485,
-        "pred_unstable_before": false,
-        "rewrite": {
-          "text": "Free financial coaching for every member, whenever you need it.",
-          "changed": "offline rules: plain words, positive phrasing, gain framing, no urgency",
-          "same_meaning": true,
-          "source": "rules"
-        },
-        "rewrite_result": {
-          "id": "C16-R",
-          "text": "Free financial coaching for every member, whenever you need it.",
-          "means": {
-            "original": 6.125,
-            "alt": 5.975,
-            "frame_flip": 4.8,
-            "reordered": 5.625
-          },
-          "repeat_mean": 5.7,
-          "spread": 1.3250000000000002,
-          "noise_range": 0.4180386328186023,
-          "se": 0.20302993337474612,
-          "wss": 3.1695635187261546,
-          "p": 0.0004997501249375312,
-          "unstable": true,
-          "best": "original",
-          "worst": "frame_flip",
-          "n": 40
-        }
+        "pred_spread_before": 0.45226827936339176,
+        "pred_unstable_before": false
       }
     ],
     "flips": {
@@ -1574,14 +1533,14 @@
         },
         "C13": {
           "original": 2,
-          "plain": 3,
+          "plain": 2,
           "alt": 3,
           "frame_flip": 2,
           "reordered": 2
         },
         "C10": {
           "original": 3,
-          "plain": 4,
+          "plain": 3,
           "alt": 1,
           "frame_flip": 3,
           "reordered": 1
@@ -1589,7 +1548,7 @@
         "C14": {
           "original": 4,
           "plain": 6,
-          "alt": 8,
+          "alt": 7,
           "frame_flip": 6,
           "reordered": 4
         },
@@ -1602,7 +1561,7 @@
         },
         "C09": {
           "original": 6,
-          "plain": 2,
+          "plain": 4,
           "alt": 5,
           "frame_flip": 8,
           "reordered": 5
@@ -1610,7 +1569,7 @@
         "C15": {
           "original": 7,
           "plain": 5,
-          "alt": 7,
+          "alt": 8,
           "frame_flip": 5,
           "reordered": 8
         },
@@ -1625,10 +1584,10 @@
       "max_move": {
         "C16": 3,
         "C13": 1,
-        "C10": 3,
-        "C14": 4,
+        "C10": 2,
+        "C14": 3,
         "C12": 2,
-        "C09": 6,
+        "C09": 4,
         "C15": 3,
         "C11": 7
       },
@@ -1712,29 +1671,29 @@
     {
       "feature": "urgency",
       "definition": "pressures the reader on time (today, now, limited time, act now, before rates drop)",
-      "effect": 0.0,
+      "effect": -0.69,
       "ci90": [
-        0.0,
+        -0.74,
         0.0
       ],
-      "n_variants": 0,
-      "n_concepts": 0,
-      "status": "not seen yet"
+      "n_variants": 1,
+      "n_concepts": 1,
+      "status": "weak evidence"
     }
   ],
   "rules_final": [
     {
       "feature": "jargon",
       "definition": "uses financial jargon or acronyms (APY, APR, FDIC, CD, compounding, variable rate, yield)",
-      "effect": -0.94,
+      "effect": -0.88,
       "ci90": [
-        -1.17,
+        -1.02,
         -0.72
       ],
       "n_variants": 5,
       "n_concepts": 5,
       "status": "fragile",
-      "rule": "When a wording adds jargon, synthetic appeal drops by about 0.9 points (90% CI -1.2 to -0.7; 5 variants, 5 concepts).",
+      "rule": "When a wording adds jargon, synthetic appeal drops by about 0.9 points (90% CI -1.0 to -0.7; 5 variants, 5 concepts).",
       "advice": "Concepts that depend on jargon are fragile; reword without it or test in market."
     },
     {
@@ -1792,23 +1751,23 @@
     {
       "feature": "urgency",
       "definition": "pressures the reader on time (today, now, limited time, act now, before rates drop)",
-      "effect": 0.0,
+      "effect": -0.69,
       "ci90": [
-        0.0,
+        -0.74,
         0.0
       ],
-      "n_variants": 0,
-      "n_concepts": 0,
-      "status": "not seen yet"
+      "n_variants": 1,
+      "n_concepts": 1,
+      "status": "weak evidence"
     }
   ],
   "evaluation": {
     "after": {
-      "tp": 2,
+      "tp": 3,
       "fp": 0,
-      "fn": 3,
+      "fn": 2,
       "tn": 3,
-      "accuracy": 0.625
+      "accuracy": 0.75
     },
     "before": {
       "tp": 0,
@@ -1819,20 +1778,20 @@
     },
     "spearman_after": 0.6904761904761906,
     "n_unstable_actual": 5,
-    "noise_ref": 0.4550639481717008,
+    "noise_ref": 0.45662353739741424,
     "pred_cut": 1.0,
-    "mae_after": 0.3435296866050889,
-    "mae_before": 0.7778992450748028
+    "mae_after": 0.29786721030930446,
+    "mae_before": 0.7320896723696534
   },
   "improvement": {
-    "n": 5,
-    "spread_before": 1.5050000000000001,
-    "spread_after": 0.95,
-    "still_unstable": 3,
-    "appeal_before": 5.045,
-    "appeal_after": 6.14
+    "n": 3,
+    "spread_before": 1.6083333333333334,
+    "spread_after": 0.6333333333333334,
+    "still_unstable": 0,
+    "appeal_before": 4.433333333333334,
+    "appeal_after": 6.233333333333333
   },
-  "panel_runs": 104,
+  "panel_runs": 95,
   "planted": {
     "jargon": -0.9,
     "negation": -0.6,

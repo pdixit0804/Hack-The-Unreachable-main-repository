@@ -3,15 +3,15 @@
     {
       "feature": "jargon",
       "definition": "uses financial jargon or acronyms (APY, APR, FDIC, CD, compounding, variable rate, yield)",
-      "effect": -0.94,
+      "effect": -0.88,
       "ci90": [
-        -1.17,
+        -1.02,
         -0.72
       ],
       "n_variants": 5,
       "n_concepts": 5,
       "status": "fragile",
-      "rule": "When a wording adds jargon, synthetic appeal drops by about 0.9 points (90% CI -1.2 to -0.7; 5 variants, 5 concepts).",
+      "rule": "When a wording adds jargon, synthetic appeal drops by about 0.9 points (90% CI -1.0 to -0.7; 5 variants, 5 concepts).",
       "advice": "Concepts that depend on jargon are fragile; reword without it or test in market."
     },
     {
@@ -69,14 +69,14 @@
     {
       "feature": "urgency",
       "definition": "pressures the reader on time (today, now, limited time, act now, before rates drop)",
-      "effect": 0.0,
+      "effect": -0.69,
       "ci90": [
-        0.0,
+        -0.74,
         0.0
       ],
-      "n_variants": 0,
-      "n_concepts": 0,
-      "status": "not seen yet"
+      "n_variants": 1,
+      "n_concepts": 1,
+      "status": "weak evidence"
     }
   ],
   "history": [
@@ -97,8 +97,44 @@
         "negation",
         "loss_frame"
       ]
+    },
+    {
+      "at": "2026-11-14T16:00:35+00:00",
+      "adapter": "mock",
+      "personas": 40,
+      "batches": [
+        "batch1",
+        "batch2"
+      ],
+      "fragile_after_batch1": [
+        "jargon",
+        "loss_frame"
+      ],
+      "fragile_after_batch2": [
+        "jargon",
+        "negation",
+        "loss_frame"
+      ]
+    },
+    {
+      "at": "2026-11-14T16:00:44+00:00",
+      "adapter": "mock",
+      "personas": 40,
+      "batches": [
+        "batch1",
+        "batch2"
+      ],
+      "fragile_after_batch1": [
+        "jargon",
+        "loss_frame"
+      ],
+      "fragile_after_batch2": [
+        "jargon",
+        "negation",
+        "loss_frame"
+      ]
     }
   ],
-  "updated": "2026-11-14T15:45:18+00:00",
-  "n_observations": 50
+  "updated": "2026-11-14T16:00:44+00:00",
+  "n_observations": 51
 }

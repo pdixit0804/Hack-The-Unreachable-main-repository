@@ -1,0 +1,9 @@
+{
+  "rules": [
+    {
+      "feature": "long",
+      "rule": "On a synthetic AI-persona panel, concepts longer than about 22 words scored 0.4 points lower on 1-10 appeal (90% CI -0.65 to -0.1; 9 variants, 7 concepts); fragile finding.",
+      "advice": "Consider trimming copy to about 22 words or fewer, but treat this as a tentative signal from AI personas and confirm with real-audience testing before making it a rule."
+    }
+  ]
+}

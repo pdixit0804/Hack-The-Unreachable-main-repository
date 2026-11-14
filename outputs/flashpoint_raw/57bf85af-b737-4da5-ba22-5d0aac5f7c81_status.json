@@ -1,0 +1,66 @@
+{
+  "job_id": "01a1db05-d540-79b3-aa50-ee6a1d998837",
+  "action": "run",
+  "status": "completed",
+  "stage": "synthetic_panel_take_survey",
+  "message": "Done",
+  "created_at": "2026-11-14T17:05:55.008864+00:00",
+  "updated_at": "2026-11-14T17:06:20.332438+00:00",
+  "progress": 1.0,
+  "result": {
+    "task_id": "01a1db05-d545-7443-aacf-c8b2b863d6f4",
+    "task_name": "synthetic_panel_take_survey",
+    "status": "completed",
+    "result": {
+      "panel_id": "01a1dad8-9894-754a-b109-d7d6510760b1",
+      "survey_id": "57bf85af-b737-4da5-ba22-5d0aac5f7c81",
+      "total_personas": 30,
+      "responses_submitted": 30,
+      "status_breakdown": {
+        "COMPLETE": 30
+      },
+      "analytics_scope": {
+        "survey_id": "57bf85af-b737-4da5-ba22-5d0aac5f7c81",
+        "panel_id": "01a1dad8-9894-754a-b109-d7d6510760b1",
+        "calibration_version": "uncalibrated",
+        "run_id": "01a1db05-d545-7443-aacf-c8b2b863d6f4"
+      },
+      "analytics_note": "To analyse this run, scope every analytics call to panel_id=01a1dad8-9894-754a-b109-d7d6510760b1, run_id=01a1db05-d545-7443-aacf-c8b2b863d6f4 (calibration_version=uncalibrated). Omitting panel_id combines every panel that ran this survey; omitting run_id combines every run of this panel. If a result carries scope_warning, the numbers combine runs: say so.",
+      "sampled_answers": {
+        "sampled": 390,
+        "changed_from_top": 305
+      },
+      "artifact": {
+        "type": "survey_results",
+        "title": "Results \u2014 Survey \u00b7 Stress-Tester panel 30",
+        "summary": "Target: 30 \u00b7 30 responses \u00b7 model: gpt-5.4-mini \u00b7 live analytics, crosstabs, responses",
+        "storage_kind": "reference",
+        "storage": {
+          "survey_id": "57bf85af-b737-4da5-ba22-5d0aac5f7c81",
+          "survey_name": "Survey",
+          "panel_id": "01a1dad8-9894-754a-b109-d7d6510760b1",
+          "panel_name": "Stress-Tester panel 30",
+          "panel_kind": "synthetic",
+          "calibration_version": "uncalibrated",
+          "panel_size": 30,
+          "responses_submitted": 30,
+          "service": "flashpoint-surveys",
+          "inference_backend": "openai",
+          "inference_model": "gpt-5.4-mini",
+          "inference_models": [
+            "gpt-5.4-mini"
+          ],
+          "last_run_id": "01a1db05-d545-7443-aacf-c8b2b863d6f4",
+          "fit_run_id": null
+        }
+      }
+    },
+    "error": null,
+    "conversation_id": "01a1db05-d540-79b3-aa50-ee6a1d998837",
+    "message_id": null,
+    "trace_id": null,
+    "traceparent": null,
+    "completed_at": "2026-11-14T17:06:20.330516",
+    "duration_ms": 25312
+  }
+}

@@ -9,27 +9,94 @@ from . import config, feud
 e = html.escape
 
 CSS = """
-:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b70;--card:#fff;--line:#e6e3dc;--accent:#2f5bd3;--bad:#c2410c;--good:#15803d;--warn:#a16207;--chip:#f1efe9}
-@media (prefers-color-scheme:dark){:root{--bg:#141416;--fg:#ececef;--muted:#9a9aa2;--card:#1d1d21;--line:#2e2e34;--accent:#7aa2ff;--bad:#fb923c;--good:#4ade80;--warn:#facc15;--chip:#26262b}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
-main{max-width:1080px;margin:0 auto;padding:28px 16px 64px}
-h1{font-size:30px;margin:0 0 4px}h2{font-size:20px;margin:40px 0 12px}h3{font-size:16px;margin:0 0 6px}
-.sub{color:var(--muted);margin:0 0 18px}.banner{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--chip);font-size:14px}
-.banner b{color:var(--warn)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
-.big{font-size:30px;font-weight:700;line-height:1.1}.muted{color:var(--muted)}.small{font-size:13px}
+/* Same theme as the FlashFeud page: cream floor, warm-black board, gold numbers, coral for bad news. */
+:root{--bg:#f2ebdd;--bg2:#e8dfcc;--fg:#1a1714;--muted:#5b5348;--faint:#8a8172;--card:#f8f2e4;--line:#d6cab3;
+--board:#1d1a16;--board2:#2b2620;--gold:#e3a20f;--accent:#1a1714;--bad:#c22f47;--good:#2e7d4a;--warn:#8a5a00;--chip:#e8dfcc;
+--display:"Bricolage Grotesque",Georgia,serif;--body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#16130f;--bg2:#231f19;--fg:#f2ebdd;--muted:#b8ad9b;--faint:#8a8172;--card:#1f1b16;--line:#3a332a;
+--board:#0c0a08;--board2:#211d18;--accent:#f2ebdd;--bad:#ef5a70;--good:#4fb974;--warn:#e3a20f;--chip:#2b2620;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 var(--body)}
+main{max-width:1120px;margin:0 auto;padding:36px 20px 72px}
+h1,h2,h3,.big,.score{font-family:var(--display);letter-spacing:-.02em}
+h1{font-size:40px;font-weight:800;margin:0 0 6px;line-height:1.05}h1 small{font:400 18px var(--body);color:var(--faint);letter-spacing:0;margin-left:8px}
+h1 em{font-style:normal;color:var(--bad)}
+h2{font-size:26px;font-weight:800;margin:48px 0 12px}h3{font-size:16px;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 18px}
+.banner{padding:4px 0 4px 12px;border-left:4px solid var(--bad);font-size:15px;color:var(--muted)}.banner b{color:var(--fg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.big{font-size:34px;font-weight:800;line-height:1.1;color:var(--fg)}.muted{color:var(--muted)}.small{font-size:13.5px}
 .hook{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:700px){.hook{grid-template-columns:1fr}}
-.quote{font-size:17px;margin:8px 0}.score{font-size:40px;font-weight:700}
-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
-th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
-.wrap{overflow-x:auto}.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;background:var(--chip);white-space:nowrap}
+.quote{font-size:17px;margin:8px 0}.score{font-size:44px;font-weight:800}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:14.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--board);color:var(--gold);font-weight:700;white-space:nowrap}
+th[title]{cursor:help}
+.wrap{overflow-x:auto}.pill{display:inline-block;padding:2px 9px;border-radius:3px;font-size:12px;font-weight:700;background:var(--chip);white-space:nowrap}
 .bad{color:var(--bad)}.good{color:var(--good)}.warn{color:var(--warn)}
-.bar{position:relative;height:8px;background:var(--chip);border-radius:4px;min-width:90px}.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--accent)}
+.bar{position:relative;height:8px;background:var(--bg2);border-radius:2px;min-width:90px;margin-top:6px}.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:2px;background:var(--gold)}
 .bar b{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--bad)}
-details{margin-top:6px}summary{cursor:pointer;color:var(--accent);font-size:13px}
-.tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:4px;background:var(--chip);margin:1px}
-code{background:var(--chip);padding:1px 5px;border-radius:4px}
+tr.drow>td{padding:0 12px 12px;background:var(--card)}
+tr.crow>td{border-bottom:0}
+details{margin:0}summary{cursor:pointer;color:var(--fg);font-weight:700;font-size:13.5px;padding:2px 0;display:inline-block;border-bottom:2px solid var(--gold)}
+details[open] summary{margin-bottom:10px}
+.inner{border:1px solid var(--line);border-radius:6px;font-size:14px;background:var(--bg)}
+.inner th{background:var(--board2)}
+.inner td{padding:10px 12px}.inner td.wtxt{min-width:280px;max-width:420px}.inner td.why{min-width:240px;color:var(--muted);font-size:13.5px}
+.inner .why b{color:var(--fg);font-weight:700}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:3px;background:var(--chip);margin:1px 2px 1px 0}
+code{background:var(--chip);padding:1px 6px;border-radius:3px;font-size:13px}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 18px;margin:0 0 12px;padding:14px 16px;
+background:var(--card);border:1px solid var(--line);border-radius:6px;font-size:13.5px}
+.legend dt{font-weight:700;font-family:var(--display);font-size:14.5px}.legend dd{margin:2px 0 0;color:var(--muted)}
+.legend .lh{grid-column:1/-1;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+.flegend{margin-top:8px;font-size:13px;color:var(--muted)}.flegend b{color:var(--fg)}
 """
+
+
+# Why each wording is in the dropdown (what it tests).
+KIND_WHY = {
+    "original": "The ad as written. Every other wording is compared with this one.",
+    "plain": "Plain everyday words, with jargon spelled out. Tests whether jargon moves the score.",
+    "alt": "A second natural paraphrase, as a copywriter might write it. Tests ordinary rewording.",
+    "frame_flip": "Same offer with the framing flipped: a gain becomes avoiding a loss, or the reverse. Tests framing.",
+    "reordered": "Same claims in a different order. Tests whether what comes first matters.",
+    "repeat": "The original, asked a second time. Shows how much the score moves by chance alone.",
+}
+
+COLUMNS = [
+    ("Concept", "The ad's id and original text. Open the dropdown below it to see every wording that was scored."),
+    ("Original", "Average appeal score (1–10) the panel gave the original wording."),
+    ("Spread", "Highest minus lowest average score across the same-meaning wordings. Bigger means the wording mattered more."),
+    ("Noise", "How big a spread chance alone would produce for this many wordings, based on asking the same wording twice."),
+    ("Stability (WSS)", "Spread ÷ noise. The bar's red line is the 1.5 cutoff: past it, the wording moved the score more than chance would."),
+    ("p", "Chance of a spread this big if wording didn't matter (answers shuffled across wordings 2,000 times). Small means real."),
+    ("BH p", "The p-value corrected for testing many ads at once (Benjamini-Hochberg). \"holds\" means it's still unstable after the correction."),
+    ("Verdict", "Unstable = spread at least 1 point, at least 1.5× noise, and p below 0.05. Otherwise stable."),
+    ("Predicted", "Batch 2 only: what memory predicted before any panel run, with its predicted spread."),
+    ("Recommendation", "What to do: trust the score, reword it, use the rewrite, or test it in market with real people."),
+]
+
+
+def _legend(batch2: bool) -> str:
+    items = "".join(f"<div><dt>{e(n)}</dt><dd>{e(d)}</dd></div>" for n, d in COLUMNS if batch2 or n != "Predicted")
+    return f"<dl class='legend'><div class='lh'>How to read this table</div>{items}</dl>"
+
+
+def _th(name: str) -> str:
+    tip = dict(COLUMNS).get(name, "")
+    return f'<th title="{e(tip)}">{e(name)}</th>'
+
+
+def _changes(orig: dict, var: dict) -> str:
+    added = [k for k in var if var.get(k) and not orig.get(k)]
+    removed = [k for k in orig if orig.get(k) and not var.get(k)]
+    parts = []
+    if added:
+        parts.append("adds " + ", ".join(added))
+    if removed:
+        parts.append("removes " + ", ".join(removed))
+    return ("Compared with the original, it " + " and ".join(parts) + ".") if parts else "Same wording features as the original."
 
 
 def _fmt(x, d=2, sign=False):
@@ -57,9 +124,10 @@ def _wss_bar(wss):
 
 
 def _concept_table(rows, batch2=False):
-    head = "<tr><th>Concept</th><th>Original</th><th>Spread</th><th>Noise</th><th>Stability (WSS)</th><th>p</th><th>BH p</th><th>Verdict</th>"
-    head += "<th>Predicted</th>" if batch2 else ""
-    head += "<th>Recommendation</th></tr>"
+    cols = ["Concept", "Original", "Spread", "Noise", "Stability (WSS)", "p", "BH p", "Verdict"]
+    cols += ["Predicted"] if batch2 else []
+    cols += ["Recommendation"]
+    head = "<tr>" + "".join(_th(c) for c in cols) + "</tr>"
     body = []
     for r in rows:
         verdict = '<span class="pill bad">unstable</span>' if r["unstable"] else '<span class="pill good">stable</span>'
@@ -69,12 +137,42 @@ def _concept_table(rows, batch2=False):
                 f'<td>{"<span class=\'pill bad\'>fragile</span>" if r.get("pred_unstable") else "<span class=\'pill good\'>ok</span>"}'
                 f'<div class="small muted">pred. spread {_fmt(r.get("pred_spread"))}</div></td>'
             )
-        variants = "".join(
-            f"<tr><td><code>{e(k)}</code></td><td>{e(r['variants'].get(k, r['text']))}</td><td>{_fmt(m)}</td>"
-            f"<td>{_tags(r['tags'].get(r['variants'].get(k, r['text']), {}))}</td></tr>"
-            for k, m in r["means"].items()
+        orig_tags = r["tags"].get(r["text"], {})
+        wrows = []
+        for k, m in r["means"].items():
+            text = r["variants"].get(k, r["text"])
+            tags = r["tags"].get(text, {})
+            why = f"<b>{e(KIND_WHY.get(k, 'A same-meaning rewording.'))}</b>"
+            if k != "original":
+                why += f"<br>{e(_changes(orig_tags, tags))}"
+            wrows.append(
+                f"<tr><td><code>{e(k)}</code></td><td class='wtxt'>{e(text)}</td><td>{_fmt(m)}</td>"
+                f"<td>{_tags(tags)}</td><td class='why'>{why}</td></tr>"
+            )
+        wrows.append(
+            f"<tr><td><code>repeat</code></td><td class='wtxt muted'>{e(r['text'])}</td><td>{_fmt(r['repeat_mean'])}</td>"
+            f"<td></td><td class='why'><b>{e(KIND_WHY['repeat'])}</b></td></tr>"
         )
-        dropped = f"<div class='small warn'>Dropped by meaning check: {', '.join(r['dropped'])}</div>" if r.get("dropped") else ""
+        for k in r.get("dropped", []):
+            chk = r.get("checks", {}).get(k) or {}
+            if chk.get("same_meaning", True):
+                why = "<b class='warn'>Dropped before scoring: it came out identical to the original wording.</b>"
+            else:
+                why = ("<b class='warn'>Dropped before scoring: the meaning check said it changed the offer.</b>"
+                       + (f"<br>{e(chk.get('reason', ''))}" if chk.get("reason") else ""))
+            wrows.append(
+                f"<tr><td><code>{e(k)}</code></td><td class='wtxt muted'><i>not scored</i></td><td>–</td><td></td>"
+                f"<td class='why'>{why}</td></tr>"
+            )
+        used = sorted({f for t in r["tags"].values() for f, v in t.items() if v})
+        flegend = ("<div class='flegend'><b>Wording features:</b> "
+                   + " · ".join(f"<b>{e(f)}</b> = {e(config.FEATURES.get(f, ''))}" for f in used) + "</div>") if used else ""
+        n_shown = len(r["means"]) + 1
+        dropdown = (
+            f"<details><summary>Show the {n_shown} wordings scored for {e(r['id'])} and why each is here</summary>"
+            f"<div class='wrap'><table class='inner'><tr><th>Kind</th><th>Wording</th><th>Mean</th><th>Features</th><th>Why it's here</th></tr>"
+            f"{''.join(wrows)}</table></div>{flegend}</details>"
+        )
         rewrite = ""
         if r.get("rewrite_rejected"):
             rj = r["rewrite_rejected"]
@@ -94,15 +192,13 @@ def _concept_table(rows, batch2=False):
                 f", appeal {_fmt(r['means']['original'])} → {_fmt((rr.get('means') or {}).get('original'))}</div>"
             )
         body.append(
-            f"<tr><td><b>{e(r['id'])}</b> {e(r['text'])}<div>{_tags(r['tags'][r['text']])}</div>"
-            f"<details><summary>{len(r['means'])} wordings</summary><div class='wrap'><table><tr><th>Kind</th><th>Wording</th><th>Mean</th><th>Features</th></tr>"
-            f"{variants}<tr><td><code>repeat</code></td><td class='muted'>original, asked again (noise check)</td><td>{_fmt(r['repeat_mean'])}</td><td></td></tr></table></div>{dropped}</details>"
-            f"{rewrite}</td>"
+            f"<tr class='crow'><td><b>{e(r['id'])}</b> {e(r['text'])}<div>{_tags(orig_tags)}</div>{rewrite}</td>"
             f"<td>{_fmt(r['means']['original'])}</td><td><b>{_fmt(r['spread'])}</b></td><td>{_fmt(r['noise_range'])}</td>"
-            f"<td>{_wss_bar(r['wss'])}<div class='small'>{_fmt(r['wss'])}</div></td><td>{_fmt(r['p'], 3)}</td><td>{_fmt(r.get('p_bh'), 3)}{' <span class="small muted">holds</span>' if r.get('survives_fdr') else ''}</td><td>{verdict}</td>{pred}"
+            f"<td>{_fmt(r['wss'])}{_wss_bar(r['wss'])}</td><td>{_fmt(r['p'], 3)}</td><td>{_fmt(r.get('p_bh'), 3)}{' <span class=\"small muted\">holds</span>' if r.get('survives_fdr') else ''}</td><td>{verdict}</td>{pred}"
             f"<td>{_rec_pill(r['recommendation'])}</td></tr>"
+            f"<tr class='drow'><td colspan='{len(cols)}'>{dropdown}</td></tr>"
         )
-    return f"<div class='wrap'><table>{head}{''.join(body)}</table></div>"
+    return f"{_legend(batch2)}<div class='wrap'><table>{head}{''.join(body)}</table></div>"
 
 
 def _rules_table(rules, planted=None):
@@ -164,8 +260,8 @@ def build(res: dict) -> Path:
 
     market = [r for r in every if "test in market" in r["recommendation"]]
     html_out = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FlashFeud: technical report</title><style>{CSS}</style></head><body><main>
-<h1>FlashFeud <small>technical report</small></h1>
+<title>FlashFeud: technical report</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap"><style>{CSS}</style></head><body><main>
+<h1>Flash<em>Feud</em> <small>technical report</small></h1>
 <p class="sub">Before you trust a synthetic answer, stress-test it. Generated {e(res['generated'])} · panel: <code>{e(res['adapter'])}</code> · Claude: {'<code>' + e(res['model']) + '</code>' if res['claude_used'] else 'off (offline rules)'}</p>
 <div class="banner">{banner}</div>
 

@@ -18,3 +18,14 @@ def offline_workspace(tmp_path, monkeypatch):
         monkeypatch.setattr(config, name, val)
     yield tmp_path
     llm.set_mode("auto")
+
+
+@pytest.fixture(autouse=True)
+def _offline_claude():
+    """Tests never call the real Claude API, even when .env holds a working key.
+
+    Tests that need Claude replace llm.available / llm.ask_json with a fake themselves.
+    """
+    llm.set_mode("off")
+    yield
+    llm.set_mode("auto")

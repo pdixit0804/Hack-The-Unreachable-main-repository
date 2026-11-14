@@ -76,12 +76,21 @@ def _concept_table(rows, batch2=False):
         )
         dropped = f"<div class='small warn'>Dropped by meaning check: {', '.join(r['dropped'])}</div>" if r.get("dropped") else ""
         rewrite = ""
+        if r.get("rewrite_rejected"):
+            rj = r["rewrite_rejected"]
+            rewrite = (
+                f"<div class='small warn' style='margin-top:6px'><b>Rewrite rejected (offer changed):</b> {e(rj['text'])}<br>"
+                f"<span class='muted'>{e((rj.get('meaning_check') or {}).get('reason', ''))}</span></div>"
+            )
         if r.get("rewrite"):
             rr = r.get("rewrite_result") or {}
             rewrite = (
                 f"<div class='small' style='margin-top:6px'><b>Rewrite:</b> {e(r['rewrite']['text'])}<br>"
                 f"<span class='muted'>{e(r['rewrite']['changed'])}</span><br>"
-                f"Spread {_fmt(r['spread'])} → <b>{_fmt(rr.get('spread'))}</b>, WSS {_fmt(r['wss'])} → <b>{_fmt(rr.get('wss'))}</b>"
+                + (f"<span class='muted'>Fragile patterns left: {e(', '.join(r['rewrite']['fragile_left']) or 'none')}"
+                   f" ({r['rewrite'].get('attempts', 1)} attempt(s)). Meaning check: "
+                   f"{e((r['rewrite'].get('meaning_check') or {}).get('reason', ''))}</span><br>")
+                + f"Spread {_fmt(r['spread'])} → <b>{_fmt(rr.get('spread'))}</b>, WSS {_fmt(r['wss'])} → <b>{_fmt(rr.get('wss'))}</b>"
                 f", appeal {_fmt(r['means']['original'])} → {_fmt((rr.get('means') or {}).get('original'))}</div>"
             )
         body.append(

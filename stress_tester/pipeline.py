@@ -174,11 +174,15 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, skip_rewr
     # ---- Rewrite unstable batch 2 concepts and stress-test the rewrites
     log("Rewriting unstable held-out concepts")
     targets = [] if skip_rewrites else [c for c in a2["concepts"] if c["unstable"] or preds[c["id"]]["pred_unstable"]]
-    rewrites = {}
+    rewrites, rejected_rewrites = {}, {}
     rw_concepts = []
     for c in targets:
         rw = rewriter.rewrite(c["text"], rules1)
         if rw.get("no_change"):  # nothing to fix with the known rules: don't re-run the panel on an identical text
+            continue
+        if not rw.get("same_meaning", True):  # the offer changed: never panel-test or recommend it
+            rejected_rewrites[c["id"]] = rw
+            log(f"  rewrite of {c['id']} rejected: meaning changed ({rw.get('meaning_check', {}).get('reason', '')[:80]})")
             continue
         rewrites[c["id"]] = rw
         orig = p2["prep"][c["id"]]["concept"]
@@ -294,6 +298,8 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, skip_rewr
             if c["id"] in rewrites:
                 row["rewrite"] = rewrites[c["id"]]
                 row["rewrite_result"] = rw_by.get(c["id"])
+            if c["id"] in rejected_rewrites:
+                row["rewrite_rejected"] = rejected_rewrites[c["id"]]
             rows.append(row)
         return rows
 
@@ -314,6 +320,7 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, skip_rewr
         "evaluation": evaluation,
         "improvement": improvement,
         "improvement_false_alarms": improvement_false_alarms,
+        "rewrites_rejected": len(rejected_rewrites),
         "panel_runs": sum(2 + len(p["variants"]) for p in list(p1["prep"].values()) + list(p2["prep"].values())),
         "planted": _planted() if adapter == "mock" else None,
         "market_experiment_cost": config.MARKET_EXPERIMENT_COST,

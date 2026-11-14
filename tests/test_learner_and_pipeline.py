@@ -6,18 +6,6 @@ from stress_tester import config, learner, llm, pipeline, rewriter, variants
 from stress_tester.panel.mock import PLANTED
 
 
-@pytest.fixture
-def offline_workspace(tmp_path, monkeypatch):
-    """Run the pipeline against a scratch copy of outputs/ and memory/ so tests never touch tracked files."""
-    llm.set_mode("off")
-    for name, val in {"OUT_DIR": tmp_path / "outputs", "RUNS_DIR": tmp_path / "outputs" / "runs",
-                      "CACHE_DIR": tmp_path / "outputs" / "cache", "MEMORY_DIR": tmp_path / "memory",
-                      "RULES_PATH": tmp_path / "memory" / "rules.json", "OBS_PATH": tmp_path / "memory" / "obs.json"}.items():
-        monkeypatch.setattr(config, name, val)
-    yield tmp_path
-    llm.set_mode("auto")
-
-
 def test_pipeline_smoke_and_learner_recovers_planted_effects(offline_workspace):
     res = pipeline.run(adapter="mock", n=40, log=lambda *_: None)
     for key in ("batch1", "batch2", "evaluation", "rules_final", "improvement"):

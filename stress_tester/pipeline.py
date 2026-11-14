@@ -178,6 +178,8 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, skip_rewr
     rw_concepts = []
     for c in targets:
         rw = rewriter.rewrite(c["text"], rules1)
+        if rw.get("no_change"):  # nothing to fix with the known rules: don't re-run the panel on an identical text
+            continue
         rewrites[c["id"]] = rw
         orig = p2["prep"][c["id"]]["concept"]
         rw_concepts.append(Concept(id=c["id"] + "-R", batch=2, segment=orig.segment, text=rw["text"]))
@@ -190,20 +192,60 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, skip_rewr
         p2["prep"].update(prw["prep"])
         p2["tags"].update(prw["tags"])
     rw_by = {c["id"][:-2]: c for c in a_rw["concepts"]}
-    improvement = None
-    if rw_by:
-        before = [next(c for c in a2["concepts"] if c["id"] == k)["spread"] for k in rw_by]
-        after = [v["spread"] for v in rw_by.values()]
-        appeal_before = [next(c for c in a2["concepts"] if c["id"] == k)["means"]["original"] for k in rw_by]
-        appeal_after = [v["means"]["original"] for v in rw_by.values()]
-        improvement = {
-            "n": len(rw_by),
-            "spread_before": statistics.fmean(before),
-            "spread_after": statistics.fmean(after),
-            "still_unstable": sum(v["unstable"] for v in rw_by.values()),
-            "appeal_before": statistics.fmean(appeal_before),
-            "appeal_after": statistics.fmean(appeal_after),
+
+    # How we judge a rewrite (see README "How the numbers work"):
+    # * Only concepts that were ACTUALLY unstable count toward the headline. Rewrites of
+    #   false alarms (predicted fragile, measured stable) are reported separately, because
+    #   re-testing an already-stable concept mostly measures noise and drags the average.
+    # * Spread before/after is still reported, but the stress test deliberately re-adds
+    #   fragile patterns (e.g. frame_flip adds a loss frame), so a rewrite cannot remove
+    #   the concept's sensitivity to them. The rewrite's job is to stop the CHOSEN wording
+    #   from carrying fragile patterns, so we also report fragile patterns removed and the
+    #   appeal lift of the rewrite vs the original, compared with run-to-run noise.
+    a2_by = {c["id"]: c for c in a2["concepts"]}
+    fragile_feats = [r["feature"] for r in rules1 if r["status"] == "fragile"]
+
+    def n_fragile(text: str) -> int:
+        tags = p2["tags"].get(text, {})
+        return sum(1 for f in fragile_feats if tags.get(f))
+
+    def rewrite_summary(keys: list[str]) -> dict | None:
+        if not keys:
+            return None
+        rows = []
+        for k in keys:
+            o, r = a2_by[k], rw_by[k]
+            lift = r["means"]["original"] - o["means"]["original"]
+            # Noise on a difference of two run means: sqrt(se_o^2 + se_r^2); 1.96x is ~95%.
+            se_o, se_r = o.get("se"), r.get("se")
+            noise = 1.96 * float(np.hypot(se_o, se_r)) if se_o is not None and se_r is not None else None
+            rows.append({
+                "id": k,
+                "spread_before": o["spread"], "spread_after": r["spread"],
+                "appeal_before": o["means"]["original"], "appeal_after": r["means"]["original"],
+                "appeal_lift": lift, "lift_noise_95": noise,
+                "lift_beyond_noise": bool(noise is not None and lift > noise),
+                "fragile_before": n_fragile(o["text"]), "fragile_after": n_fragile(r["text"]),
+                "unstable_after": r["unstable"],
+            })
+        mean = lambda key: statistics.fmean(x[key] for x in rows)  # noqa: E731
+        return {
+            "n": len(rows),
+            "spread_before": mean("spread_before"),
+            "spread_after": mean("spread_after"),
+            "still_unstable": sum(x["unstable_after"] for x in rows),
+            "appeal_before": mean("appeal_before"),
+            "appeal_after": mean("appeal_after"),
+            "appeal_lift": mean("appeal_lift"),
+            "n_lift_beyond_noise": sum(x["lift_beyond_noise"] for x in rows),
+            "fragile_before": sum(x["fragile_before"] for x in rows),
+            "fragile_after": sum(x["fragile_after"] for x in rows),
+            "per_concept": rows,
         }
+
+    improvement = rewrite_summary([k for k in rw_by if a2_by[k]["unstable"]])
+    improvement_false_alarms = rewrite_summary([k for k in rw_by if not a2_by[k]["unstable"]])
+    lift_by = {x["id"]: x for s in (improvement, improvement_false_alarms) if s for x in s["per_concept"]}
 
     # ---- Keep learning: fold batch 2 into memory too
     obs2 = learner.observations_from(runs2, p2["tags"], "batch2")
@@ -231,6 +273,10 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, skip_rewr
             return "reword (not re-tested)"
         if rw is not None and not rw["unstable"]:
             return "use the rewrite"
+        lift = lift_by.get(c["id"])
+        if lift and lift["lift_beyond_noise"] and lift["fragile_after"] < lift["fragile_before"]:
+            # Rewrite scores higher and drops fragile patterns, but the idea is still wording-sensitive.
+            return "use the rewrite + test in market"
         return "test in market"
 
     def pack(prepared, analysis, batch):
@@ -267,6 +313,7 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, skip_rewr
         "rules_final": rules_final,
         "evaluation": evaluation,
         "improvement": improvement,
+        "improvement_false_alarms": improvement_false_alarms,
         "panel_runs": sum(2 + len(p["variants"]) for p in list(p1["prep"].values()) + list(p2["prep"].values())),
         "planted": _planted() if adapter == "mock" else None,
         "market_experiment_cost": config.MARKET_EXPERIMENT_COST,

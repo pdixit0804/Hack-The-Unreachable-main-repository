@@ -33,9 +33,13 @@ def rewrite(text: str, rules: list[dict]) -> dict:
             ),
             schema=_SCHEMA,
         )
-        return {"text": out["rewrite"].strip(), "changed": out["changed"], "same_meaning": out["same_meaning"], "source": "claude"}
+        new = out["rewrite"].strip()
+        return {"text": new, "changed": out["changed"], "same_meaning": out["same_meaning"], "source": "claude",
+                "no_change": new == text.strip()}
     new = _apply(_LOSS_TO_GAIN, _apply(_POSITIVE, _apply(_PLAIN, text)))
     new = _apply(_URGENCY, new).strip()
     new = new[:1].upper() + new[1:]
+    if new == text:
+        return {"text": text, "changed": "", "same_meaning": True, "source": "rules", "no_change": True}
     return {"text": new, "changed": "offline rules: plain words, positive phrasing, gain framing, no urgency",
-            "same_meaning": True, "source": "rules"}
+            "same_meaning": True, "source": "rules", "no_change": False}

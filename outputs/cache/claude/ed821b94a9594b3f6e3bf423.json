@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same offer, facts and numbers; only wording changed."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same offer, facts and numbers; only wording changed."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Same offer, facts and numbers; only wording changed."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same offer, facts and numbers; only wording changed."
+    }
+  ]
+}

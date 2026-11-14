@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Restates both promises, no foreign transaction fees and no annual fee, with 'never' preserving 'ever.' The wording is plainer, but the facts are unchanged."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "'Zero fees on purchases abroad' corresponds to no foreign transaction fees, and 'for good' matches 'ever.' No facts are added or dropped."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": false,
+      "reason": "'Keep every dollar you spend abroad' overstates the promise. It suggests no cost of any kind abroad (e.g., no exchange-rate markup) rather than just no foreign transaction fees. 'Keep your card free' is also vaguer than 'no annual fee.'"
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same two promises, only reordered. 'Ever' attached to the annual fee still reads as applying to the whole offer."
+    }
+  ]
+}

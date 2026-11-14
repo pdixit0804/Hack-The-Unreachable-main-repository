@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Restates growth matching price increases and moving money to such an account; 'cost of living' is a plain synonym for inflation."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same promise of keeping pace with inflation and moving money to an account that rises with prices; only word choice differs."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Loss framing of the same promise: savings keep pace with rising prices. No facts are added or dropped."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same two claims with the sentence order swapped."
+    }
+  ]
+}

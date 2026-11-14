@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same offer: free coaching for every member, any time needed. 'Help with money planning' is a fair paraphrase of financial coaching."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": false,
+      "reason": "Adds 'expert', a claim about coach qualifications that is not in the original. 'Whenever it suits you' is acceptable wording, but 'expert' changes the promise."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Only adds an emotional framing line. The facts are unchanged: free coaching for every member, whenever needed."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same facts in a different order: free financial coaching for every member, whenever needed."
+    }
+  ]
+}

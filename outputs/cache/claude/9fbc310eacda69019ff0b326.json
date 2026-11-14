@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": false,
+      "reason": "Adds 'guaranteed', a new promise not in the original. Expanding CD and APY into full terms is fine."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same rate, term, product and timing. 'Secure' and 'open yours' are only word-choice changes."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "The urgency framing ('Don't miss out') is tonal only. The facts are unchanged: 4.5% APY, 12-month CD, today."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Only the word order changed. Rate, term and timing are identical."
+    }
+  ]
+}

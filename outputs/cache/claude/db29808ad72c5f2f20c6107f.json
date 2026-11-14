@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same two promises: all accounts in one place and a clear view of spending; only wording changed."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Unified view of all accounts plus understanding of spending. 'Exactly' is a mild intensifier of 'clear view', not a new fact."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Negative framing of the same benefits: no more scattered accounts (all in one place) and no more losing track of money (clear view of spending). No facts added or dropped."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same two claims, with the clauses reordered into a means-to-end structure."
+    }
+  ]
+}

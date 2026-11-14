@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Spells out FDIC as a U.S. government agency, which is an accurate expansion rather than a new fact. Same $250,000 limit and same safety claim."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same FDIC coverage, same $250,000 limit and same safety promise, reworded."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Recasts 'safe' as 'protected' with a confidence framing. Facts and limit are unchanged."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same clauses in reverse order, with the causal link preserved."
+    }
+  ]
+}

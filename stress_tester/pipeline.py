@@ -82,6 +82,7 @@ def _dedupe(obs: list[dict]) -> list[dict]:
 
 
 def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, log=print) -> dict:
+    features.USE_REGEX = adapter == "mock"
     concepts = load_concepts()
     b1 = [c for c in concepts if c.batch == 1]
     b2 = [c for c in concepts if c.batch == 2]

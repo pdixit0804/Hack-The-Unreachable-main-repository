@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Fixed 4.5% annual rate, 12-month certificate, open today all preserved."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": false,
+      "reason": "'Guaranteed' adds a stronger promise than 'fixed'; a fixed rate is not necessarily a guarantee of return (e.g., insurance/backing implications)."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Loss framing only; same fixed 4.5% annual return, 12-month term, and call to action."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same facts reordered; nothing added or dropped."
+    }
+  ]
+}

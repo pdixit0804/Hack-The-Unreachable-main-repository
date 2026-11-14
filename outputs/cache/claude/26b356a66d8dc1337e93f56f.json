@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "All rates, bonus amount, spend threshold, and timeframe preserved; 'eat out' equals dining, 'extra points' equals welcome bonus."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Triple/quadruple equal 3x/4x; restaurants equals dining; bonus and conditions unchanged."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Loss framing only; the 1.5x, 3x dining, 4x streaming rates and the 60,000-point bonus on $4,000 spend in 3 months are unchanged."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same facts and conditions, only the order is changed."
+    }
+  ]
+}

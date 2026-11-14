@@ -1,0 +1,14 @@
+{
+  "rules": [
+    {
+      "feature": "jargon",
+      "rule": "On a synthetic AI-persona panel, financial jargon lowered appeal about 1.03 points on 1-10 (90% CI -1.3 to -0.46), but only 3 variants across 3 concepts; fragile.",
+      "advice": "Lean toward plain words over acronyms like APY or APR where possible, but treat this as a tentative hint worth testing with real customers, not a firm rule."
+    },
+    {
+      "feature": "loss_frame",
+      "rule": "On a synthetic AI-persona panel, loss framing lowered appeal about 0.95 points on 1-10 (90% CI -1.23 to -0.63), across 9 variants and 9 concepts; still fragile.",
+      "advice": "Consider leading with gains rather than 'stop losing' or 'before it's gone' phrasing, and confirm with a real-audience test before making it standard practice."
+    }
+  ]
+}

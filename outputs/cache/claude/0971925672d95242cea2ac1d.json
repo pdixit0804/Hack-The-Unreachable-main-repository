@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same 12-month term, 4.5% annual yield, and urgency before rates fall; 'savings certificate' and '4.5% a year' are plain-language equivalents of CD and APY."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same rate and term. 'While today's rates last' carries the same implied rate-drop urgency."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": false,
+      "reason": "Drops the claim that rates will drop. Adds the subjective 'solid' and the new condition 'today'."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same elements in a different order: rates dropping, lock in 4.5% APY, 12-month CD, act now."
+    }
+  ]
+}

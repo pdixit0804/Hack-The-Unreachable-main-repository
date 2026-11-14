@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Restates overdraft fees in plain words; same $35 fee and $5 overdraft, same promise."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same promise: no $35 charge for going $5 over. Only the wording and tone changed."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": false,
+      "reason": "Adds new claims ('every month', 'other banks would charge you') and frames the promise as keeping $35, which shifts the offer beyond the original no-fee statement."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same sentences in a different order; facts and promise unchanged."
+    }
+  ]
+}

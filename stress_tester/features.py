@@ -52,11 +52,16 @@ _SCHEMA = {
 }
 
 
+# In mock mode the simulated panel reacts to the regex-detected features, so the
+# learner must see the same features to be a fair test of the method.
+USE_REGEX = False
+
+
 def tag_many(texts: list[str]) -> list[dict[str, int]]:
     """Tag a batch of texts. One Claude call for the whole batch."""
     if not texts:
         return []
-    if not llm.available():
+    if USE_REGEX or not llm.available():
         return [regex_tags(t) for t in texts]
     defs = "\n".join(f"- {k}: {v}" for k, v in config.FEATURES.items())
     listing = "\n".join(f"{i}. {t}" for i, t in enumerate(texts))

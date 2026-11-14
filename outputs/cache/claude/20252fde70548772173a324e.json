@@ -1,0 +1,9 @@
+{
+  "rules": [
+    {
+      "feature": "loss_frame",
+      "rule": "On a synthetic AI-persona panel, loss framing lowered appeal by 1.27 points on a 1-10 scale (90% CI -1.38 to -1.04; 4 variants, 4 concepts), but the finding is fragile.",
+      "advice": "Prefer gain framing as a default, but treat this as a tentative signal from AI personas, not real customers, and test loss-framed copy with real audiences before ruling it out."
+    }
+  ]
+}

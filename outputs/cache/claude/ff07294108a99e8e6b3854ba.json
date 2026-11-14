@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same rate (4.10% yearly), daily interest, no fees. 'Good rate' rephrases 'high-interest'; 'charges you nothing' matches 'no fees'."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same facts: 4.10% a year, interest credited daily, zero fees, high-interest savings account. The tone is more promotional, but the offer is unchanged."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Same rate, daily interest and no fees. The loss-avoidance framing ('never miss a day's earnings', 'no fees eating into your balance') only restates daily crediting and no fees; it adds no new conditions or promises."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same facts in a different order: no fees, daily interest, 4.10% a year, high-interest savings account."
+    }
+  ]
+}

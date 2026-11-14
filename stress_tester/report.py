@@ -160,8 +160,8 @@ def build(res: dict) -> Path:
 
     market = [r for r in every if "test in market" in r["recommendation"]]
     html_out = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Wording Stress-Tester</title><style>{CSS}</style></head><body><main>
-<h1>Wording Stress-Tester</h1>
+<title>FlashFeud: technical report</title><style>{CSS}</style></head><body><main>
+<h1>FlashFeud <small>technical report</small></h1>
 <p class="sub">Before you trust a synthetic answer, stress-test it. Generated {e(res['generated'])} · panel: <code>{e(res['adapter'])}</code> · Claude: {'<code>' + e(res['model']) + '</code>' if res['claude_used'] else 'off (offline rules)'}</p>
 <div class="banner">{banner}</div>
 

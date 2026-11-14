@@ -8,7 +8,9 @@ to Flashpoint with payments switched OFF and reports whether a call asks for mon
 
 --test-one-paid-call: makes the same call with payments ON, capped at one payment
 of at most --max-usd (default $0.10) for the whole script, then prints what was paid.
-Pick the call with --tool and --args (JSON). The default is a read-only panel list.
+Without --tool, it makes no tool call: it lists Flashpoint's tools and prints in full
+the ones that mention payment, so you can see which call is paid. Pick the call with
+--tool and --args (JSON).
 Reads WALLET_PRIVATE_KEY / WALLET_ADDRESS from .env and never prints the key.
 """
 from __future__ import annotations
@@ -51,8 +53,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--test-one-paid-call", action="store_true", help="allow ONE payment (otherwise nothing is paid)")
     ap.add_argument("--max-usd", default="0.10", help="most this script may pay, in USD (default 0.10)")
-    ap.add_argument("--tool", default="panel", help="Flashpoint tool to call (default: panel)")
-    ap.add_argument("--args", default='{"action": "list"}', help="tool arguments as JSON")
+    ap.add_argument("--tool", help="Flashpoint tool to call (no call without it)")
+    ap.add_argument("--args", default="{}", help="tool arguments as JSON")
     a = ap.parse_args()
 
     os.environ["X402_ENABLED"] = "false"  # build the wallet by hand below; the client stays unpaid unless asked
@@ -79,7 +81,17 @@ def main() -> int:
 
     try:
         client.initialize()
-        print(f"Connected. {len(client.list_tools())} tools available.")
+        tools = client.list_tools()
+        print(f"Connected. {len(tools)} tools available: {', '.join(t['name'] for t in tools)}")
+        if not a.tool:
+            words = ("x402", "pay", "usdc", "wallet", "price", "cost", "quote", "402")
+            for t in tools:
+                desc = t.get("description", "") or ""
+                if any(w in (t["name"] + desc).lower() for w in words):
+                    print(f"\n== {t['name']} (mentions payment)\n{desc[:1500]}")
+                    print(json.dumps(t.get("inputSchema", {}), indent=2)[:1200])
+            print("\nNo tool was called. Pick the paid call with --tool NAME --args '{...}'.")
+            return 0
         res = client.call_tool(a.tool, json.loads(a.args))
         print(f"\n{a.tool} answered (isError={res.get('isError')}):")
         print(json.dumps(fp.result_payload(res), indent=2, default=str)[:1500])

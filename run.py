@@ -20,12 +20,13 @@ def main():
     ap.add_argument("--claude", default="auto", choices=["auto", "on", "off"],
                     help="use Claude for variants/tags/rules/rewrites (auto = if ANTHROPIC_API_KEY is set)")
     ap.add_argument("--keep-memory", action="store_true", help="start from memory/ instead of a blank slate")
+    ap.add_argument("--skip-rewrites", action="store_true", help="don't re-test rewrites (saves a panel round)")
     ap.add_argument("--open", action="store_true", help="open the HTML report when done")
     args = ap.parse_args()
 
     llm.set_mode(args.claude)
     print(f"Claude: {'on' if llm.available() else 'off (offline rules)'} | panel: {args.panel}")
-    results = pipeline.run(adapter=args.panel, n=args.personas, fresh_memory=not args.keep_memory)
+    results = pipeline.run(adapter=args.panel, n=args.personas, fresh_memory=not args.keep_memory, skip_rewrites=args.skip_rewrites)
     path = report.build(results)
     ev, imp = results["evaluation"], results["improvement"]
     print("\n=== Held-out batch 2 ===")

@@ -38,6 +38,21 @@ class Runner:
         tags = dict(zip(texts, tag_list))
         return {"prep": prep, "tags": tags}
 
+    @staticmethod
+    def jobs_for(prepared: dict) -> list[tuple[str, str, str, str]]:
+        jobs = []
+        for cid, p in prepared["prep"].items():
+            c = p["concept"]
+            jobs.append((cid, "original", c.text, c.segment))
+            jobs.append((cid, "repeat", c.text, c.segment))
+            for kind, t in p["variants"].items():
+                jobs.append((cid, kind, t, c.segment))
+        return jobs
+
+    def prefetch(self, *prepared: dict) -> None:
+        items = [(t, seg, label) for p in prepared for (_, label, t, seg) in self.jobs_for(p)]
+        panel.prefetch(self.adapter, items, self.n, log=self.log)
+
     def run_panel(self, prepared: dict) -> list[dict]:
         jobs = []
         for cid, p in prepared["prep"].items():
@@ -81,7 +96,7 @@ def _dedupe(obs: list[dict]) -> list[dict]:
     return out
 
 
-def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, log=print) -> dict:
+def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, skip_rewrites: bool = False, log=print) -> dict:
     features.USE_REGEX = adapter == "mock"
     concepts = load_concepts()
     b1 = [c for c in concepts if c.batch == 1]
@@ -96,11 +111,13 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, log=print
     # ---- Batch 1: learn
     log("Batch 1 (learn): writing variants and checking meaning")
     p1 = runner.prepare(b1)
-    log("Batch 1: running panel")
-    runs1 = runner.run_panel(p1)
-    # ---- Batch 2: prepare early so import mode can list every needed run at once
+    # ---- Batch 2: prepare early so slow panels can score both batches in one round.
+    # Batch 2's panel results are not looked at until after the prediction below.
     log("Batch 2 (held-out): writing variants")
     p2 = runner.prepare(b2)
+    runner.prefetch(p1, p2)
+    log("Batch 1: running panel")
+    runs1 = runner.run_panel(p1)
     if runner.missing:
         runner.run_panel(p2)
         raise SystemExit(
@@ -156,7 +173,7 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, log=print
 
     # ---- Rewrite unstable batch 2 concepts and stress-test the rewrites
     log("Rewriting unstable held-out concepts")
-    targets = [c for c in a2["concepts"] if c["unstable"] or preds[c["id"]]["pred_unstable"]]
+    targets = [] if skip_rewrites else [c for c in a2["concepts"] if c["unstable"] or preds[c["id"]]["pred_unstable"]]
     rewrites = {}
     rw_concepts = []
     for c in targets:
@@ -167,6 +184,7 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, log=print
     a_rw = {"concepts": []}
     if rw_concepts:
         prw = runner.prepare(rw_concepts)
+        runner.prefetch(prw)
         runs_rw = runner.run_panel(prw)
         a_rw = analyzer.analyze_batch(runs_rw)
         p2["prep"].update(prw["prep"])

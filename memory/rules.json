@@ -3,44 +3,38 @@
     {
       "feature": "jargon",
       "definition": "uses financial jargon or acronyms (APY, APR, FDIC, CD, compounding, variable rate, yield)",
-      "effect": -1.26,
+      "effect": 0.06,
       "ci90": [
-        -1.38,
-        -0.75
+        -0.49,
+        1.05
       ],
-      "n_variants": 4,
-      "n_concepts": 4,
-      "status": "fragile",
-      "rule": "On a synthetic panel, jargon (APY, APR, FDIC) lowered appeal about 1.26 points on 1-10 (90% CI -1.38 to -0.75; 4 variants, 4 concepts); fragile.",
-      "advice": "Prefer plain words over acronyms where possible, but treat this as a tentative signal and test with real customers before making it a rule."
+      "n_variants": 3,
+      "n_concepts": 3,
+      "status": "weak evidence"
     },
     {
       "feature": "negation",
       "definition": "sells by saying what is NOT there (no fees, never, zero, without, don't)",
-      "effect": -0.55,
+      "effect": -0.34,
       "ci90": [
-        -0.68,
-        -0.46
+        -1.06,
+        0.08
       ],
-      "n_variants": 8,
-      "n_concepts": 6,
-      "status": "fragile",
-      "rule": "On a synthetic panel, selling by absence (no fees, never, zero) lowered appeal about 0.55 points (90% CI -0.68 to -0.46; 8 variants, 6 concepts); fragile.",
-      "advice": "Try stating what customers get rather than what is missing, and confirm with real-audience testing since the finding is fragile."
+      "n_variants": 2,
+      "n_concepts": 2,
+      "status": "weak evidence"
     },
     {
       "feature": "loss_frame",
       "definition": "frames the offer as avoiding a loss (stop losing, don't let X eat, miss out, before it's gone)",
-      "effect": -0.73,
+      "effect": -0.02,
       "ci90": [
-        -0.81,
-        -0.63
+        -0.64,
+        0.55
       ],
-      "n_variants": 14,
-      "n_concepts": 10,
-      "status": "fragile",
-      "rule": "On a synthetic panel, loss framing (stop losing, miss out) lowered appeal about 0.73 points (90% CI -0.81 to -0.63; 14 variants, 10 concepts); fragile.",
-      "advice": "Lean toward gain-framed messages over loss or urgency framing, while validating with real customers before treating this as settled."
+      "n_variants": 9,
+      "n_concepts": 9,
+      "status": "weak evidence"
     },
     {
       "feature": "many_numbers",
@@ -57,28 +51,28 @@
     {
       "feature": "long",
       "definition": "longer than about 22 words",
-      "effect": -0.42,
+      "effect": -0.4,
       "ci90": [
-        -0.53,
-        -0.08
+        -0.65,
+        -0.1
       ],
-      "n_variants": 7,
-      "n_concepts": 5,
+      "n_variants": 9,
+      "n_concepts": 7,
       "status": "fragile",
-      "rule": "On a synthetic panel, copy over about 22 words lowered appeal about 0.42 points (90% CI -0.53 to -0.08; 7 variants, 5 concepts); fragile, possibly small.",
-      "advice": "Aim for concise copy under roughly 22 words when practical, but the effect may be small, so verify with real-audience tests."
+      "rule": "On a synthetic AI-persona panel, concepts longer than about 22 words scored 0.4 points lower on 1-10 appeal (90% CI -0.65 to -0.1; 9 variants, 7 concepts); fragile finding.",
+      "advice": "Consider trimming copy to about 22 words or fewer, but treat this as a tentative signal from AI personas and confirm with real-audience testing before making it a rule."
     },
     {
       "feature": "urgency",
       "definition": "pressures the reader on time (today, now, limited time, act now, before rates drop)",
-      "effect": 0.07,
+      "effect": 0.0,
       "ci90": [
-        -0.4,
-        0.15
+        0.0,
+        0.0
       ],
-      "n_variants": 1,
-      "n_concepts": 1,
-      "status": "weak evidence"
+      "n_variants": 0,
+      "n_concepts": 0,
+      "status": "not seen yet"
     }
   ],
   "history": [
@@ -139,8 +133,47 @@
         "loss_frame",
         "long"
       ]
+    },
+    {
+      "at": "2026-11-14T16:26:20+00:00",
+      "adapter": "flashpoint",
+      "personas": 30,
+      "batches": [
+        "batch1",
+        "batch2"
+      ],
+      "fragile_after_batch1": [
+        "loss_frame"
+      ],
+      "fragile_after_batch2": []
+    },
+    {
+      "at": "2026-11-14T17:09:19+00:00",
+      "adapter": "flashpoint",
+      "personas": 30,
+      "batches": [
+        "batch1",
+        "batch2"
+      ],
+      "fragile_after_batch1": [],
+      "fragile_after_batch2": []
+    },
+    {
+      "at": "2026-11-14T17:39:24+00:00",
+      "adapter": "flashpoint",
+      "personas": 30,
+      "batches": [
+        "batch1",
+        "batch2"
+      ],
+      "fragile_after_batch1": [
+        "long"
+      ],
+      "fragile_after_batch2": [
+        "long"
+      ]
     }
   ],
-  "updated": "2026-11-14T16:13:57+00:00",
+  "updated": "2026-11-14T17:39:24+00:00",
   "n_observations": 55
 }

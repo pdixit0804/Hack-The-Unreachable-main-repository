@@ -1,0 +1,9 @@
+{
+  "rules": [
+    {
+      "feature": "long",
+      "rule": "On a synthetic AI panel, copy over ~22 words scored 0.42 points lower on a 1-10 appeal scale (90% CI -0.73 to -0.08; 7 variants, 5 concepts); fragile finding.",
+      "advice": "Lean toward keeping copy under about 22 words. Treat this as a tentative signal, since the evidence is fragile and comes from AI personas. Check it with real audiences before making it a firm rule."
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 {
-  "generated": "2026-11-14T16:13:57+00:00",
-  "adapter": "mock",
+  "generated": "2026-11-14T17:39:24+00:00",
+  "adapter": "flashpoint",
   "data_source": [
-    "mock (simulated, planted effects)"
+    "Flashpoint synthetic panel"
   ],
   "claude_used": true,
   "model": "claude-opus-5-5",
-  "personas": 40,
+  "personas": 30,
   "question": "How appealing is this offer to you personally? Answer with a single whole number from 1 (not at all appealing) to 10 (extremely appealing).",
   "batch1": {
     "concepts": [
@@ -14,22 +14,22 @@
         "id": "C01",
         "text": "Earn 4.25% APY on your savings with no monthly fees and no minimum balance.",
         "means": {
-          "original": 3.65,
-          "plain": 4.5,
-          "alt": 3.775,
-          "frame_flip": 2.825,
-          "reordered": 3.225
+          "original": 7.3,
+          "plain": 7.466666666666667,
+          "alt": 7.7,
+          "frame_flip": 8.266666666666667,
+          "reordered": 7.766666666666667
         },
-        "repeat_mean": 3.3,
-        "spread": 1.6749999999999998,
-        "noise_range": 0.5230047412905481,
-        "se": 0.22485156547315052,
-        "wss": 3.202647830432338,
-        "p": 0.0004997501249375312,
-        "unstable": true,
-        "best": "plain",
-        "worst": "frame_flip",
-        "n": 40,
+        "repeat_mean": 7.666666666666667,
+        "spread": 0.9666666666666677,
+        "noise_range": 0.7819665867603975,
+        "se": 0.33618511898555353,
+        "wss": 1.2361994528071365,
+        "p": 0.2993503248375812,
+        "unstable": false,
+        "best": "frame_flip",
+        "worst": "original",
+        "n": 30,
         "variants": {
           "plain": "Get a 4.25% yearly return, counting interest on your interest, on your savings, with no monthly charges and no smallest amount you have to keep in the account.",
           "alt": "Grow your savings at 4.25% APY, with zero monthly fees and no minimum balance required.",
@@ -82,7 +82,7 @@
           },
           "Don't miss out on 4.25% APY on your savings, and stop losing money to monthly fees and minimum balance rules.": {
             "jargon": 1,
-            "negation": 1,
+            "negation": 0,
             "loss_frame": 1,
             "many_numbers": 0,
             "long": 0,
@@ -97,28 +97,28 @@
             "urgency": 0
           }
         },
-        "recommendation": "reword (not re-tested)"
+        "recommendation": "trust"
       },
       {
         "id": "C02",
         "text": "Put your spare change to work: every card purchase rounds up and the difference goes into your savings.",
         "means": {
-          "original": 5.725,
-          "plain": 5.35,
-          "alt": 5.875,
-          "frame_flip": 4.575,
-          "reordered": 5.775
+          "original": 6.133333333333334,
+          "plain": 5.4,
+          "alt": 6.466666666666667,
+          "frame_flip": 5.7,
+          "reordered": 5.9
         },
-        "repeat_mean": 5.975,
-        "spread": 1.2999999999999998,
-        "noise_range": 0.474290311297865,
-        "se": 0.2039081303946109,
-        "wss": 2.740937288899352,
-        "p": 0.0009995002498750624,
-        "unstable": true,
+        "repeat_mean": 5.966666666666667,
+        "spread": 1.0666666666666664,
+        "noise_range": 0.8770122805031049,
+        "se": 0.3770474120821603,
+        "wss": 1.2162505478882975,
+        "p": 0.29735132433783107,
+        "unstable": false,
         "best": "alt",
-        "worst": "frame_flip",
-        "n": 40,
+        "worst": "plain",
+        "n": 30,
         "variants": {
           "plain": "Make your leftover cents useful: each time you pay with your card, the amount is rounded up and the extra is added to your savings.",
           "alt": "Let your loose change grow: we round up every card purchase and move the extra into your savings.",
@@ -186,27 +186,27 @@
             "urgency": 0
           }
         },
-        "recommendation": "reword (not re-tested)"
+        "recommendation": "trust"
       },
       {
         "id": "C03",
         "text": "Stop losing money to overdraft fees. Our account never charges you $35 for going $5 over.",
         "means": {
-          "original": 4.975,
-          "plain": 5.45,
-          "alt": 5.725,
-          "reordered": 4.775
+          "original": 8.433333333333334,
+          "plain": 7.666666666666667,
+          "alt": 6.466666666666667,
+          "reordered": 7.166666666666667
         },
-        "repeat_mean": 4.95,
-        "spread": 0.9499999999999993,
-        "noise_range": 0.46259990698129483,
-        "se": 0.22467212578013346,
-        "wss": 2.0536104431997053,
-        "p": 0.01699150424787606,
-        "unstable": false,
-        "best": "alt",
-        "worst": "reordered",
-        "n": 40,
+        "repeat_mean": 8.266666666666667,
+        "spread": 1.9666666666666668,
+        "noise_range": 0.7732693556869071,
+        "se": 0.37555578226658914,
+        "wss": 2.543313855906842,
+        "p": 0.001999000499750125,
+        "unstable": true,
+        "best": "original",
+        "worst": "alt",
+        "n": 30,
         "variants": {
           "plain": "Quit wasting money on fees for spending more than you have. With our account, you'll never pay $35 just because you went $5 below zero.",
           "alt": "Say goodbye to costly overdraft fees. Go $5 over with our account and you'll never get hit with a $35 charge.",
@@ -245,7 +245,7 @@
           "Quit wasting money on fees for spending more than you have. With our account, you'll never pay $35 just because you went $5 below zero.": {
             "jargon": 0,
             "negation": 1,
-            "loss_frame": 0,
+            "loss_frame": 1,
             "many_numbers": 0,
             "long": 1,
             "urgency": 0
@@ -253,7 +253,7 @@
           "Say goodbye to costly overdraft fees. Go $5 over with our account and you'll never get hit with a $35 charge.": {
             "jargon": 0,
             "negation": 1,
-            "loss_frame": 0,
+            "loss_frame": 1,
             "many_numbers": 0,
             "long": 0,
             "urgency": 0
@@ -267,27 +267,27 @@
             "urgency": 0
           }
         },
-        "recommendation": "trust"
+        "recommendation": "reword (not re-tested)"
       },
       {
         "id": "C04",
         "text": "Get 2% cash back on every purchase, 3% on groceries, and 5% on travel booked through our portal, up to $1,500 per quarter.",
         "means": {
-          "original": 4.975,
-          "plain": 4.85,
-          "frame_flip": 3.7,
-          "reordered": 5.0
+          "original": 4.7,
+          "plain": 6.0,
+          "frame_flip": 6.266666666666667,
+          "reordered": 6.2
         },
-        "repeat_mean": 5.225,
-        "spread": 1.2999999999999998,
-        "noise_range": 0.4101137108497144,
-        "se": 0.19918101546853537,
-        "wss": 3.1698525691972854,
-        "p": 0.0004997501249375312,
-        "unstable": true,
-        "best": "reordered",
-        "worst": "frame_flip",
-        "n": 40,
+        "repeat_mean": 5.033333333333333,
+        "spread": 1.5666666666666664,
+        "noise_range": 0.9218353506878427,
+        "se": 0.4477102237434884,
+        "wss": 1.699508123112953,
+        "p": 0.07646176911544228,
+        "unstable": false,
+        "best": "frame_flip",
+        "worst": "original",
+        "n": 30,
         "variants": {
           "plain": "Earn 2% of your money back on everything you buy, 3% back on groceries, and 5% back on trips you book through our website, up to $1,500 every three months.",
           "frame_flip": "Don't miss out on 2% cash back on every purchase, 3% on groceries, and 5% on travel booked through our portal, up to $1,500 per quarter you'd otherwise leave on the table.",
@@ -333,7 +333,7 @@
           },
           "Don't miss out on 2% cash back on every purchase, 3% on groceries, and 5% on travel booked through our portal, up to $1,500 per quarter you'd otherwise leave on the table.": {
             "jargon": 0,
-            "negation": 1,
+            "negation": 0,
             "loss_frame": 1,
             "many_numbers": 1,
             "long": 1,
@@ -348,26 +348,26 @@
             "urgency": 0
           }
         },
-        "recommendation": "reword (not re-tested)"
+        "recommendation": "trust"
       },
       {
         "id": "C05",
         "text": "A savings account that grows with you. Set a goal, and we'll help you reach it.",
         "means": {
-          "original": 6.125,
-          "plain": 5.825,
-          "reordered": 5.85
+          "original": 6.9,
+          "plain": 5.866666666666666,
+          "reordered": 7.233333333333333
         },
-        "repeat_mean": 5.525,
-        "spread": 0.2999999999999998,
-        "noise_range": 0.3876929480389534,
-        "se": 0.22899760663848398,
-        "wss": 0.7738082457199025,
-        "p": 0.6351824087956022,
-        "unstable": false,
-        "best": "original",
+        "repeat_mean": 6.233333333333333,
+        "spread": 1.3666666666666671,
+        "noise_range": 0.6612622017430174,
+        "se": 0.39058606127762396,
+        "wss": 2.0667545537371983,
+        "p": 0.03698150924537731,
+        "unstable": true,
+        "best": "reordered",
         "worst": "plain",
-        "n": 40,
+        "n": 30,
         "variants": {
           "plain": "A savings account that gets bigger as your life changes. Pick something to save for, and we'll help you get there.",
           "reordered": "Set a goal, and we'll help you reach it, with a savings account that grows with you."
@@ -420,27 +420,27 @@
             "urgency": 0
           }
         },
-        "recommendation": "trust"
+        "recommendation": "reword (not re-tested)"
       },
       {
         "id": "C06",
         "text": "Our card's variable APR of 19.99% is lower than the national average, and there's no annual fee.",
         "means": {
-          "original": 3.9,
-          "plain": 4.725,
-          "alt": 3.375,
-          "reordered": 3.625
+          "original": 5.766666666666667,
+          "plain": 3.433333333333333,
+          "alt": 4.366666666666666,
+          "reordered": 6.266666666666667
         },
-        "repeat_mean": 4.025,
-        "spread": 1.3499999999999996,
-        "noise_range": 0.47050717470482634,
-        "se": 0.22851246950210116,
-        "wss": 2.869244238086114,
+        "repeat_mean": 4.033333333333333,
+        "spread": 2.8333333333333335,
+        "noise_range": 0.9072356675332184,
+        "se": 0.44061955683983406,
+        "wss": 3.12304005974235,
         "p": 0.0004997501249375312,
         "unstable": true,
-        "best": "plain",
-        "worst": "alt",
-        "n": 40,
+        "best": "reordered",
+        "worst": "plain",
+        "n": 30,
         "variants": {
           "plain": "Our card's yearly interest rate is 19.99% and can change over time. That's lower than the average across the country, and you won't pay a fee each year to have the card.",
           "alt": "With a variable APR of just 19.99%, below the national average, and no annual fee, our card keeps more money in your pocket.",
@@ -507,22 +507,22 @@
         "id": "C07",
         "text": "Open an account today and get a $200 bonus. Limited time only.",
         "means": {
-          "original": 6.35,
-          "plain": 6.025,
-          "alt": 6.35,
-          "frame_flip": 5.125,
-          "reordered": 6.45
+          "original": 5.5,
+          "plain": 6.866666666666666,
+          "alt": 5.066666666666666,
+          "frame_flip": 4.433333333333334,
+          "reordered": 5.766666666666667
         },
-        "repeat_mean": 6.425,
-        "spread": 1.3250000000000002,
-        "noise_range": 0.48872559069700533,
-        "se": 0.2101141834466919,
-        "wss": 2.711132842686478,
+        "repeat_mean": 5.933333333333334,
+        "spread": 2.4333333333333327,
+        "noise_range": 1.029921769239544,
+        "se": 0.44278665917435245,
+        "wss": 2.3626389945422903,
         "p": 0.0009995002498750624,
         "unstable": true,
-        "best": "reordered",
+        "best": "plain",
         "worst": "frame_flip",
-        "n": 40,
+        "n": 30,
         "variants": {
           "plain": "Sign up for an account today and you'll get a $200 bonus. This offer won't last long.",
           "alt": "Start your account today and pick up a $200 bonus. For a limited time only.",
@@ -559,7 +559,7 @@
           },
           "Sign up for an account today and you'll get a $200 bonus. This offer won't last long.": {
             "jargon": 0,
-            "negation": 1,
+            "negation": 0,
             "loss_frame": 0,
             "many_numbers": 0,
             "long": 0,
@@ -575,7 +575,7 @@
           },
           "Don't miss out on a $200 bonus: open an account today. Limited time only.": {
             "jargon": 0,
-            "negation": 1,
+            "negation": 0,
             "loss_frame": 1,
             "many_numbers": 0,
             "long": 0,
@@ -596,22 +596,22 @@
         "id": "C08",
         "text": "Your deposits are FDIC-insured up to $250,000, so your money is safe with us.",
         "means": {
-          "original": 4.625,
-          "plain": 5.375,
-          "alt": 4.05,
-          "frame_flip": 4.65,
-          "reordered": 4.575
+          "original": 7.7,
+          "plain": 8.133333333333333,
+          "alt": 7.366666666666666,
+          "frame_flip": 7.333333333333333,
+          "reordered": 7.433333333333334
         },
-        "repeat_mean": 4.4,
-        "spread": 1.3250000000000002,
-        "noise_range": 0.5218429988397221,
-        "se": 0.22435210612197853,
-        "wss": 2.539077850897753,
-        "p": 0.0009995002498750624,
-        "unstable": true,
+        "repeat_mean": 8.233333333333333,
+        "spread": 0.7999999999999998,
+        "noise_range": 0.8296637173780644,
+        "se": 0.35669119405763733,
+        "wss": 0.9642460954279054,
+        "p": 0.5147426286856571,
+        "unstable": false,
         "best": "plain",
-        "worst": "alt",
-        "n": 40,
+        "worst": "frame_flip",
+        "n": 30,
         "variants": {
           "plain": "The Federal Deposit Insurance Corporation, a U.S. government agency, insures the money you keep with us up to $250,000, so your money is safe with us.",
           "alt": "With FDIC insurance covering your deposits up to $250,000, you can count on your money being safe with us.",
@@ -647,7 +647,7 @@
             "urgency": 0
           },
           "The Federal Deposit Insurance Corporation, a U.S. government agency, insures the money you keep with us up to $250,000, so your money is safe with us.": {
-            "jargon": 0,
+            "jargon": 1,
             "negation": 0,
             "loss_frame": 0,
             "many_numbers": 0,
@@ -679,88 +679,88 @@
             "urgency": 0
           }
         },
-        "recommendation": "reword (not re-tested)"
+        "recommendation": "trust"
       }
     ],
     "flips": {
       "ranks": {
-        "C07": {
+        "C03": {
           "original": 1,
+          "plain": 2,
+          "alt": 5,
+          "frame_flip": 1,
+          "reordered": 4
+        },
+        "C08": {
+          "original": 2,
           "plain": 1,
+          "alt": 2,
+          "frame_flip": 3,
+          "reordered": 2
+        },
+        "C01": {
+          "original": 3,
+          "plain": 3,
           "alt": 1,
           "frame_flip": 2,
           "reordered": 1
         },
         "C05": {
-          "original": 2,
-          "plain": 2,
-          "alt": 2,
-          "frame_flip": 1,
-          "reordered": 2
-        },
-        "C02": {
-          "original": 3,
-          "plain": 5,
+          "original": 4,
+          "plain": 6,
           "alt": 3,
-          "frame_flip": 5,
+          "frame_flip": 4,
           "reordered": 3
         },
-        "C03": {
-          "original": 4,
-          "plain": 3,
-          "alt": 4,
-          "frame_flip": 3,
-          "reordered": 5
-        },
-        "C04": {
+        "C02": {
           "original": 5,
-          "plain": 6,
-          "alt": 5,
-          "frame_flip": 7,
-          "reordered": 4
-        },
-        "C08": {
-          "original": 6,
-          "plain": 4,
-          "alt": 6,
-          "frame_flip": 4,
-          "reordered": 6
-        },
-        "C06": {
-          "original": 7,
           "plain": 7,
-          "alt": 8,
-          "frame_flip": 6,
+          "alt": 4,
+          "frame_flip": 7,
           "reordered": 7
         },
-        "C01": {
-          "original": 8,
+        "C06": {
+          "original": 6,
           "plain": 8,
-          "alt": 7,
+          "alt": 8,
+          "frame_flip": 6,
+          "reordered": 5
+        },
+        "C07": {
+          "original": 7,
+          "plain": 4,
+          "alt": 6,
           "frame_flip": 8,
           "reordered": 8
+        },
+        "C04": {
+          "original": 8,
+          "plain": 5,
+          "alt": 7,
+          "frame_flip": 5,
+          "reordered": 6
         }
       },
       "max_move": {
-        "C07": 1,
-        "C05": 1,
-        "C02": 2,
-        "C03": 2,
-        "C04": 3,
+        "C03": 4,
         "C08": 2,
-        "C06": 2,
-        "C01": 1
+        "C01": 2,
+        "C05": 3,
+        "C02": 3,
+        "C06": 3,
+        "C07": 4,
+        "C04": 3
       },
       "winners": {
-        "original": "C07",
-        "plain": "C07",
-        "alt": "C07",
-        "frame_flip": "C05",
-        "reordered": "C07"
+        "original": "C03",
+        "plain": "C08",
+        "alt": "C01",
+        "frame_flip": "C03",
+        "reordered": "C01"
       },
       "winner_changes": true
     },
-    "pooled_repeat_se": 0.20615528128088298
+    "pooled_repeat_se": 0.5137011669140814
   },
   "batch2": {
     "concepts": [
@@ -768,22 +768,22 @@
         "id": "C09",
         "text": "High-yield savings at 4.10% APY, compounded daily, with zero fees.",
         "means": {
-          "original": 4.75,
-          "plain": 4.575,
-          "alt": 4.7,
-          "frame_flip": 3.85,
-          "reordered": 4.6
+          "original": 7.233333333333333,
+          "plain": 7.6,
+          "alt": 7.333333333333333,
+          "frame_flip": 7.266666666666667,
+          "reordered": 8.7
         },
-        "repeat_mean": 4.325,
-        "spread": 0.8999999999999999,
-        "noise_range": 0.4669053411404394,
-        "se": 0.2007331647207392,
-        "wss": 1.9275855739874497,
-        "p": 0.017991004497751123,
-        "unstable": false,
-        "best": "original",
-        "worst": "frame_flip",
-        "n": 40,
+        "repeat_mean": 7.533333333333333,
+        "spread": 1.466666666666666,
+        "noise_range": 0.8522993585156458,
+        "se": 0.36642276806347623,
+        "wss": 1.7208351173946614,
+        "p": 0.03398300849575212,
+        "unstable": true,
+        "best": "reordered",
+        "worst": "original",
+        "n": 30,
         "variants": {
           "plain": "A savings account that pays 4.10% interest a year (annual percentage yield), with interest added every day, and no fees at all.",
           "alt": "Grow your savings at 4.10% APY, with interest compounding every day and absolutely no fees.",
@@ -823,7 +823,7 @@
             "negation": 1,
             "loss_frame": 0,
             "many_numbers": 0,
-            "long": 0,
+            "long": 1,
             "urgency": 0
           },
           "Grow your savings at 4.10% APY, with interest compounding every day and absolutely no fees.": {
@@ -851,59 +851,32 @@
             "urgency": 0
           }
         },
-        "recommendation": "trust",
-        "pred_spread": 1.03910188303609,
-        "pred_unstable": true,
-        "pred_spread_before": 0.5170878753343393,
-        "pred_unstable_before": false,
-        "rewrite": {
-          "text": "A high-interest savings account earning 4.10% a year, with interest added every day and no fees.",
-          "changed": "Replaced the jargon: 'APY' became 'a year' and 'compounded daily' became 'interest added every day'. 'High-yield' became 'high-interest' to drop the word 'yield'. Kept 4.10%, the daily interest and 'no fees'. The copy stays short (under 22 words) and has no loss framing.",
-          "same_meaning": false,
-          "source": "claude"
-        },
-        "rewrite_result": {
-          "id": "C09-R",
-          "text": "A high-interest savings account earning 4.10% a year, with interest added every day and no fees.",
-          "means": {
-            "original": 5.925,
-            "plain": 6.325,
-            "alt": 5.775,
-            "frame_flip": 5.0,
-            "reordered": 5.7
-          },
-          "repeat_mean": 5.9,
-          "spread": 1.3250000000000002,
-          "noise_range": 0.5057555897359369,
-          "se": 0.2174357651487261,
-          "wss": 2.619842522535053,
-          "p": 0.0014992503748125937,
-          "unstable": true,
-          "best": "plain",
-          "worst": "frame_flip",
-          "n": 40
-        }
+        "recommendation": "test in market",
+        "pred_spread": 1.0007143260491755,
+        "pred_unstable": false,
+        "pred_spread_before": 0.8839922961254845,
+        "pred_unstable_before": false
       },
       {
         "id": "C10",
         "text": "Get paid up to two days early with direct deposit.",
         "means": {
-          "original": 5.8,
-          "plain": 5.75,
-          "alt": 5.675,
-          "frame_flip": 5.95,
-          "reordered": 5.875
+          "original": 7.1,
+          "plain": 7.1,
+          "alt": 6.733333333333333,
+          "frame_flip": 7.466666666666667,
+          "reordered": 5.933333333333334
         },
-        "repeat_mean": 5.875,
-        "spread": 0.27500000000000036,
-        "noise_range": 0.5296489524094818,
-        "se": 0.2277080620849019,
-        "wss": 0.51921182652957,
-        "p": 0.9340329835082459,
-        "unstable": false,
+        "repeat_mean": 6.866666666666666,
+        "spread": 1.5333333333333332,
+        "noise_range": 0.8968585938536203,
+        "se": 0.3855797909946777,
+        "wss": 1.7096712278185455,
+        "p": 0.04397801099450275,
+        "unstable": true,
         "best": "frame_flip",
-        "worst": "alt",
-        "n": 40,
+        "worst": "reordered",
+        "n": 30,
         "variants": {
           "plain": "Set up direct deposit and your paycheck can land in your account as much as two days sooner.",
           "alt": "Your paycheck, up to two days sooner, when you choose direct deposit.",
@@ -957,7 +930,7 @@
           "Stop waiting up to two extra days for your pay: use direct deposit.": {
             "jargon": 0,
             "negation": 0,
-            "loss_frame": 0,
+            "loss_frame": 1,
             "many_numbers": 0,
             "long": 0,
             "urgency": 0
@@ -971,32 +944,32 @@
             "urgency": 0
           }
         },
-        "recommendation": "trust",
-        "pred_spread": 0.5170878753343393,
+        "recommendation": "test in market",
+        "pred_spread": 0.8881214683127057,
         "pred_unstable": false,
-        "pred_spread_before": 0.5170878753343393,
+        "pred_spread_before": 0.8839922961254845,
         "pred_unstable_before": false
       },
       {
         "id": "C11",
         "text": "Don't let inflation eat your savings. Move your money to an account that keeps up.",
         "means": {
-          "original": 4.25,
-          "plain": 4.625,
-          "alt": 5.825,
-          "frame_flip": 5.875,
-          "reordered": 4.275
+          "original": 6.9,
+          "plain": 6.4,
+          "alt": 7.266666666666667,
+          "frame_flip": 7.666666666666667,
+          "reordered": 7.766666666666667
         },
-        "repeat_mean": 4.675,
-        "spread": 1.625,
-        "noise_range": 0.4709883080439498,
-        "se": 0.20248852452448401,
-        "wss": 3.45019180359009,
-        "p": 0.0004997501249375312,
-        "unstable": true,
-        "best": "frame_flip",
-        "worst": "original",
-        "n": 40,
+        "repeat_mean": 6.733333333333333,
+        "spread": 1.3666666666666663,
+        "noise_range": 0.8091302513991467,
+        "se": 0.34786339269094874,
+        "wss": 1.6890564458607602,
+        "p": 0.050974512743628186,
+        "unstable": false,
+        "best": "reordered",
+        "worst": "plain",
+        "n": 30,
         "variants": {
           "plain": "Don't let rising prices shrink what you've saved. Put your money in an account that grows as fast as prices go up.",
           "alt": "Stop watching inflation chip away at your savings. Switch to an account that keeps pace.",
@@ -1025,7 +998,7 @@
         "tags": {
           "Don't let inflation eat your savings. Move your money to an account that keeps up.": {
             "jargon": 0,
-            "negation": 1,
+            "negation": 0,
             "loss_frame": 1,
             "many_numbers": 0,
             "long": 0,
@@ -1033,16 +1006,16 @@
           },
           "Don't let rising prices shrink what you've saved. Put your money in an account that grows as fast as prices go up.": {
             "jargon": 0,
-            "negation": 1,
+            "negation": 0,
             "loss_frame": 1,
             "many_numbers": 0,
-            "long": 0,
+            "long": 1,
             "urgency": 0
           },
           "Stop watching inflation chip away at your savings. Switch to an account that keeps pace.": {
             "jargon": 0,
             "negation": 0,
-            "loss_frame": 0,
+            "loss_frame": 1,
             "many_numbers": 0,
             "long": 0,
             "urgency": 0
@@ -1057,65 +1030,39 @@
           },
           "Move your money to an account that keeps up, and don't let inflation eat your savings.": {
             "jargon": 0,
-            "negation": 1,
+            "negation": 0,
             "loss_frame": 1,
             "many_numbers": 0,
             "long": 0,
             "urgency": 0
           }
         },
-        "recommendation": "test in market",
-        "pred_spread": 1.5766862248786762,
-        "pred_unstable": true,
-        "pred_spread_before": 0.5170878753343393,
-        "pred_unstable_before": false,
-        "rewrite": {
-          "text": "Help your savings keep pace with rising prices. Move your money to an account that keeps up.",
-          "changed": "Replaced the loss frame (\"Don't let inflation eat your savings\") with a positive frame (\"Help your savings keep pace with rising prices\"). \"Rising prices\" is plain language for inflation, so no jargon was added. The second sentence is unchanged. The copy had no jargon, and both versions are already well under 22 words. No numbers or conditions were present, so none were changed.",
-          "same_meaning": true,
-          "source": "claude"
-        },
-        "rewrite_result": {
-          "id": "C11-R",
-          "text": "Help your savings keep pace with rising prices. Move your money to an account that keeps up.",
-          "means": {
-            "original": 5.925,
-            "alt": 4.475,
-            "frame_flip": 4.975,
-            "reordered": 5.825
-          },
-          "repeat_mean": 5.825,
-          "spread": 1.4500000000000002,
-          "noise_range": 0.4528329904222346,
-          "se": 0.2199286014678167,
-          "wss": 3.202063521582158,
-          "p": 0.0004997501249375312,
-          "unstable": true,
-          "best": "original",
-          "worst": "alt",
-          "n": 40
-        }
+        "recommendation": "trust",
+        "pred_spread": 0.9806125776158933,
+        "pred_unstable": false,
+        "pred_spread_before": 0.8839922961254845,
+        "pred_unstable_before": false
       },
       {
         "id": "C12",
         "text": "Earn 1.5 points per dollar, 3x points on dining, 4x on streaming, and a 60,000-point welcome bonus after you spend $4,000 in 3 months.",
         "means": {
-          "original": 4.95,
-          "plain": 4.275,
-          "alt": 5.275,
-          "frame_flip": 3.9,
-          "reordered": 5.125
+          "original": 3.8,
+          "plain": 4.7,
+          "alt": 4.833333333333333,
+          "frame_flip": 5.566666666666666,
+          "reordered": 4.333333333333333
         },
-        "repeat_mean": 5.275,
-        "spread": 1.3750000000000004,
-        "noise_range": 0.517770327511419,
-        "se": 0.22260117261883877,
-        "wss": 2.655617610628094,
-        "p": 0.0004997501249375312,
+        "repeat_mean": 5.1,
+        "spread": 1.7666666666666666,
+        "noise_range": 1.0302068594122622,
+        "se": 0.4429092258866132,
+        "wss": 1.7148659519453775,
+        "p": 0.0399800099950025,
         "unstable": true,
-        "best": "alt",
-        "worst": "frame_flip",
-        "n": 40,
+        "best": "frame_flip",
+        "worst": "original",
+        "n": 30,
         "variants": {
           "plain": "Get 1.5 points for every dollar you spend, 3 times the points when you eat out, 4 times the points on streaming services, plus 60,000 extra points once you spend $4,000 within your first 3 months.",
           "alt": "Rack up 1.5 points on every dollar, triple points at restaurants, quadruple points on streaming, and unlock a 60,000-point welcome bonus when you spend $4,000 in your first 3 months.",
@@ -1153,7 +1100,7 @@
           "Get 1.5 points for every dollar you spend, 3 times the points when you eat out, 4 times the points on streaming services, plus 60,000 extra points once you spend $4,000 within your first 3 months.": {
             "jargon": 0,
             "negation": 0,
-            "loss_frame": 1,
+            "loss_frame": 0,
             "many_numbers": 1,
             "long": 1,
             "urgency": 0
@@ -1168,7 +1115,7 @@
           },
           "Don't miss out on 1.5 points per dollar, 3x points on dining, 4x on streaming, or the 60,000-point welcome bonus you'd forfeit without spending $4,000 in 3 months.": {
             "jargon": 0,
-            "negation": 1,
+            "negation": 0,
             "loss_frame": 1,
             "many_numbers": 1,
             "long": 1,
@@ -1184,57 +1131,30 @@
           }
         },
         "recommendation": "test in market",
-        "pred_spread": 1.4572630416029706,
-        "pred_unstable": true,
-        "pred_spread_before": 0.5170878753343393,
-        "pred_unstable_before": false,
-        "rewrite": {
-          "text": "Get 1.5 points per dollar, 3x on dining, 4x on streaming, plus 60,000 bonus points when you spend $4,000 in 3 months.",
-          "changed": "The original had no jargon or loss framing, so those patterns needed no fixes. The main issue was length: it ran 28 words, above the roughly 22-word threshold. I cut it to 23 words by changing \"Earn\" to \"Get,\" dropping the repeated \"points\" after 3x, and turning \"a 60,000-point welcome bonus after you spend\" into \"60,000 bonus points when you spend.\" One trade-off: the \"welcome\" label is gone. Every number, rate, category, spend threshold and time window is kept, so it still sits slightly above 22 words. Getting much shorter would mean removing an essential term.",
-          "same_meaning": true,
-          "source": "claude"
-        },
-        "rewrite_result": {
-          "id": "C12-R",
-          "text": "Get 1.5 points per dollar, 3x on dining, 4x on streaming, plus 60,000 bonus points when you spend $4,000 in 3 months.",
-          "means": {
-            "original": 5.1,
-            "plain": 4.7,
-            "alt": 5.3,
-            "frame_flip": 3.675,
-            "reordered": 5.05
-          },
-          "repeat_mean": 5.25,
-          "spread": 1.625,
-          "noise_range": 0.48952326938703083,
-          "se": 0.2104571235541835,
-          "wss": 3.319556191955462,
-          "p": 0.0004997501249375312,
-          "unstable": true,
-          "best": "alt",
-          "worst": "frame_flip",
-          "n": 40
-        }
+        "pred_spread": 0.8881214683127057,
+        "pred_unstable": false,
+        "pred_spread_before": 0.8839922961254845,
+        "pred_unstable_before": false
       },
       {
         "id": "C13",
         "text": "See all your accounts in one place and know exactly where your money goes.",
         "means": {
-          "original": 5.85,
-          "alt": 5.925,
-          "frame_flip": 5.45,
-          "reordered": 5.975
+          "original": 8.366666666666667,
+          "alt": 6.633333333333334,
+          "frame_flip": 6.566666666666666,
+          "reordered": 7.6
         },
-        "repeat_mean": 5.975,
-        "spread": 0.5249999999999995,
-        "noise_range": 0.43473739947605744,
-        "se": 0.21114006773970734,
-        "wss": 1.2076255703620757,
-        "p": 0.3238380809595202,
-        "unstable": false,
-        "best": "reordered",
+        "repeat_mean": 7.633333333333334,
+        "spread": 1.8000000000000007,
+        "noise_range": 0.7488965061267738,
+        "se": 0.36371855567108974,
+        "wss": 2.403536383564454,
+        "p": 0.00399800099950025,
+        "unstable": true,
+        "best": "original",
         "worst": "frame_flip",
-        "n": 40,
+        "n": 30,
         "variants": {
           "alt": "Bring every account together in a single view and get a clear picture of where each dollar ends up.",
           "frame_flip": "Stop jumping between accounts and stop losing track of where your money goes, with everything in one place.",
@@ -1295,57 +1215,31 @@
             "urgency": 0
           }
         },
-        "recommendation": "trust",
-        "pred_spread": 1.0018723060060262,
-        "pred_unstable": true,
-        "pred_spread_before": 0.46175132047882206,
-        "pred_unstable_before": false,
-        "rewrite": {
-          "text": "See all your accounts in one place and know exactly where your money goes.",
-          "changed": "No changes needed. The concept is already 14 words, has no financial jargon or acronyms, and uses a positive clarity frame rather than a loss frame. None of the flagged patterns apply, so rewording it would only risk changing the meaning.",
-          "same_meaning": true,
-          "source": "claude"
-        },
-        "rewrite_result": {
-          "id": "C13-R",
-          "text": "See all your accounts in one place and know exactly where your money goes.",
-          "means": {
-            "original": 5.85,
-            "alt": 5.925,
-            "frame_flip": 5.45,
-            "reordered": 5.975
-          },
-          "repeat_mean": 5.975,
-          "spread": 0.5249999999999995,
-          "noise_range": 0.43473739947605744,
-          "se": 0.21114006773970734,
-          "wss": 1.2076255703620757,
-          "p": 0.2958520739630185,
-          "unstable": false,
-          "best": "reordered",
-          "worst": "frame_flip",
-          "n": 40
-        }
+        "recommendation": "test in market",
+        "pred_spread": 0.7942263808813372,
+        "pred_unstable": false,
+        "pred_spread_before": 0.7893911837811394,
+        "pred_unstable_before": false
       },
       {
         "id": "C14",
         "text": "No foreign transaction fees and no annual fee, ever.",
         "means": {
-          "original": 5.125,
-          "plain": 5.35,
-          "alt": 4.9,
-          "reordered": 4.925
+          "original": 7.266666666666667,
+          "plain": 7.966666666666667,
+          "alt": 7.933333333333334,
+          "reordered": 7.866666666666666
         },
-        "repeat_mean": 5.375,
-        "spread": 0.4499999999999993,
-        "noise_range": 0.49192491195629157,
-        "se": 0.23891447885201142,
-        "wss": 0.9147737572598938,
-        "p": 0.5902048975512244,
+        "repeat_mean": 7.533333333333333,
+        "spread": 0.7000000000000002,
+        "noise_range": 0.6590229705994911,
+        "se": 0.32006943691087475,
+        "wss": 1.0621784539061419,
+        "p": 0.4397801099450275,
         "unstable": false,
         "best": "plain",
-        "worst": "alt",
-        "n": 40,
+        "worst": "original",
+        "n": 30,
         "variants": {
           "plain": "You never pay extra charges for buying things in other countries, and you never pay a yearly fee for the card.",
           "alt": "Zero fees on purchases abroad and zero annual fee, for good.",
@@ -1407,30 +1301,30 @@
           }
         },
         "recommendation": "trust",
-        "pred_spread": 0.46175132047882206,
+        "pred_spread": 0.7893911837811394,
         "pred_unstable": false,
-        "pred_spread_before": 0.46175132047882206,
+        "pred_spread_before": 0.7893911837811394,
         "pred_unstable_before": false
       },
       {
         "id": "C15",
         "text": "Act now: lock in a 12-month CD at 4.5% APY before rates drop.",
         "means": {
-          "original": 4.3,
-          "plain": 5.7,
-          "alt": 4.825,
-          "reordered": 4.2
+          "original": 5.266666666666667,
+          "plain": 6.133333333333334,
+          "alt": 5.033333333333333,
+          "reordered": 6.033333333333333
         },
-        "repeat_mean": 4.35,
-        "spread": 1.5,
-        "noise_range": 0.4978828635119371,
-        "se": 0.24180809301211126,
-        "wss": 3.012756834849441,
-        "p": 0.0004997501249375312,
-        "unstable": true,
+        "repeat_mean": 5.966666666666667,
+        "spread": 1.1000000000000005,
+        "noise_range": 0.8389778255578498,
+        "se": 0.40746858939186487,
+        "wss": 1.3111192769231927,
+        "p": 0.2588705647176412,
+        "unstable": false,
         "best": "plain",
-        "worst": "reordered",
-        "n": 40,
+        "worst": "alt",
+        "n": 30,
         "variants": {
           "plain": "Don't wait: get a 12-month savings certificate earning 4.5% a year before interest rates go down.",
           "alt": "Hurry and secure 4.5% APY on a 12-month CD while today's rates last.",
@@ -1461,18 +1355,18 @@
           "Act now: lock in a 12-month CD at 4.5% APY before rates drop.": {
             "jargon": 1,
             "negation": 0,
-            "loss_frame": 1,
+            "loss_frame": 0,
             "many_numbers": 0,
             "long": 0,
             "urgency": 1
           },
           "Don't wait: get a 12-month savings certificate earning 4.5% a year before interest rates go down.": {
             "jargon": 0,
-            "negation": 1,
+            "negation": 0,
             "loss_frame": 0,
             "many_numbers": 0,
             "long": 0,
-            "urgency": 0
+            "urgency": 1
           },
           "Hurry and secure 4.5% APY on a 12-month CD while today's rates last.": {
             "jargon": 1,
@@ -1485,63 +1379,37 @@
           "Before rates drop, lock in 4.5% APY on a 12-month CD\u2014act now.": {
             "jargon": 1,
             "negation": 0,
-            "loss_frame": 1,
+            "loss_frame": 0,
             "many_numbers": 0,
             "long": 0,
             "urgency": 1
           }
         },
-        "recommendation": "test in market",
-        "pred_spread": 1.7555404150494285,
-        "pred_unstable": true,
-        "pred_spread_before": 0.46175132047882206,
-        "pred_unstable_before": false,
-        "rewrite": {
-          "text": "Lock in a fixed 4.5% annual return with a 12-month savings certificate. Open yours today.",
-          "changed": "Replaced the acronyms 'CD' and 'APY' with 'savings certificate' and 'annual return' to remove jargon. Dropped 'before rates drop' because it is a loss frame and also an unverifiable prediction about future rates. 'Act now' became a softer 'Open yours today.' The copy went from 15 to 15 words, so length was already fine. The rate (4.5%), term (12 months) and locked-in fixed rate are unchanged. Caveat: 'annual return' is a plain-language stand-in for APY. Regulated deposit advertising usually has to state the rate as 'APY,' so compliance may require keeping the term, for example in fine print.",
-          "same_meaning": true,
-          "source": "claude"
-        },
-        "rewrite_result": {
-          "id": "C15-R",
-          "text": "Lock in a fixed 4.5% annual return with a 12-month savings certificate. Open yours today.",
-          "means": {
-            "original": 5.875,
-            "plain": 5.2,
-            "frame_flip": 4.475,
-            "reordered": 6.1
-          },
-          "repeat_mean": 5.775,
-          "spread": 1.625,
-          "noise_range": 0.4382240710548921,
-          "se": 0.2128334487881943,
-          "wss": 3.7081486557511627,
-          "p": 0.0004997501249375312,
-          "unstable": true,
-          "best": "reordered",
-          "worst": "frame_flip",
-          "n": 40
-        }
+        "recommendation": "trust",
+        "pred_spread": 0.8502990985053882,
+        "pred_unstable": false,
+        "pred_spread_before": 0.7893911837811394,
+        "pred_unstable_before": false
       },
       {
         "id": "C16",
         "text": "Free financial coaching for every member, whenever you need it.",
         "means": {
-          "original": 6.125,
-          "plain": 5.3,
-          "frame_flip": 5.4,
-          "reordered": 5.85
+          "original": 6.0,
+          "plain": 6.666666666666667,
+          "frame_flip": 5.9,
+          "reordered": 6.3
         },
-        "repeat_mean": 5.7,
-        "spread": 0.8250000000000002,
-        "noise_range": 0.4143493603468839,
-        "se": 0.20123815461237682,
-        "wss": 1.9910734248734663,
-        "p": 0.03248375812093953,
+        "repeat_mean": 5.633333333333334,
+        "spread": 0.7666666666666666,
+        "noise_range": 0.9513358270231275,
+        "se": 0.4620377984570798,
+        "wss": 0.8058843626920702,
+        "p": 0.6006996501749126,
         "unstable": false,
-        "best": "original",
-        "worst": "plain",
-        "n": 40,
+        "best": "plain",
+        "worst": "frame_flip",
+        "n": 30,
         "variants": {
           "plain": "Every member can get free help with money planning from a coach, any time they need it.",
           "frame_flip": "Never face money worries alone: every member gets free financial coaching, whenever you need it.",
@@ -1603,215 +1471,129 @@
           }
         },
         "recommendation": "trust",
-        "pred_spread": 0.66780141500083,
+        "pred_spread": 1.0409447753202505,
         "pred_unstable": false,
-        "pred_spread_before": 0.46175132047882206,
+        "pred_spread_before": 0.7893911837811394,
         "pred_unstable_before": false
       }
     ],
     "flips": {
       "ranks": {
-        "C16": {
+        "C13": {
           "original": 1,
-          "plain": 5,
+          "plain": 1,
+          "alt": 5,
+          "frame_flip": 5,
+          "reordered": 4
+        },
+        "C14": {
+          "original": 2,
+          "plain": 2,
           "alt": 1,
           "frame_flip": 4,
-          "reordered": 3
+          "reordered": 2
         },
-        "C13": {
-          "original": 2,
-          "plain": 1,
+        "C09": {
+          "original": 3,
+          "plain": 3,
           "alt": 2,
           "frame_flip": 3,
           "reordered": 1
         },
         "C10": {
-          "original": 3,
-          "plain": 2,
-          "alt": 4,
-          "frame_flip": 1,
-          "reordered": 2
-        },
-        "C14": {
           "original": 4,
           "plain": 4,
-          "alt": 6,
-          "frame_flip": 5,
-          "reordered": 5
+          "alt": 4,
+          "frame_flip": 2,
+          "reordered": 7
         },
-        "C12": {
+        "C11": {
           "original": 5,
-          "plain": 8,
-          "alt": 5,
-          "frame_flip": 7,
-          "reordered": 4
+          "plain": 6,
+          "alt": 3,
+          "frame_flip": 1,
+          "reordered": 3
         },
-        "C09": {
+        "C16": {
           "original": 6,
-          "plain": 7,
-          "alt": 8,
-          "frame_flip": 8,
-          "reordered": 6
+          "plain": 5,
+          "alt": 6,
+          "frame_flip": 6,
+          "reordered": 5
         },
         "C15": {
           "original": 7,
-          "plain": 3,
+          "plain": 7,
           "alt": 7,
-          "frame_flip": 6,
-          "reordered": 8
+          "frame_flip": 8,
+          "reordered": 6
         },
-        "C11": {
+        "C12": {
           "original": 8,
-          "plain": 6,
-          "alt": 3,
-          "frame_flip": 2,
-          "reordered": 7
+          "plain": 8,
+          "alt": 8,
+          "frame_flip": 7,
+          "reordered": 8
         }
       },
       "max_move": {
-        "C16": 4,
-        "C13": 2,
-        "C10": 3,
-        "C14": 2,
-        "C12": 4,
+        "C13": 4,
+        "C14": 3,
         "C09": 2,
-        "C15": 5,
-        "C11": 6
+        "C10": 5,
+        "C11": 5,
+        "C16": 1,
+        "C15": 2,
+        "C12": 1
       },
       "winners": {
-        "original": "C16",
+        "original": "C13",
         "plain": "C13",
-        "alt": "C16",
-        "frame_flip": "C10",
-        "reordered": "C13"
+        "alt": "C14",
+        "frame_flip": "C11",
+        "reordered": "C09"
       },
       "winner_changes": true
     },
-    "pooled_repeat_se": 0.21414802123764762
+    "pooled_repeat_se": 0.43985477401322154
   },
   "rules_before": [],
   "rules_after_batch1": [
     {
       "feature": "jargon",
       "definition": "uses financial jargon or acronyms (APY, APR, FDIC, CD, compounding, variable rate, yield)",
-      "effect": -1.27,
+      "effect": 0.3,
       "ci90": [
-        -1.38,
-        -0.99
+        -0.51,
+        1.06
       ],
-      "n_variants": 3,
-      "n_concepts": 3,
-      "status": "fragile",
-      "rule": "On a synthetic AI panel, financial jargon (APY, FDIC, compounding) lowered appeal by 1.27 points on 1-10 (90% CI -1.38 to -0.99), but only 3 variants across 3 concepts; fragile.",
-      "advice": "Lean toward plain-language alternatives to acronyms and finance terms, but treat this as a hypothesis to test with real customers, not a settled rule."
+      "n_variants": 2,
+      "n_concepts": 2,
+      "status": "weak evidence"
     },
     {
       "feature": "negation",
       "definition": "sells by saying what is NOT there (no fees, never, zero, without, don't)",
-      "effect": -0.45,
+      "effect": -0.64,
       "ci90": [
-        -0.64,
-        0.0
+        -1.64,
+        0.41
       ],
-      "n_variants": 3,
-      "n_concepts": 2,
+      "n_variants": 1,
+      "n_concepts": 1,
       "status": "weak evidence"
     },
     {
       "feature": "loss_frame",
       "definition": "frames the offer as avoiding a loss (stop losing, don't let X eat, miss out, before it's gone)",
-      "effect": -0.81,
+      "effect": 0.08,
       "ci90": [
-        -0.87,
-        -0.69
-      ],
-      "n_variants": 6,
-      "n_concepts": 5,
-      "status": "fragile",
-      "rule": "On a synthetic AI panel, loss framing (\"stop losing,\" \"before it's gone\") lowered appeal by 0.81 points (90% CI -0.87 to -0.69), across 6 variants and 5 concepts; fragile.",
-      "advice": "Consider leading with what customers gain rather than what they lose, and confirm with a real-audience test before dropping loss frames entirely."
-    },
-    {
-      "feature": "many_numbers",
-      "definition": "contains three or more separate numbers or percentages",
-      "effect": 0.0,
-      "ci90": [
-        0.0,
-        0.0
-      ],
-      "n_variants": 0,
-      "n_concepts": 0,
-      "status": "not seen yet"
-    },
-    {
-      "feature": "long",
-      "definition": "longer than about 22 words",
-      "effect": -0.43,
-      "ci90": [
-        -0.51,
-        -0.13
-      ],
-      "n_variants": 7,
-      "n_concepts": 5,
-      "status": "fragile",
-      "rule": "On a synthetic AI panel, copy over about 22 words lowered appeal by 0.43 points (90% CI -0.51 to -0.13), across 7 variants and 5 concepts; fragile, small effect.",
-      "advice": "Where possible, trim copy to roughly 22 words or fewer, but don't sacrifice key information; validate with real customers since the effect is small and uncertain."
-    },
-    {
-      "feature": "urgency",
-      "definition": "pressures the reader on time (today, now, limited time, act now, before rates drop)",
-      "effect": 0.0,
-      "ci90": [
-        0.0,
-        0.0
-      ],
-      "n_variants": 0,
-      "n_concepts": 0,
-      "status": "not seen yet"
-    }
-  ],
-  "rules_final": [
-    {
-      "feature": "jargon",
-      "definition": "uses financial jargon or acronyms (APY, APR, FDIC, CD, compounding, variable rate, yield)",
-      "effect": -1.26,
-      "ci90": [
-        -1.38,
-        -0.75
+        -1.14,
+        1.24
       ],
       "n_variants": 4,
       "n_concepts": 4,
-      "status": "fragile",
-      "rule": "On a synthetic panel, jargon (APY, APR, FDIC) lowered appeal about 1.26 points on 1-10 (90% CI -1.38 to -0.75; 4 variants, 4 concepts); fragile.",
-      "advice": "Prefer plain words over acronyms where possible, but treat this as a tentative signal and test with real customers before making it a rule."
-    },
-    {
-      "feature": "negation",
-      "definition": "sells by saying what is NOT there (no fees, never, zero, without, don't)",
-      "effect": -0.55,
-      "ci90": [
-        -0.68,
-        -0.46
-      ],
-      "n_variants": 8,
-      "n_concepts": 6,
-      "status": "fragile",
-      "rule": "On a synthetic panel, selling by absence (no fees, never, zero) lowered appeal about 0.55 points (90% CI -0.68 to -0.46; 8 variants, 6 concepts); fragile.",
-      "advice": "Try stating what customers get rather than what is missing, and confirm with real-audience testing since the finding is fragile."
-    },
-    {
-      "feature": "loss_frame",
-      "definition": "frames the offer as avoiding a loss (stop losing, don't let X eat, miss out, before it's gone)",
-      "effect": -0.73,
-      "ci90": [
-        -0.81,
-        -0.63
-      ],
-      "n_variants": 14,
-      "n_concepts": 10,
-      "status": "fragile",
-      "rule": "On a synthetic panel, loss framing (stop losing, miss out) lowered appeal about 0.73 points (90% CI -0.81 to -0.63; 14 variants, 10 concepts); fragile.",
-      "advice": "Lean toward gain-framed messages over loss or urgency framing, while validating with real customers before treating this as settled."
+      "status": "weak evidence"
     },
     {
       "feature": "many_numbers",
@@ -1830,66 +1612,130 @@
       "definition": "longer than about 22 words",
       "effect": -0.42,
       "ci90": [
-        -0.53,
+        -0.73,
         -0.08
       ],
       "n_variants": 7,
       "n_concepts": 5,
       "status": "fragile",
-      "rule": "On a synthetic panel, copy over about 22 words lowered appeal about 0.42 points (90% CI -0.53 to -0.08; 7 variants, 5 concepts); fragile, possibly small.",
-      "advice": "Aim for concise copy under roughly 22 words when practical, but the effect may be small, so verify with real-audience tests."
+      "rule": "On a synthetic AI panel, copy over ~22 words scored 0.42 points lower on a 1-10 appeal scale (90% CI -0.73 to -0.08; 7 variants, 5 concepts); fragile finding.",
+      "advice": "Lean toward keeping copy under about 22 words. Treat this as a tentative signal, since the evidence is fragile and comes from AI personas. Check it with real audiences before making it a firm rule."
     },
     {
       "feature": "urgency",
       "definition": "pressures the reader on time (today, now, limited time, act now, before rates drop)",
-      "effect": 0.07,
+      "effect": 0.0,
       "ci90": [
-        -0.4,
-        0.15
+        0.0,
+        0.0
       ],
-      "n_variants": 1,
-      "n_concepts": 1,
+      "n_variants": 0,
+      "n_concepts": 0,
+      "status": "not seen yet"
+    }
+  ],
+  "rules_final": [
+    {
+      "feature": "jargon",
+      "definition": "uses financial jargon or acronyms (APY, APR, FDIC, CD, compounding, variable rate, yield)",
+      "effect": 0.06,
+      "ci90": [
+        -0.49,
+        1.05
+      ],
+      "n_variants": 3,
+      "n_concepts": 3,
       "status": "weak evidence"
+    },
+    {
+      "feature": "negation",
+      "definition": "sells by saying what is NOT there (no fees, never, zero, without, don't)",
+      "effect": -0.34,
+      "ci90": [
+        -1.06,
+        0.08
+      ],
+      "n_variants": 2,
+      "n_concepts": 2,
+      "status": "weak evidence"
+    },
+    {
+      "feature": "loss_frame",
+      "definition": "frames the offer as avoiding a loss (stop losing, don't let X eat, miss out, before it's gone)",
+      "effect": -0.02,
+      "ci90": [
+        -0.64,
+        0.55
+      ],
+      "n_variants": 9,
+      "n_concepts": 9,
+      "status": "weak evidence"
+    },
+    {
+      "feature": "many_numbers",
+      "definition": "contains three or more separate numbers or percentages",
+      "effect": 0.0,
+      "ci90": [
+        0.0,
+        0.0
+      ],
+      "n_variants": 0,
+      "n_concepts": 0,
+      "status": "not seen yet"
+    },
+    {
+      "feature": "long",
+      "definition": "longer than about 22 words",
+      "effect": -0.4,
+      "ci90": [
+        -0.65,
+        -0.1
+      ],
+      "n_variants": 9,
+      "n_concepts": 7,
+      "status": "fragile",
+      "rule": "On a synthetic AI-persona panel, concepts longer than about 22 words scored 0.4 points lower on 1-10 appeal (90% CI -0.65 to -0.1; 9 variants, 7 concepts); fragile finding.",
+      "advice": "Consider trimming copy to about 22 words or fewer, but treat this as a tentative signal from AI personas and confirm with real-audience testing before making it a rule."
+    },
+    {
+      "feature": "urgency",
+      "definition": "pressures the reader on time (today, now, limited time, act now, before rates drop)",
+      "effect": 0.0,
+      "ci90": [
+        0.0,
+        0.0
+      ],
+      "n_variants": 0,
+      "n_concepts": 0,
+      "status": "not seen yet"
     }
   ],
   "evaluation": {
     "after": {
-      "tp": 3,
-      "fp": 2,
-      "fn": 0,
-      "tn": 3,
-      "accuracy": 0.75
+      "tp": 0,
+      "fp": 0,
+      "fn": 4,
+      "tn": 4,
+      "accuracy": 0.5
     },
     "before": {
       "tp": 0,
       "fp": 0,
-      "fn": 3,
-      "tn": 5,
-      "accuracy": 0.625
+      "fn": 4,
+      "tn": 4,
+      "accuracy": 0.5
     },
-    "spearman_after": 0.9285714285714287,
-    "n_unstable_actual": 3,
-    "noise_ref": 0.47239874300134566,
-    "pred_cut": 1.0,
-    "mae_after": 0.1766411502035214,
-    "mae_before": 0.5084152010467097
+    "spearman_after": -0.04761904761904763,
+    "n_unstable_actual": 4,
+    "noise_ref": 0.8533379989405847,
+    "pred_cut": 1.280006998410877,
+    "mae_after": 0.49936341326135636,
+    "mae_before": 0.5038371852705911
   },
-  "improvement": {
-    "n": 5,
-    "spread_before": 1.185,
-    "spread_after": 1.31,
-    "still_unstable": 4,
-    "appeal_before": 4.82,
-    "appeal_after": 5.734999999999999
-  },
-  "panel_runs": 114,
-  "planted": {
-    "jargon": -0.9,
-    "negation": -0.6,
-    "loss_frame": -0.8,
-    "many_numbers": -0.7,
-    "long": -0.3,
-    "urgency": -0.5
-  },
+  "improvement": null,
+  "improvement_false_alarms": null,
+  "rewrites_rejected": 0,
+  "panel_runs": 87,
+  "planted": null,
   "market_experiment_cost": 4500
 }

@@ -1,0 +1,738 @@
+{
+  "descriptions": {
+    "panel": "Manage respondent SAMPLES \u2014 synthetic personas and paid recruits.\n\n        Pick `action`:\n\n        \u2022 action=\"create\" \u2014 build a synthetic panel (AI-generated personas).\n          Required: name, num_respondents, research_objective.\n          Optional:  context (e.g. real distributions from `demographics`),\n                     audience.\n          The panel is saved to your team's library; the returned panel_id\n          works with action=\"run\", chat(), and the Flashpoint app.\n\n        \u2022 action=\"run\" \u2014 run an existing synthetic panel from your team's\n          library through a survey.\n          Required: panel_id (from action=\"create\", list_my_panels, or the\n                    app), survey_id.\n          Returns a job_id immediately \u2014 runs take minutes to tens of\n          minutes. Poll with action=\"status\".\n\n        \u2022 action=\"create_and_run\" \u2014 convenience: build a fresh synth panel\n          and run it through a survey. Same job_id + status flow as \"run\".\n          Required: name, num_respondents, research_objective, survey_id.\n\n        \u2022 action=\"status\" \u2014 progress of a run / create_and_run job.\n          Required: job_id. Returns status (\"running\" | \"completed\" |\n          \"failed\" | \"interrupted\"), stage, progress (0\u20131 within the\n          stage), message, and when finished the result or error.\n          Poll about once a minute; don't wait on a single call.\n\n        \u2022 action=\"recruit\" \u2014 real PAID respondents from Prolific / Dynata.\n          Required: survey_id (price quote is per-survey) OR `request`\n                    (free-text catalog browse, e.g. \"what Prolific filters\n                    are available?\").\n          Optional: provider, num_respondents, audience.\n          Delegates to the surveys agent's quote \u2192 confirm \u2192 checkout flow.\n          NOTHING is charged without an explicit confirm step on a follow-up\n          call threaded by conversation_id.\n\n        Routing is by action only \u2014 no overloading on which args are set.\n        Worker queue names are unchanged (create_panel,\n        synthetic_panel_take_survey, delegate_to_surveys).\n        ",
+    "tool_survey": "Run the Flashpoint surveys agent \u2014 the single entry point for\n        ANYTHING survey-related.\n\n        Hand it a natural-language brief and it runs its own multi-turn\n        loop (planning + ~150 internal tools) to take the next steps\n        itself. You do NOT chain individual operations, and you do NOT\n        route survey work to `chat()` \u2014 this one tool owns the full\n        lifecycle:\n          \u2022 Plan & research: clarify the objective, research the market /\n            audience / competitors, propose a blueprint before building;\n            start from a template or save a survey as one.\n          \u2022 Design: author / edit questions in 20+ types (single, multi,\n            grids, ranking, MaxDiff, conjoint / CBC, image compare,\n            spatial allocation, thermometer, sliders, open ends, contact\n            form, AI-moderated interview); blocks + rotation /\n            randomisation, answer lists, skip & display logic, piping,\n            loops, URL variables, redirect URLs, derived values,\n            exclusive options, data validation.\n          \u2022 Quotas & sample sources: quota cells, least-fill, quota\n            sheets, progress / reconcile / export; BYO sample sources\n            (per-vendor links + redirects), first-party and custom panels.\n          \u2022 Languages: add survey languages, machine-translate, review or\n            set individual translations.\n          \u2022 Validation & QA: surveycheck (logic prover), publish readiness,\n            DSL validation, QA rounds with findings, walk a respondent\n            path, field report, client review link.\n          \u2022 Launch & lifecycle: publish, pause, resume, complete, clone,\n            transfer; version history, compare, restore, undo.\n          \u2022 PAID recruitment (Prolific / Dynata / Cint): browse filters\n            and markets, get a price quote, then on your confirmation get\n            a secure checkout link. Just ask \u2014 e.g. \"recruit 5 Prolific\n            respondents for this survey, quote first\". NOTHING is charged\n            without an explicit confirm step (see the confirm pattern\n            below). Panel status / pause / resume after launch.\n          \u2022 Distribution: email lists + templates, invitations, reminders,\n            send to a panel, send reports.\n          \u2022 Data quality: speeders, straightliners, quality summary,\n            exclude responses, generate test data.\n          \u2022 Analysis & exports: frequencies, crosstabs with stat tests,\n            NPS, open-end themes, AI summaries / key takeaways; conjoint\n            analytics (market simulator, willingness-to-pay, sensitivity,\n            segments, product optimizer, share link); CSV / XLSX / DOCX /\n            PDF exports; results dashboard.\n          \u2022 Collaboration: comments on questions, resolve threads.\n\n        Interactive cards (plan, approval, results dashboard, conjoint\n        simulator, checkout) render in the Flashpoint web app, not here \u2014\n        the text reply carries the substance, and every MCP conversation\n        is also visible at app.flashpoint.ai afterwards.\n\n        ALWAYS thread `conversation_id` across related calls (build \u2192\n        recruit \u2192 analyze) so the agent keeps full context of the survey\n        it just worked on \u2014 pass the value returned by the previous call.\n\n        Confirm pattern (money / destructive actions): the agent will NOT\n        perform a consequential action on the first ask. It replies asking\n        you to confirm; relay that to the user, then call again on the SAME\n        `conversation_id` with their confirmation (e.g. \"confirm\") to\n        proceed. This is how approval works on the direct path \u2014 there is\n        no UI card to click.\n\n        Args:\n            brief: What you want done, in natural language \u2014 a build spec,\n                an edit, a recruitment request, an analysis ask, an export,\n                a confirmation, etc.\n            survey_id: Pass to act on an existing survey; omit to create a\n                new one.\n            conversation_id: Pass the value returned by a previous call to\n                continue the same thread (REQUIRED to keep context across\n                build \u2192 recruit \u2192 analyze and to satisfy a confirm step).\n                Omit on the very first call and the server mints one\n                (uuid7).\n\n        The agent may take 60\u2013600s. Returns the worker's result blob\n        (typically includes the relevant `survey_id`) with the\n        `conversation_id` echoed back so follow-up calls thread.\n        "
+  },
+  "panel_create": {
+    "seconds": 141.5,
+    "isError": false,
+    "result": {
+      "task_id": "01a1dafb-e054-7850-8de0-28e4867aa569",
+      "task_name": "create_panel",
+      "status": "completed",
+      "result": {
+        "panel_id": "01a1dafe-0861-79bd-ab3a-a2dce0b601e4",
+        "name": "Stress-Tester trial panel",
+        "num_respondents": 10,
+        "summary": "Panel 'Stress-Tester trial panel': 10/10 personas generated\nAge range: 26-44, median 36\nGender: Male: 5, Female: 5\nIncome: 75-100k: 4, 100-150k: 3, 50-75k: 3\nTop locations: Austin, USA (1), Columbus, USA (1), Chicago, USA (1)\nTop roles: UX Designer (1), Operations Manager (1), Public Relations Manager (1), Healthcare Administrator (1), Automotive Service Advisor (1)\nCOMPOSITION: sampled to real population marginals on gender. Invented by the generator, not sampled: age, race, education, income. Do not describe the panel as matching Census data on those. independence \u2014 marginals matched, correlation not modelled. Caveats: gender: no Census counts for this panel; used the US adult split.",
+        "composition": {
+          "sampled": true,
+          "dimensions": [
+            "gender"
+          ],
+          "invented": [
+            "age",
+            "race",
+            "education",
+            "income"
+          ],
+          "notes": [
+            "gender: no Census counts for this panel; used the US adult split"
+          ],
+          "joint": "independence \u2014 marginals matched, correlation not modelled"
+        },
+        "brief_check": null,
+        "brief_check_text": null,
+        "sample_personas": [
+          {
+            "age": 27,
+            "gender": "Male",
+            "location": "Austin, USA",
+            "education": "Bachelor's",
+            "income_bracket": "75-100k",
+            "occupation": "UX Designer",
+            "household_size": 1,
+            "marital_status": "Single",
+            "children": false,
+            "ethnicity": "Hispanic",
+            "personality": "Curious, optimistic, and comfortable making quick decisions when information is presented clearly. He enjoys trying new financial tools but dislikes complicated terms.",
+            "values": [
+              "convenience",
+              "creativity",
+              "financial independence",
+              "transparency"
+            ],
+            "interests": [
+              "design",
+              "live music",
+              "travel",
+              "personal finance"
+            ],
+            "media_habits": "Uses Instagram, YouTube, Reddit, and podcasts daily, especially for design and personal-finance content.",
+            "shopping_behavior": "Primarily shops online, compares reviews and prices, and is willing to try new brands when the process is easy.",
+            "tech_adoption": "Early Adopter",
+            "brand_loyalty": "Low",
+            "purchase_frequency": "groceries: weekly, restaurants: weekly, electronics: annually, financial products: occasionally",
+            "survey_attitude": "Agreeable",
+            "trust_level": "Moderate Trust",
+            "custom_attributes": [
+              {
+                "name": "has_checking_account",
+                "value": "true"
+              },
+              {
+                "name": "short_banking_offer_appeal_rating",
+                "value": "8"
+              }
+            ]
+          },
+          {
+            "age": 31,
+            "gender": "Male",
+            "location": "Columbus, USA",
+            "education": "Master's",
+            "income_bracket": "100-150k",
+            "occupation": "Operations Manager",
+            "household_size": 3,
+            "marital_status": "Married",
+            "children": true,
+            "ethnicity": "Caucasian",
+            "personality": "Practical and organized, with a strong preference for predictable costs and straightforward commitments. He considers financial offers carefully but appreciates genuine convenience.",
+            "values": [
+              "security",
+              "efficiency",
+              "family",
+              "reliability"
+            ],
+            "interests": [
+              "home improvement",
+              "running",
+              "college sports",
+              "budgeting"
+            ],
+            "media_habits": "Reads local news and business newsletters, listens to podcasts during commutes, and uses Facebook and YouTube several times a week.",
+            "shopping_behavior": "Plans larger purchases, uses comparison sites, and tends to favor established retailers with clear return policies.",
+            "tech_adoption": "Mainstream",
+            "brand_loyalty": "Medium",
+            "purchase_frequency": "groceries: twice weekly, restaurants: twice monthly, home goods: monthly, electronics: every 2-3 years",
+            "survey_attitude": "Neutral",
+            "trust_level": "Moderate Trust",
+            "custom_attributes": [
+              {
+                "name": "has_checking_account",
+                "value": "true"
+              },
+              {
+                "name": "short_banking_offer_appeal_rating",
+                "value": "6"
+              }
+            ]
+          },
+          {
+            "age": 36,
+            "gender": "Female",
+            "location": "Chicago, USA",
+            "education": "Bachelor's",
+            "income_bracket": "75-100k",
+            "occupation": "Public Relations Manager",
+            "household_size": 2,
+            "marital_status": "Partnered",
+            "children": false,
+            "ethnicity": "African American",
+            "personality": "Socially perceptive and energetic, but careful about claims that sound overly polished. She responds well to offers that demonstrate clear, immediate value.",
+            "values": [
+              "authenticity",
+              "career growth",
+              "community",
+              "financial flexibility"
+            ],
+            "interests": [
+              "fitness classes",
+              "fashion",
+              "restaurants",
+              "volunteering"
+            ],
+            "media_habits": "Active on Instagram, TikTok, LinkedIn, and streaming services, while also following consumer and business news online.",
+            "shopping_behavior": "Mixes online and in-store shopping, watches for promotions, and checks customer feedback before committing to unfamiliar services.",
+            "tech_adoption": "Mainstream",
+            "brand_loyalty": "Medium",
+            "purchase_frequency": "restaurants: weekly, clothing: monthly, beauty products: monthly, electronics: annually",
+            "survey_attitude": "Skeptical",
+            "trust_level": "Low Trust",
+            "custom_attributes": [
+              {
+                "name": "has_checking_account",
+                "value": "true"
+              },
+              {
+                "name": "short_banking_offer_appeal_rating",
+                "value": "5"
+              }
+            ]
+          },
+          {
+            "age": 42,
+            "gender": "Female",
+            "location": "Denver, USA",
+            "education": "Master's",
+            "income_bracket": "100-150k",
+            "occupation": "Healthcare Administrator",
+            "household_size": 4,
+            "marital_status": "Married",
+            "children": true,
+            "ethnicity": "Asian",
+            "personality": "Calm, analytical, and highly responsible with household finances. She prefers benefits that are transparent, useful over time, and supported by dependable customer service.",
+            "values": [
+              "stability",
+              "health",
+              "family",
+              "quality",
+              "transparency"
+            ],
+            "interests": [
+              "hiking",
+              "cooking",
+              "gardening",
+              "retirement planning"
+            ],
+            "media_habits": "Reads news and professional publications, watches streaming television in the evenings, and uses Facebook and YouTube more than short-form social apps.",
+            "shopping_behavior": "Researches purchases extensively, favors reputable brands, and prioritizes durability over the lowest initial price.",
+            "tech_adoption": "Mainstream",
+            "brand_loyalty": "High",
+            "purchase_frequency": "groceries: weekly, restaurants: twice monthly, household goods: monthly, electronics: every 3 years",
+            "survey_attitude": "Neutral",
+            "trust_level": "Moderate Trust",
+            "custom_attributes": [
+              {
+                "name": "has_checking_account",
+                "value": "true"
+              },
+              {
+                "name": "short_banking_offer_appeal_rating",
+                "value": "7"
+              }
+            ]
+          },
+          {
+            "age": 29,
+            "gender": "Male",
+            "location": "Phoenix, USA",
+            "education": "Some College",
+            "income_bracket": "50-75k",
+            "occupation": "Automotive Service Advisor",
+            "household_size": 2,
+            "marital_status": "Partnered",
+            "children": false,
+            "ethnicity": "Mixed",
+            "personality": "Independent and somewhat impatient with financial fine print. He is attracted to offers that save money immediately but assumes there may be a catch until he checks the details.",
+            "values": [
+              "value",
+              "independence",
+              "practicality",
+              "honesty"
+            ],
+            "interests": [
+              "cars",
+              "gaming",
+              "barbecue",
+              "basketball"
+            ],
+            "media_habits": "Watches YouTube and sports content daily, uses Instagram and Reddit, and rarely reads long-form news.",
+            "shopping_behavior": "Looks for discounts online, buys many practical items in stores, and relies heavily on peer reviews and deal forums.",
+            "tech_adoption": "Early Adopter",
+            "brand_loyalty": "Low",
+            "purchase_frequency": "fuel: weekly, restaurants: weekly, gaming: monthly, electronics: annually",
+            "survey_attitude": "Skeptical",
+            "trust_level": "Low Trust",
+            "custom_attributes": [
+              {
+                "name": "has_checking_account",
+                "value": "true"
+              },
+              {
+                "name": "short_banking_offer_appeal_rating",
+                "value": "6"
+              }
+            ]
+          }
+        ],
+        "artifact": {
+          "type": "panel",
+          "title": "Stress-Tester trial panel",
+          "summary": "10 personas",
+          "storage": {
+            "panel_id": "01a1dafd-9798-7801-a2bc-a7c21c4e9fa9",
+            "personas": [
+              {
+                "age": 27,
+                "gender": "Male",
+                "location": "Austin, USA",
+                "education": "Bachelor's",
+                "income_bracket": "75-100k",
+                "occupation": "UX Designer",
+                "household_size": 1,
+                "marital_status": "Single",
+                "children": false,
+                "ethnicity": "Hispanic",
+                "personality": "Curious, optimistic, and comfortable making quick decisions when information is presented clearly. He enjoys trying new financial tools but dislikes complicated terms.",
+                "values": [
+                  "convenience",
+                  "creativity",
+                  "financial independence",
+                  "transparency"
+                ],
+                "interests": [
+                  "design",
+                  "live music",
+                  "travel",
+                  "personal finance"
+                ],
+                "media_habits": "Uses Instagram, YouTube, Reddit, and podcasts daily, especially for design and personal-finance content.",
+                "shopping_behavior": "Primarily shops online, compares reviews and prices, and is willing to try new brands when the process is easy.",
+                "tech_adoption": "Early Adopter",
+                "brand_loyalty": "Low",
+                "purchase_frequency": "groceries: weekly, restaurants: weekly, electronics: annually, financial products: occasionally",
+                "survey_attitude": "Agreeable",
+                "trust_level": "Moderate Trust",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "8"
+                  }
+                ]
+              },
+              {
+                "age": 31,
+                "gender": "Male",
+                "location": "Columbus, USA",
+                "education": "Master's",
+                "income_bracket": "100-150k",
+                "occupation": "Operations Manager",
+                "household_size": 3,
+                "marital_status": "Married",
+                "children": true,
+                "ethnicity": "Caucasian",
+                "personality": "Practical and organized, with a strong preference for predictable costs and straightforward commitments. He considers financial offers carefully but appreciates genuine convenience.",
+                "values": [
+                  "security",
+                  "efficiency",
+                  "family",
+                  "reliability"
+                ],
+                "interests": [
+                  "home improvement",
+                  "running",
+                  "college sports",
+                  "budgeting"
+                ],
+                "media_habits": "Reads local news and business newsletters, listens to podcasts during commutes, and uses Facebook and YouTube several times a week.",
+                "shopping_behavior": "Plans larger purchases, uses comparison sites, and tends to favor established retailers with clear return policies.",
+                "tech_adoption": "Mainstream",
+                "brand_loyalty": "Medium",
+                "purchase_frequency": "groceries: twice weekly, restaurants: twice monthly, home goods: monthly, electronics: every 2-3 years",
+                "survey_attitude": "Neutral",
+                "trust_level": "Moderate Trust",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "6"
+                  }
+                ]
+              },
+              {
+                "age": 36,
+                "gender": "Female",
+                "location": "Chicago, USA",
+                "education": "Bachelor's",
+                "income_bracket": "75-100k",
+                "occupation": "Public Relations Manager",
+                "household_size": 2,
+                "marital_status": "Partnered",
+                "children": false,
+                "ethnicity": "African American",
+                "personality": "Socially perceptive and energetic, but careful about claims that sound overly polished. She responds well to offers that demonstrate clear, immediate value.",
+                "values": [
+                  "authenticity",
+                  "career growth",
+                  "community",
+                  "financial flexibility"
+                ],
+                "interests": [
+                  "fitness classes",
+                  "fashion",
+                  "restaurants",
+                  "volunteering"
+                ],
+                "media_habits": "Active on Instagram, TikTok, LinkedIn, and streaming services, while also following consumer and business news online.",
+                "shopping_behavior": "Mixes online and in-store shopping, watches for promotions, and checks customer feedback before committing to unfamiliar services.",
+                "tech_adoption": "Mainstream",
+                "brand_loyalty": "Medium",
+                "purchase_frequency": "restaurants: weekly, clothing: monthly, beauty products: monthly, electronics: annually",
+                "survey_attitude": "Skeptical",
+                "trust_level": "Low Trust",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "5"
+                  }
+                ]
+              },
+              {
+                "age": 42,
+                "gender": "Female",
+                "location": "Denver, USA",
+                "education": "Master's",
+                "income_bracket": "100-150k",
+                "occupation": "Healthcare Administrator",
+                "household_size": 4,
+                "marital_status": "Married",
+                "children": true,
+                "ethnicity": "Asian",
+                "personality": "Calm, analytical, and highly responsible with household finances. She prefers benefits that are transparent, useful over time, and supported by dependable customer service.",
+                "values": [
+                  "stability",
+                  "health",
+                  "family",
+                  "quality",
+                  "transparency"
+                ],
+                "interests": [
+                  "hiking",
+                  "cooking",
+                  "gardening",
+                  "retirement planning"
+                ],
+                "media_habits": "Reads news and professional publications, watches streaming television in the evenings, and uses Facebook and YouTube more than short-form social apps.",
+                "shopping_behavior": "Researches purchases extensively, favors reputable brands, and prioritizes durability over the lowest initial price.",
+                "tech_adoption": "Mainstream",
+                "brand_loyalty": "High",
+                "purchase_frequency": "groceries: weekly, restaurants: twice monthly, household goods: monthly, electronics: every 3 years",
+                "survey_attitude": "Neutral",
+                "trust_level": "Moderate Trust",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "7"
+                  }
+                ]
+              },
+              {
+                "age": 29,
+                "gender": "Male",
+                "location": "Phoenix, USA",
+                "education": "Some College",
+                "income_bracket": "50-75k",
+                "occupation": "Automotive Service Advisor",
+                "household_size": 2,
+                "marital_status": "Partnered",
+                "children": false,
+                "ethnicity": "Mixed",
+                "personality": "Independent and somewhat impatient with financial fine print. He is attracted to offers that save money immediately but assumes there may be a catch until he checks the details.",
+                "values": [
+                  "value",
+                  "independence",
+                  "practicality",
+                  "honesty"
+                ],
+                "interests": [
+                  "cars",
+                  "gaming",
+                  "barbecue",
+                  "basketball"
+                ],
+                "media_habits": "Watches YouTube and sports content daily, uses Instagram and Reddit, and rarely reads long-form news.",
+                "shopping_behavior": "Looks for discounts online, buys many practical items in stores, and relies heavily on peer reviews and deal forums.",
+                "tech_adoption": "Early Adopter",
+                "brand_loyalty": "Low",
+                "purchase_frequency": "fuel: weekly, restaurants: weekly, gaming: monthly, electronics: annually",
+                "survey_attitude": "Skeptical",
+                "trust_level": "Low Trust",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "6"
+                  }
+                ]
+              },
+              {
+                "age": 39,
+                "gender": "Male",
+                "location": "Atlanta, USA",
+                "education": "High School",
+                "income_bracket": "50-75k",
+                "occupation": "Restaurant General Manager",
+                "household_size": 4,
+                "marital_status": "Divorced",
+                "children": true,
+                "ethnicity": "African American",
+                "personality": "Resilient, direct, and highly experienced at spotting sales tactics. He values convenience but dislikes banks or brands that appear to profit from customers' confusion.",
+                "values": [
+                  "family",
+                  "self-reliance",
+                  "fairness",
+                  "convenience"
+                ],
+                "interests": [
+                  "barbecuing",
+                  "music",
+                  "youth sports",
+                  "home repairs"
+                ],
+                "media_habits": "Uses Facebook and YouTube daily, follows sports radio and local news, and occasionally watches streaming shows with his children.",
+                "shopping_behavior": "Price-conscious and promotion-driven, he shops at a mix of discount stores and familiar local businesses and avoids complicated purchasing processes.",
+                "tech_adoption": "Late Adopter",
+                "brand_loyalty": "Medium",
+                "purchase_frequency": "groceries: weekly, restaurants: occasionally, household supplies: monthly, electronics: every 3-4 years",
+                "survey_attitude": "Contrarian",
+                "trust_level": "Distrustful",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "3"
+                  }
+                ]
+              },
+              {
+                "age": 34,
+                "gender": "Female",
+                "location": "Portland, USA",
+                "education": "PhD",
+                "income_bracket": "75-100k",
+                "occupation": "Environmental Research Scientist",
+                "household_size": 2,
+                "marital_status": "Partnered",
+                "children": false,
+                "ethnicity": "Caucasian",
+                "personality": "Thoughtful and evidence-oriented, with a strong aversion to exaggerated marketing. She is open to concise offers when the conditions and real-world benefits are easy to verify.",
+                "values": [
+                  "sustainability",
+                  "evidence",
+                  "simplicity",
+                  "social responsibility"
+                ],
+                "interests": [
+                  "cycling",
+                  "climate science",
+                  "independent films",
+                  "vegan cooking"
+                ],
+                "media_habits": "Reads digital newspapers and science newsletters, listens to public-radio podcasts, and uses Instagram and Reddit selectively.",
+                "shopping_behavior": "Researches ethics, durability, and total cost before buying; she supports local businesses but still compares online prices.",
+                "tech_adoption": "Mainstream",
+                "brand_loyalty": "Low",
+                "purchase_frequency": "groceries: weekly, restaurants: twice monthly, clothing: quarterly, electronics: every 2-3 years",
+                "survey_attitude": "Skeptical",
+                "trust_level": "Moderate Trust",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "5"
+                  }
+                ]
+              },
+              {
+                "age": 26,
+                "gender": "Male",
+                "location": "New York, USA",
+                "education": "Bachelor's",
+                "income_bracket": "50-75k",
+                "occupation": "Digital Marketing Specialist",
+                "household_size": 3,
+                "marital_status": "Single",
+                "children": false,
+                "ethnicity": "South Asian",
+                "personality": "Fast-moving, ambitious, and highly responsive to convenience. He enjoys experimenting with apps and rewards programs but quickly abandons services that feel restrictive.",
+                "values": [
+                  "innovation",
+                  "convenience",
+                  "career growth",
+                  "flexibility"
+                ],
+                "interests": [
+                  "startups",
+                  "street photography",
+                  "fitness",
+                  "food delivery"
+                ],
+                "media_habits": "Uses TikTok, Instagram, YouTube, and podcasts throughout the day and follows fintech creators and technology news.",
+                "shopping_behavior": "Shops mostly through mobile apps, compares prices quickly, and often responds to introductory discounts or rewards.",
+                "tech_adoption": "Early Adopter",
+                "brand_loyalty": "Very Low",
+                "purchase_frequency": "food delivery: weekly, restaurants: weekly, clothing: monthly, electronics: annually",
+                "survey_attitude": "Agreeable",
+                "trust_level": "High Trust",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "9"
+                  }
+                ]
+              },
+              {
+                "age": 44,
+                "gender": "Female",
+                "location": "Charlotte, USA",
+                "education": "Bachelor's",
+                "income_bracket": "75-100k",
+                "occupation": "Elementary School Principal",
+                "household_size": 5,
+                "marital_status": "Married",
+                "children": true,
+                "ethnicity": "Hispanic",
+                "personality": "Warm, responsible, and community-minded, though cautious about making financial changes that could disrupt her household. She likes simple offers with clear practical benefits.",
+                "values": [
+                  "family",
+                  "education",
+                  "stability",
+                  "service"
+                ],
+                "interests": [
+                  "reading",
+                  "church activities",
+                  "gardening",
+                  "travel"
+                ],
+                "media_habits": "Uses Facebook and Pinterest, watches local news and streaming dramas, and listens to audiobooks during commutes.",
+                "shopping_behavior": "Plans household purchases, uses loyalty programs, and prefers trusted stores while checking prices for larger expenses.",
+                "tech_adoption": "Mainstream",
+                "brand_loyalty": "High",
+                "purchase_frequency": "groceries: weekly, restaurants: twice monthly, clothing: quarterly, electronics: every 2-3 years",
+                "survey_attitude": "Neutral",
+                "trust_level": "Moderate Trust",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "7"
+                  }
+                ]
+              },
+              {
+                "age": 37,
+                "gender": "Female",
+                "location": "San Diego, USA",
+                "education": "Master's",
+                "income_bracket": "100-150k",
+                "occupation": "Product Manager",
+                "household_size": 2,
+                "marital_status": "Single",
+                "children": false,
+                "ethnicity": "Mixed",
+                "personality": "Confident and analytical, with high expectations for digital experiences. She is receptive to strong value propositions but quickly challenges vague claims, hidden fees, or artificial urgency.",
+                "values": [
+                  "autonomy",
+                  "efficiency",
+                  "quality",
+                  "transparency"
+                ],
+                "interests": [
+                  "surfing",
+                  "technology",
+                  "international travel",
+                  "investing"
+                ],
+                "media_habits": "Reads technology and finance newsletters, listens to business podcasts, and uses LinkedIn, Instagram, and streaming services daily.",
+                "shopping_behavior": "Researches extensively online, pays for convenience when the value is clear, and switches providers readily when service quality declines.",
+                "tech_adoption": "Early Adopter",
+                "brand_loyalty": "Very Low",
+                "purchase_frequency": "restaurants: weekly, travel: several times yearly, clothing: monthly, electronics: annually",
+                "survey_attitude": "Contrarian",
+                "trust_level": "Low Trust",
+                "custom_attributes": [
+                  {
+                    "name": "has_checking_account",
+                    "value": "true"
+                  },
+                  {
+                    "name": "short_banking_offer_appeal_rating",
+                    "value": "4"
+                  }
+                ]
+              }
+            ],
+            "composition": {
+              "sampled": true,
+              "dimensions": [
+                "gender"
+              ],
+              "invented": [
+                "age",
+                "race",
+                "education",
+                "income"
+              ],
+              "notes": [
+                "gender: no Census counts for this panel; used the US adult split"
+              ],
+              "joint": "independence \u2014 marginals matched, correlation not modelled"
+            }
+          },
+          "storage_kind": "inline"
+        },
+        "artifact_id": "01a1dafe-085e-7e85-95cb-0e9fd3bf9aea",
+        "persisted": true
+      },
+      "error": null,
+      "conversation_id": null,
+      "message_id": null,
+      "trace_id": null,
+      "traceparent": null,
+      "completed_at": "2026-11-14T16:57:23.802697",
+      "duration_ms": 28866
+    }
+  },
+  "tool_survey": {
+    "seconds": 16.6,
+    "isError": false,
+    "brief": "Using ONLY the free synthetic panel 'Stress-Tester trial panel' I just created (AI personas, no paid recruitment, no payment), run a one-question survey.\nShow each respondent this exact text: \"Earn 4.25% APY on your savings with no monthly fees and no minimum balance.\"\nQuestion (single choice, 1-10): How appealing is this offer to you personally? Answer with a single whole number from 1 (not at all appealing) to 10 (extremely appealing).\nField it to the synthetic panel now, then return every respondent's numeric answer as JSON: {\"responses\": [..], \"mean\": .., \"n\": ..}, plus the survey_id.",
+    "result": {
+      "conversation_id": "01a1dafe-08ef-7530-82f6-cc3850147cbb",
+      "task_id": "01a1dafe-08ef-7530-82f6-cc408cd055e8",
+      "task_name": "surveys_agent",
+      "status": "completed",
+      "result": {
+        "conversation_id": "01a1dafe-08ef-7530-82f6-cc3850147cbb",
+        "survey_id": "5e1861fe-4efa-48cd-a6f8-310aeec92e2d",
+        "iterations": 4,
+        "usage": {
+          "input_tokens": 13,
+          "output_tokens": 928,
+          "cache_creation_input_tokens": 4377,
+          "cache_read_input_tokens": 410228
+        },
+        "final_text": "Survey is built. Now handing off to the orchestrator to run the synthetic panel through it."
+      },
+      "error": null,
+      "message_id": null,
+      "trace_id": null,
+      "traceparent": null,
+      "duration_ms": 16602,
+      "completed_at": "2026-11-14T16:57:40.558622Z"
+    }
+  }
+}

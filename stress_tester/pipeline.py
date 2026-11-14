@@ -160,6 +160,8 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, log=print
     rw_concepts = []
     for c in targets:
         rw = rewriter.rewrite(c["text"], rules1)
+        if rw.get("no_change"):  # nothing to fix with the known rules: don't re-run the panel on an identical text
+            continue
         rewrites[c["id"]] = rw
         orig = p2["prep"][c["id"]]["concept"]
         rw_concepts.append(Concept(id=c["id"] + "-R", batch=2, segment=orig.segment, text=rw["text"]))

@@ -1,0 +1,193 @@
+{
+  "adapter": "flashpoint",
+  "personas": 30,
+  "evaluation": {
+    "memory": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "tn": 5,
+      "accuracy": 0.625
+    },
+    "no_memory": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "tn": 5,
+      "accuracy": 0.625
+    },
+    "spearman": 0.19047619047619052,
+    "n_unstable": 3,
+    "fdr": {
+      "method": "Benjamini-Hochberg",
+      "q": 0.05,
+      "n_tested": 8,
+      "n_flagged": 3,
+      "n_survive": 0,
+      "survivors": []
+    },
+    "cut": 1.2684578880551216
+  },
+  "concepts": [
+    {
+      "id": "C17",
+      "text": "Send money to friends instantly, free, right from our app.",
+      "spread": 1.63,
+      "wss": 1.97,
+      "p": 0.011,
+      "p_bh": 0.074,
+      "unstable": true,
+      "means": {
+        "original": 7.233333333333333,
+        "plain": 7.533333333333333,
+        "alt": 6.9,
+        "frame_flip": 8.066666666666666,
+        "reordered": 6.433333333333334
+      },
+      "pred_spread": 0.945,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    {
+      "id": "C18",
+      "text": "Lock your card in one tap if you lose it, and unlock it when you find it.",
+      "spread": 0.6,
+      "wss": 0.82,
+      "p": 0.6592,
+      "p_bh": 0.6592,
+      "unstable": false,
+      "means": {
+        "original": 8.266666666666667,
+        "plain": 8.333333333333334,
+        "alt": 7.733333333333333,
+        "frame_flip": 7.966666666666667,
+        "reordered": 7.9
+      },
+      "pred_spread": 0.878,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    {
+      "id": "C19",
+      "text": "Earn a 5.00% APY intro rate for 6 months on balances up to $10,000, then 3.75% variable.",
+      "spread": 1.6,
+      "wss": 1.62,
+      "p": 0.058,
+      "p_bh": 0.1159,
+      "unstable": false,
+      "means": {
+        "original": 5.7,
+        "plain": 6.833333333333333,
+        "alt": 5.933333333333334,
+        "frame_flip": 5.233333333333333,
+        "reordered": 5.733333333333333
+      },
+      "pred_spread": 0.978,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    {
+      "id": "C20",
+      "text": "Don't pay for a checking account. Ours has no monthly fee and no minimum balance.",
+      "spread": 0.8,
+      "wss": 0.99,
+      "p": 0.5157,
+      "p_bh": 0.6248,
+      "unstable": false,
+      "means": {
+        "original": 7.6,
+        "plain": 8.2,
+        "alt": 8.4,
+        "frame_flip": 8.3,
+        "reordered": 7.766666666666667
+      },
+      "pred_spread": 0.951,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    {
+      "id": "C21",
+      "text": "Build credit with a secured card: start with a $200 deposit, and we'll review you for an upgrade after 6 months.",
+      "spread": 1.4,
+      "wss": 1.34,
+      "p": 0.2054,
+      "p_bh": 0.3286,
+      "unstable": false,
+      "means": {
+        "original": 4.866666666666666,
+        "plain": 3.6333333333333333,
+        "alt": 4.633333333333334,
+        "frame_flip": 3.466666666666667,
+        "reordered": 4.633333333333334
+      },
+      "pred_spread": 1.018,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    {
+      "id": "C22",
+      "text": "Talk to a real person 24/7, with average hold times under 2 minutes.",
+      "spread": 1.57,
+      "wss": 1.96,
+      "p": 0.0185,
+      "p_bh": 0.074,
+      "unstable": true,
+      "means": {
+        "original": 8.266666666666667,
+        "plain": 8.433333333333334,
+        "alt": 6.966666666666667,
+        "frame_flip": 8.3,
+        "reordered": 6.866666666666666
+      },
+      "pred_spread": 0.948,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    {
+      "id": "C23",
+      "text": "Rates won't stay this high forever. Open a 12-month CD at 4.40% APY today.",
+      "spread": 1.7,
+      "wss": 1.86,
+      "p": 0.029,
+      "p_bh": 0.0773,
+      "unstable": true,
+      "means": {
+        "original": 5.266666666666667,
+        "plain": 6.966666666666667,
+        "alt": 6.566666666666666,
+        "frame_flip": 5.966666666666667,
+        "reordered": 5.666666666666667
+      },
+      "pred_spread": 0.881,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    {
+      "id": "C24",
+      "text": "Split bills, set budgets, and track subscriptions, all in one free app.",
+      "spread": 0.87,
+      "wss": 0.97,
+      "p": 0.5467,
+      "p_bh": 0.6248,
+      "unstable": false,
+      "means": {
+        "original": 7.4,
+        "plain": 7.2,
+        "alt": 7.4,
+        "frame_flip": 6.966666666666667,
+        "reordered": 6.533333333333333
+      },
+      "pred_spread": 0.878,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    }
+  ]
+}

@@ -121,6 +121,18 @@ None of the scripts or adapters buy real respondents. Paid fielding needs a sepa
 
 `.env` settings: `ANTHROPIC_API_KEY`, `CLAUDE_MODEL` (optional), `FLASHPOINT_MCP_URL`, `FLASHPOINT_TOKEN`, and for the single-call path `FLASHPOINT_PANEL_TOOL` / `FLASHPOINT_PANEL_ARGS` (a JSON template with `{text}` `{question}` `{n}` `{segment}`). See `.env.example`.
 
+### Paying Flashpoint from a wallet (x402)
+
+Flashpoint charges per call in USDC on Base over x402, and agents sign in with a wallet signature instead of a token (chat $0.01, demographics $0.05, survey $0.50, synthetic panel $0.60). FlashFeud can do both. **Tested live on Nov 14: one `chat` call paid $0.01 from the team wallet and Flashpoint answered.**
+
+```bash
+pip install -r requirements-wallet.txt
+python scripts/flashpoint_wallet.py                       # free: wallet sign-in, shows the 402, pays nothing
+python scripts/flashpoint_wallet.py --test-one-paid-call  # pays one $0.01 chat call (never more than $0.10)
+```
+
+Payments are **off** unless `.env` has `X402_ENABLED=true` (plus `WALLET_PRIVATE_KEY`, a small wallet just for the program). Then `run.py --panel flashpoint` signs in with the wallet and pays each call, refusing anything that isn't USDC on Base, any call over `X402_MAX_PER_CALL_USD` (default $0.50) and anything past `X402_MAX_PER_RUN_USD` per run (default $2.00). Recruiting real respondents is blocked in wallet mode. Every signed payment is logged to `outputs/x402_payments.jsonl` (git-ignored). Code: `stress_tester/wallet.py`.
+
 ## Tests
 
 ```bash
@@ -173,11 +185,13 @@ stress_tester/
   pipeline.py              learn → predict → verify → rewrite
   report.py                writes report.html (FlashFeud page) + report_details.html
   feud.py                  the FlashFeud page
+  wallet.py                optional x402 wallet sign-in + USDC payments with spend caps
 scripts/
   flashpoint_login.py      Flashpoint sign-in (MCP OAuth 2.1 + PKCE), writes FLASHPOINT_TOKEN to .env
   flashpoint_probe.py      prints the Flashpoint MCP server's tools and argument schemas
   flashpoint_trial.py      one small free synthetic-panel trial to learn the reply format
   flashpoint_refetch.py    re-reads finished Flashpoint runs and saves every persona's answer
+  flashpoint_wallet.py     wallet sign-in check, and one capped x402 test payment
 tests/                     pytest suite (runs in a temp dir)
 memory/                    rules.json + observations.json (what the agent has learned)
 outputs/                   report.html, report_details.html, results.json, cache/ (Claude), runs/ (panel results),

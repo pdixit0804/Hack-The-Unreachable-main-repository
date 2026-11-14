@@ -1,0 +1,157 @@
+"""Check the program's wallet, then (only if asked) make ONE capped x402 payment to Flashpoint.
+
+    python3 scripts/flashpoint_wallet.py                      # dry run: no payment, ever
+    python3 scripts/flashpoint_wallet.py --test-one-paid-call # pays at most once, at most --max-usd
+
+Dry run: shows the wallet address and its USDC / ETH balance on Base, then connects
+to Flashpoint with payments switched OFF and reports whether a call asks for money.
+
+--test-one-paid-call: makes the same call with payments ON, capped at one payment
+of at most --max-usd (default $0.10) for the whole script, then prints what was paid.
+Without --tool, it makes no tool call: it lists Flashpoint's tools and prints in full
+the ones that mention payment, so you can see which call is paid. Pick the call with
+--tool and --args (JSON).
+Reads WALLET_PRIVATE_KEY / WALLET_ADDRESS from .env and never prints the key.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import sys
+from decimal import Decimal
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
+from stress_tester import config, wallet  # noqa: E402,F401  (config loads .env)
+from stress_tester.panel import flashpoint as fp  # noqa: E402
+
+RPC = {"eip155:8453": "https://mainnet.base.org", "eip155:84532": "https://sepolia.base.org"}
+
+
+def balances(address: str, network: str) -> tuple[str, str]:
+    import httpx
+
+    url = os.getenv("BASE_RPC_URL") or RPC[network]
+    data = "0x70a08231" + address[2:].lower().rjust(64, "0")  # balanceOf(address)
+
+    def rpc(method, params):
+        r = httpx.post(url, json={"jsonrpc": "2.0", "id": 1, "method": method, "params": params}, timeout=20)
+        return int(r.json()["result"], 16)
+
+    try:
+        usdc = rpc("eth_call", [{"to": wallet.USDC[network], "data": data}, "latest"]) / 1e6
+        eth = rpc("eth_getBalance", [address, "latest"]) / 1e18
+        return f"{usdc:.2f} USDC", f"{eth:.6f} ETH"
+    except Exception as e:  # noqa: BLE001
+        return f"(couldn't read: {type(e).__name__})", "-"
+
+
+def pay_url(w, url: str, allowed: bool) -> int:
+    """GET an x402-protected URL; pay its 402 once (within the cap) only if allowed."""
+    import base64
+
+    import requests
+
+    http = w.session() if allowed else requests.Session()
+    print(f"\n{'PAID TEST' if allowed else 'DRY RUN'}: GET {url}")
+    try:
+        r = http.get(url, timeout=120)
+    except Exception as e:  # noqa: BLE001  (cap refusals land here)
+        print(f"Not paid: {type(e).__name__}: {str(e)[:400]}")
+        return 1
+    print(f"HTTP {r.status_code}\n{r.text[:600]}")
+    receipt = r.headers.get("PAYMENT-RESPONSE") or r.headers.get("X-PAYMENT-RESPONSE")
+    if receipt:
+        try:
+            info = json.loads(base64.b64decode(receipt))
+        except Exception:  # noqa: BLE001
+            info = {"raw": receipt[:200]}
+        print(f"\nReceipt: {json.dumps(info, indent=2)}")
+        tx = info.get("transaction") or info.get("txHash")
+        if tx:
+            scan = "sepolia.basescan.org" if w.network == "eip155:84532" else "basescan.org"
+            print(f"Transaction: https://{scan}/tx/{tx}")
+    if r.status_code == 402 and not allowed:
+        print("\nThis URL wants payment. Add --test-one-paid-call to pay it once.")
+    print(f"\nPaid: {json.dumps(w.payments, indent=2)}" if w.payments else "\nNo payment was made.")
+    return 0
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--test-one-paid-call", action="store_true", help="allow ONE payment (otherwise nothing is paid)")
+    ap.add_argument("--max-usd", default="0.10", help="most this script may pay, in USD (default 0.10)")
+    ap.add_argument("--url", help="pay ONE x402 web URL (GET) instead of calling Flashpoint; needs --test-one-paid-call")
+    ap.add_argument("--tool", default="chat", help="Flashpoint tool to call (default: chat, $0.01)")
+    ap.add_argument("--args", default='{"message": "Reply with one word: pong"}', help="tool arguments as JSON")
+    ap.add_argument("--list", action="store_true", help="only list Flashpoint's tools; call nothing")
+    a = ap.parse_args()
+
+    os.environ["X402_ENABLED"] = "false"  # build the wallet by hand below; the client stays unpaid unless asked
+    cap = Decimal(a.max_usd)
+    try:
+        w = wallet.Wallet(max_per_call=cap, max_per_run=cap)
+    except Exception as e:  # noqa: BLE001
+        print(f"Wallet not ready: {e}")
+        return 1
+    usdc, eth = balances(w.address, w.network)
+    print(f"Wallet  {w.address}")
+    print(f"Network {w.network}   balance {usdc}, {eth}")
+    print(f"Cap     at most ${cap} in total for this script")
+    print(f"Token login: {'set' if os.getenv('FLASHPOINT_TOKEN') else 'not set'}")
+
+    if a.url:
+        return pay_url(w, a.url, a.test_one_paid_call)
+
+    client = fp.MCPClient()  # payments OFF: a payment request stops with PaymentNeeded
+    try:
+        client.headers["Authorization"] = f"Bearer {w.sign_in(client.url)}"  # wallet JWT, free
+    except Exception as e:  # noqa: BLE001
+        print(f"\nWallet sign-in failed: {type(e).__name__}: {str(e)[:400]}")
+        return 1
+    if a.test_one_paid_call:
+        client.wallet = w
+        print("\nPAID TEST: one payment allowed.")
+    else:
+        print("\nDRY RUN: no payment will be made.")
+
+    try:
+        client.initialize()
+        tools = client.list_tools()
+        print(f"Connected. {len(tools)} tools available: {', '.join(t['name'] for t in tools)}")
+        if a.list:
+            words = ("x402", "pay", "usdc", "wallet", "price", "cost", "quote", "402")
+            for t in tools:
+                desc = t.get("description", "") or ""
+                if any(w in (t["name"] + desc).lower() for w in words):
+                    print(f"\n== {t['name']} (mentions payment)\n{desc[:1500]}")
+                    print(json.dumps(t.get("inputSchema", {}), indent=2)[:1200])
+            print("\nNo tool was called. Pick the paid call with --tool NAME --args '{...}'.")
+            return 0
+        res = client.call_tool(a.tool, json.loads(a.args))
+        print(f"\n{a.tool} answered (isError={res.get('isError')}):")
+        print(json.dumps(fp.result_payload(res), indent=2, default=str)[:1500])
+    except wallet.PaymentNeeded as e:
+        print(f"\nPayment requested: {e}")
+        if not a.test_one_paid_call:
+            print("Run again with --test-one-paid-call to pay for this one call.")
+    except Exception as e:  # noqa: BLE001
+        print(f"\nCall failed: {type(e).__name__}: {str(e)[:600]}")
+
+    if w.payments:
+        print(f"\nPaid: {json.dumps(w.payments, indent=2)}")
+        scan = "sepolia.basescan.org" if w.network == "eip155:84532" else "basescan.org"
+        print(f"Check it at https://{scan}/address/{w.address}#tokentxns")
+    else:
+        print("\nNo payment was made." + ("" if a.test_one_paid_call else " (dry run)"))
+        if a.test_one_paid_call:
+            print("This call didn't ask for money, so your login covers it. Ask a mentor which call is paid, "
+                  "then pass it with --tool and --args.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

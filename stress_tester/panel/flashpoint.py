@@ -5,6 +5,8 @@ specific MCP SDK version. Configure with .env:
 
     FLASHPOINT_MCP_URL     default https://api.flashpoint.ai/mcp
     FLASHPOINT_TOKEN       bearer token, if the server needs one
+    X402_ENABLED           true = pay for calls in USDC on Base from WALLET_PRIVATE_KEY
+                           (see stress_tester/wallet.py for the spend caps)
     FLASHPOINT_PANEL_TOOL  tool name (default "panel")
     FLASHPOINT_PANEL_ARGS  JSON template; {text} {question} {n} {segment} are filled in
 
@@ -21,7 +23,7 @@ from typing import Any
 
 import httpx
 
-from .. import config
+from .. import config, wallet
 from . import PanelResult, summarize
 
 PROTOCOL = "2025-06-18"
@@ -34,7 +36,13 @@ class MCPClient:
         self.headers = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
         if token:
             self.headers["Authorization"] = f"Bearer {token}"
+        # With X402_ENABLED, HTTP 402 answers are paid from the wallet (within the caps).
+        # Otherwise this is the plain token-login client, and nothing is ever paid.
+        self.wallet = wallet.from_env()
         self.http = httpx.Client(timeout=timeout)
+        self._post_kw: dict = {}
+        if self.wallet:  # wallet agents sign in with the wallet; x402 is gated on that JWT
+            self.headers["Authorization"] = f"Bearer {self.wallet.sign_in(self.url)}"
         self.session_id: str | None = None
         self._ids = itertools.count(1)
         self._initialized = False
@@ -44,7 +52,17 @@ class MCPClient:
         if self.session_id:
             headers["Mcp-Session-Id"] = self.session_id
             headers["MCP-Protocol-Version"] = PROTOCOL
-        r = self.http.post(self.url, json=payload, headers=headers)
+        r = self.http.post(self.url, json=payload, headers=headers, **self._post_kw)
+        if r.status_code == 402 and self.wallet:
+            name, value = self.wallet.payment_header(r)  # raises PaymentNeeded past the caps
+            r = self.http.post(self.url, json=payload, headers={**headers, name: value}, **self._post_kw)
+        if r.status_code == 402:
+            raise wallet.PaymentNeeded(
+                "Flashpoint asked for payment (HTTP 402) and none was made. "
+                + ("The x402 payment was refused or failed; check the spend caps in .env. "
+                   if self.wallet else "Set X402_ENABLED=true with a funded wallet to pay per call. ")
+                + f"Body: {r.text[:300]}"
+            )
         if r.status_code in (401, 403):
             raise RuntimeError(
                 f"Flashpoint MCP returned {r.status_code}. Set FLASHPOINT_TOKEN in .env, "
@@ -71,6 +89,8 @@ class MCPClient:
         else:
             msg = r.json()
         if "error" in msg:
+            if wallet.payment_required_in(msg["error"]) is not None:
+                raise _InBandPayment(msg["error"])
             raise RuntimeError(f"MCP error: {msg['error']}")
         return msg.get("result")
 
@@ -100,7 +120,29 @@ class MCPClient:
         return self.request("tools/list").get("tools", [])
 
     def call_tool(self, name: str, arguments: dict) -> dict:
-        return self.request("tools/call", {"name": name, "arguments": arguments})
+        if self.wallet and (name == "recruit" or (arguments or {}).get("action") == "recruit"):
+            raise wallet.PaymentNeeded("Refusing to recruit real respondents from the wallet (real money, provider costs).")
+        params = {"name": name, "arguments": arguments}
+        try:
+            res = self.request("tools/call", params)
+            asked = wallet.payment_required_in(res)
+        except _InBandPayment as e:
+            res, asked = None, wallet.payment_required_in(e.error)
+        if asked is None:
+            return res
+        # MCP-style x402: the tool answered "payment required". Pay once and retry.
+        if not self.wallet:
+            raise wallet.PaymentNeeded(
+                f"Flashpoint tool {name!r} asked for an x402 payment and none was made. "
+                "Set X402_ENABLED=true with a funded wallet to pay per call."
+            )
+        return self.request("tools/call", self.wallet.pay_params(params, asked))
+
+
+class _InBandPayment(Exception):
+    def __init__(self, error: dict):
+        super().__init__(str(error)[:300])
+        self.error = error
 
 
 _client: MCPClient | None = None

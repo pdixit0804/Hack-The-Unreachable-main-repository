@@ -4,7 +4,7 @@ from __future__ import annotations
 import html
 from pathlib import Path
 
-from . import config
+from . import config, feud
 
 e = html.escape
 
@@ -198,7 +198,16 @@ Recommended next step: a real-world Market Experiment for each (about ${res['mar
 <p><b>Limits</b>: {len(b1)}+{n2} concepts is a proof of method, not a benchmark. Stable is not the same as correct: this tool says when a synthetic answer depends on wording, not whether real people agree. Question asked: <i>{e(res['question'])}</i></p>
 </div>
 </main></body></html>"""
+    config.OUT_DIR.mkdir(exist_ok=True)
+    # Technical detail page (every number, every rewrite) sits behind the FlashFeud page.
+    (config.OUT_DIR / "report_details.html").write_text(html_out, encoding="utf-8")
     path = config.OUT_DIR / "report.html"
-    path.parent.mkdir(exist_ok=True)
-    path.write_text(html_out, encoding="utf-8")
+    path.write_text(_standalone(feud.render(res)), encoding="utf-8")
     return path
+
+
+def _standalone(body: str) -> str:
+    """Wrap the FlashFeud fragment so it opens as a normal page in any browser."""
+    return ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width,initial-scale=1"></head><body>'
+            + body + "</body></html>")

@@ -1,0 +1,53 @@
+{
+  "cut": 1.2684578880551216,
+  "predictions": {
+    "C17": {
+      "pred_spread": 0.945,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    "C18": {
+      "pred_spread": 0.878,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    "C19": {
+      "pred_spread": 0.978,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    "C20": {
+      "pred_spread": 0.951,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    "C21": {
+      "pred_spread": 1.018,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    "C22": {
+      "pred_spread": 0.948,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    "C23": {
+      "pred_spread": 0.881,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    },
+    "C24": {
+      "pred_spread": 0.878,
+      "pred_unstable": false,
+      "pred_spread_no_memory": 0.878,
+      "pred_unstable_no_memory": false
+    }
+  }
+}

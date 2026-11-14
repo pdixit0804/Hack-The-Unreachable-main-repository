@@ -171,14 +171,14 @@ def render(r: dict) -> str:
     </header>
 
     <section class="score" aria-label="Scoreboard">
-      <div class="sc"><div class="num">{n_shaky}/{len(offers)}</div><div class="l">offers changed score when we changed the words</div></div>
-      <div class="sc"><div class="num">{caught}/{n_un2}</div><div class="l">of the shaky new offers, we called before testing</div></div>
-      <div class="sc"><div class="num">{round(a["accuracy"]*100)}%</div><div class="l">of round 2 calls were right</div></div>
+      <div class="sc"><div class="num">{n_shaky}/{len(offers)}</div><div class="l">offers Flagged: the score changed when we changed the words</div></div>
+      <div class="sc"><div class="num">{caught}/{n_un2}</div><div class="l">Flagged new offers that memory called in advance (early experiment)</div></div>
+      <div class="sc"><div class="num">{round(a["accuracy"]*100)}%</div><div class="l">of memory's round 2 calls were right (early experiment)</div></div>
     </section>
 
 
     <h2>The board <small>pick an offer</small></h2>
-    <p class="lg"><span><i style="background:var(--mint)"></i>Trust (or use the rewrite)</span><span><i style="background:var(--gold)"></i>Reword</span><span><i style="background:var(--coral)"></i>Test with real people</span></p>
+    <p class="lg"><span><i style="background:var(--mint)"></i>Trust (or use the rewrite)</span><span><i style="background:var(--gold)"></i>Flagged: reword</span><span><i style="background:var(--coral)"></i>Flagged: test with real people</span></p>
     <div class="pick" id="pick"></div>
     <section class="board" id="board" aria-live="polite"></section>
 
@@ -188,12 +188,12 @@ def render(r: dict) -> str:
     <h2>Round 2: did we call it? <small>{hits} of {len(r2)} right</small></h2>
     <div class="r2" id="r2"></div>
 
-    <p class="foot"><a href="report_details.html">Full technical report</a> · {"Practice data. The simulated panel has wording effects built in on purpose." if mock else "Synthetic panel results. A steady score is not proof real customers agree."} "Shaky" means the score moved more than 1 point and more than 1.5× normal noise.{(" " + str(r["fdr"]["n_survive"]) + " of the " + str(r["fdr"]["n_flagged"]) + " shaky ads still hold after correcting for testing " + str(r["fdr"]["n_tested"]) + " ads at once (Benjamini-Hochberg): " + ", ".join(r["fdr"]["survivors"]) + ".") if r.get("fdr") else ""}</p>
+    <p class="foot"><a href="report_details.html">Full technical report</a> · {"Practice data. The simulated panel has wording effects built in on purpose." if mock else "Synthetic panel results. A Trust verdict is not proof real customers agree."} "Flagged" means the score moved more than 1 point and more than 1.5× normal noise.{(" " + str(r["fdr"]["n_survive"]) + " of the " + str(r["fdr"]["n_flagged"]) + " Flagged ads still hold after correcting for testing " + str(r["fdr"]["n_tested"]) + " ads at once (Benjamini-Hochberg): " + ", ".join(r["fdr"]["survivors"]) + ".") if r.get("fdr") else ""}</p>
     </div></div>
     <script>
     const D = {data};
     const O = D.offers;
-    const V = {{trust:["Trust","var(--mint)","The score holds"], reword:["Reword","var(--gold)","The words moved the score"], use:["Use the rewrite","var(--mint)","The rewrite holds steady"], test:["Test with real people","var(--coral)","Still moves after a rewrite"]}};
+    const V = {{trust:["Trust","var(--mint)","The score holds"], reword:["Reword","var(--gold)","Flagged: the words moved the score"], use:["Use the rewrite","var(--mint)","The rewrite holds"], test:["Test with real people","var(--coral)","Flagged: still moves after a rewrite"]}};
     const esc = s => String(s).replace(/[&<>"]/g, c => ({{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}}[c]));
     let cur = 0;
     function pick() {{
@@ -220,7 +220,7 @@ def render(r: dict) -> str:
     function r2() {{
       document.getElementById("r2").innerHTML = O.filter(o => o.round===2).map(o => {{
         const ok = !!o.pred === !!o.unstable;
-        return `<div class="c2${{ok?"":" bad"}}"><div class="top">${{o.id}}<span class="mk ${{ok?"ok":"no"}}" aria-label="${{ok?"Right":"Wrong"}}">${{ok?"✓":"✕"}}</span></div><div class="d">We said ${{o.pred?"shaky":"steady"}}. It was ${{o.unstable?"shaky":"steady"}}.</div></div>`;
+        return `<div class="c2${{ok?"":" bad"}}"><div class="top">${{o.id}}<span class="mk ${{ok?"ok":"no"}}" aria-label="${{ok?"Right":"Wrong"}}">${{ok?"✓":"✕"}}</span></div><div class="d">Memory said ${{o.pred?"Flagged":"Trust"}}. It was ${{o.unstable?"Flagged":"Trust"}}.</div></div>`;
       }}).join("");
     }}
     function go(i) {{ cur = (i + O.length) % O.length; pick(); board(); }}

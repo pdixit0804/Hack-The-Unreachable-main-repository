@@ -65,3 +65,16 @@ def test_pooled_repeat_se():
     runs = [{"original": PanelResult("x", "o", 6.0, 40), "repeat": PanelResult("x", "r", 6.4, 40)},
             {"original": PanelResult("x", "o", 5.0, 40), "repeat": PanelResult("x", "r", 4.6, 40)}]
     assert math.isclose(analyzer.pooled_repeat_se(runs), math.sqrt((0.16 + 0.16) / 4))
+
+
+def test_apply_fdr_benjamini_hochberg():
+    from stress_tester.analyzer import apply_fdr
+
+    ps = [0.001, 0.008, 0.039, 0.041, 0.042, 0.06, 0.074, 0.205]
+    res = {"batch1": {"concepts": [{"id": f"C{i}", "p": p, "unstable": p < 0.05} for i, p in enumerate(ps[:4])]},
+           "batch2": {"concepts": [{"id": f"C{i + 4}", "p": p, "unstable": p < 0.05} for i, p in enumerate(ps[4:])]}}
+    apply_fdr(res)
+    # Textbook BH at q=0.05 with m=8: only the two smallest p-values are discoveries.
+    assert res["fdr"]["n_flagged"] == 5 and res["fdr"]["survivors"] == ["C0", "C1"]
+    adj = [c["p_bh"] for b in ("batch1", "batch2") for c in res[b]["concepts"]]
+    assert adj == sorted(adj) and abs(adj[0] - 0.008) < 1e-9

@@ -326,6 +326,7 @@ def run(adapter: str = "mock", n: int = 40, fresh_memory: bool = True, skip_rewr
         "market_experiment_cost": config.MARKET_EXPERIMENT_COST,
     }
     config.OUT_DIR.mkdir(exist_ok=True)
+    analyzer.apply_fdr(results)
     (config.OUT_DIR / "results.json").write_text(json.dumps(results, indent=2, default=_jsonable))
     return results
 

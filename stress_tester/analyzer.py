@@ -111,3 +111,35 @@ def analyze_batch(concept_runs: list[dict]) -> dict:
     fallback_se = pooled_repeat_se(concept_runs)
     results = [analyze_concept(c, fallback_se) for c in concept_runs]
     return {"concepts": results, "flips": rank_flips(results), "pooled_repeat_se": fallback_se}
+
+
+def apply_fdr(res: dict, q: float = 0.05) -> dict:
+    """Benjamini-Hochberg across every concept tested in a run (both batches).
+
+    Testing 16 concepts at p < 0.05 flags about one by chance alone, so each concept also
+    gets a BH-adjusted p and whether its "unstable" verdict survives the correction.
+    Adds res["fdr"]; does not change any concept's original verdict.
+    """
+    concepts = [c for b in ("batch1", "batch2") for c in res[b]["concepts"]]
+    m = len(concepts)
+    if not m:
+        return res
+    order = sorted(range(m), key=lambda i: concepts[i]["p"])
+    adj = [0.0] * m
+    running = 1.0
+    for rank in range(m, 0, -1):
+        i = order[rank - 1]
+        running = min(running, concepts[i]["p"] * m / rank)
+        adj[i] = running
+    for c, a in zip(concepts, adj):
+        c["p_bh"] = round(a, 4)
+        c["survives_fdr"] = bool(c["unstable"] and a < q)
+    res["fdr"] = {
+        "method": "Benjamini-Hochberg",
+        "q": q,
+        "n_tested": m,
+        "n_flagged": sum(c["unstable"] for c in concepts),
+        "n_survive": sum(c["survives_fdr"] for c in concepts),
+        "survivors": [c["id"] for c in concepts if c["survives_fdr"]],
+    }
+    return res

@@ -126,6 +126,7 @@ def describe(rules: list[dict]) -> list[dict]:
     fragile = [r for r in rules if r["status"] == "fragile"]
     texts = {}
     if fragile and llm.available():
+      try:
         out = llm.ask_json(
             system="You explain survey-methods findings to marketing teams in one plain sentence each. Never overstate.",
             prompt=(
@@ -137,6 +138,8 @@ def describe(rules: list[dict]) -> list[dict]:
             schema=_RULE_SCHEMA,
         )
         texts = {r["feature"]: (r["rule"], r["advice"]) for r in out["rules"]}
+      except Exception as e:  # spend limit, network, etc.: the template sentences are fine
+        print(f"  (Claude unavailable for rule wording, using templates: {type(e).__name__})")
     for r in rules:
         if r["status"] == "fragile":
             r["rule"], r["advice"] = texts.get(r["feature"], _template_text(r))

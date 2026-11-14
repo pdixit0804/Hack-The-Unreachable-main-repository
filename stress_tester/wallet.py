@@ -151,6 +151,57 @@ class Wallet:
             f.write(json.dumps(row) + "\n")
         print(f"  [x402] signed a ${usd} USDC payment (run total ${self.spent} of ${self.max_per_run})")
 
+    # --- wallet sign-in (docs.flashpoint.ai/authentication, "MCP wallet JWT") ---
+    def sign_in(self, mcp_url: str) -> str:
+        """challenge -> personal_sign (EIP-191) -> 1-hour wallet JWT for Authorization: Bearer."""
+        import httpx
+        from eth_account.messages import encode_defunct
+
+        base = os.getenv("FLASHPOINT_AUTH_URL") or mcp_url.rsplit("/mcp", 1)[0]
+        r = httpx.post(f"{base}/auth/wallet/challenge", json={"address": self.address}, timeout=30)
+        r.raise_for_status()
+        ch = r.json()
+        sig = self.account.sign_message(encode_defunct(text=ch["message_to_sign"])).signature.hex()
+        sig = sig if sig.startswith("0x") else "0x" + sig
+        r = httpx.post(f"{base}/auth/wallet/token",
+                       json={"address": self.address, "nonce": ch["nonce"], "signature": sig}, timeout=30)
+        r.raise_for_status()
+        out = r.json()
+        token = out.get("token") or out.get("access_token") or out.get("jwt") or (out.get("data") or {}).get("token")
+        if not token:
+            raise RuntimeError(f"Flashpoint wallet sign-in returned no token: {str(out)[:200]}")
+        print(f"  [x402] signed in to Flashpoint as wallet {self.address}")
+        return token
+
+    def payment_header(self, response) -> tuple[str, str]:
+        """Answer an HTTP 402 (header or JSON body) with a signed payment header, within the caps."""
+        import base64
+
+        from x402.http.utils import encode_payment_signature_header
+        from x402.schemas import parse_payment_required
+
+        raw = response.headers.get("PAYMENT-REQUIRED")
+        body = None
+        if raw:
+            try:
+                body = json.loads(base64.b64decode(raw))
+            except Exception:  # noqa: BLE001
+                body = None
+        if body is None:
+            try:
+                body = response.json()
+            except Exception:  # noqa: BLE001
+                body = None
+        data = _normalize(body)
+        if not data:
+            raise PaymentNeeded(f"Flashpoint sent 402 without readable payment terms: {response.text[:300]}")
+        try:
+            payload = self.client.create_payment_payload(parse_payment_required(data))
+        except Exception as e:  # noqa: BLE001  (cap refusals land here)
+            raise PaymentNeeded(f"x402 payment not made: {e}") from e
+        name = "X-PAYMENT" if data["x402Version"] == 1 else "PAYMENT-SIGNATURE"
+        return name, encode_payment_signature_header(payload)
+
     # --- the two ways Flashpoint can ask for money -------------------------
     def session(self):
         """requests.Session that pays HTTP 402 responses automatically (within the caps)."""
@@ -168,6 +219,35 @@ class Wallet:
         except Exception as e:  # noqa: BLE001  (cap refusals land here)
             raise PaymentNeeded(f"x402 payment not made: {e}") from e
         return attach_payment_to_meta(params, payload)
+
+
+def _normalize(body: Any) -> dict | None:
+    """Flashpoint's 402 body: {"accepts": [...]} (x402 v1 style, network "base"). Fill optional fields."""
+    if isinstance(body, dict) and "accepts" not in body:
+        for k in ("error", "data"):
+            if isinstance(body.get(k), dict):
+                found = _normalize(body[k])
+                if found:
+                    return found
+        return None
+    if not isinstance(body, dict) or not isinstance(body.get("accepts"), list) or not body["accepts"]:
+        return None
+    out = dict(body)
+    v1 = any("maxAmountRequired" in a for a in body["accepts"])
+    out.setdefault("x402Version", 1 if v1 else 2)
+    accepts = []
+    for a in body["accepts"]:
+        a = dict(a)
+        a.setdefault("maxTimeoutSeconds", 300)
+        if v1:
+            a.setdefault("mimeType", "application/json")
+            a.setdefault("resource", "https://api.flashpoint.ai/mcp")
+            a.setdefault("description", "Flashpoint MCP tool")
+        if str(a.get("asset", "")).lower() in {u.lower() for u in USDC.values()}:
+            a.setdefault("extra", {"name": "USD Coin" if a.get("network") in ("base", "eip155:8453") else "USDC", "version": "2"})
+        accepts.append(a)
+    out["accepts"] = accepts
+    return out
 
 
 _wallet: Wallet | None = None

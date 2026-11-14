@@ -85,8 +85,9 @@ def main() -> int:
     ap.add_argument("--test-one-paid-call", action="store_true", help="allow ONE payment (otherwise nothing is paid)")
     ap.add_argument("--max-usd", default="0.10", help="most this script may pay, in USD (default 0.10)")
     ap.add_argument("--url", help="pay ONE x402 web URL (GET) instead of calling Flashpoint; needs --test-one-paid-call")
-    ap.add_argument("--tool", help="Flashpoint tool to call (no call without it)")
-    ap.add_argument("--args", default="{}", help="tool arguments as JSON")
+    ap.add_argument("--tool", default="chat", help="Flashpoint tool to call (default: chat, $0.01)")
+    ap.add_argument("--args", default='{"message": "Reply with one word: pong"}', help="tool arguments as JSON")
+    ap.add_argument("--list", action="store_true", help="only list Flashpoint's tools; call nothing")
     a = ap.parse_args()
 
     os.environ["X402_ENABLED"] = "false"  # build the wallet by hand below; the client stays unpaid unless asked
@@ -106,10 +107,13 @@ def main() -> int:
         return pay_url(w, a.url, a.test_one_paid_call)
 
     client = fp.MCPClient()  # payments OFF: a payment request stops with PaymentNeeded
+    try:
+        client.headers["Authorization"] = f"Bearer {w.sign_in(client.url)}"  # wallet JWT, free
+    except Exception as e:  # noqa: BLE001
+        print(f"\nWallet sign-in failed: {type(e).__name__}: {str(e)[:400]}")
+        return 1
     if a.test_one_paid_call:
         client.wallet = w
-        client.http = w.session()
-        client._post_kw = {"timeout": 600}
         print("\nPAID TEST: one payment allowed.")
     else:
         print("\nDRY RUN: no payment will be made.")
@@ -118,7 +122,7 @@ def main() -> int:
         client.initialize()
         tools = client.list_tools()
         print(f"Connected. {len(tools)} tools available: {', '.join(t['name'] for t in tools)}")
-        if not a.tool:
+        if a.list:
             words = ("x402", "pay", "usdc", "wallet", "price", "cost", "quote", "402")
             for t in tools:
                 desc = t.get("description", "") or ""

@@ -39,12 +39,10 @@ class MCPClient:
         # With X402_ENABLED, HTTP 402 answers are paid from the wallet (within the caps).
         # Otherwise this is the plain token-login client, and nothing is ever paid.
         self.wallet = wallet.from_env()
-        if self.wallet:
-            self.http = self.wallet.session()
-            self._post_kw = {"timeout": timeout}
-        else:
-            self.http = httpx.Client(timeout=timeout)
-            self._post_kw = {}
+        self.http = httpx.Client(timeout=timeout)
+        self._post_kw: dict = {}
+        if self.wallet:  # wallet agents sign in with the wallet; x402 is gated on that JWT
+            self.headers["Authorization"] = f"Bearer {self.wallet.sign_in(self.url)}"
         self.session_id: str | None = None
         self._ids = itertools.count(1)
         self._initialized = False
@@ -55,6 +53,9 @@ class MCPClient:
             headers["Mcp-Session-Id"] = self.session_id
             headers["MCP-Protocol-Version"] = PROTOCOL
         r = self.http.post(self.url, json=payload, headers=headers, **self._post_kw)
+        if r.status_code == 402 and self.wallet:
+            name, value = self.wallet.payment_header(r)  # raises PaymentNeeded past the caps
+            r = self.http.post(self.url, json=payload, headers={**headers, name: value}, **self._post_kw)
         if r.status_code == 402:
             raise wallet.PaymentNeeded(
                 "Flashpoint asked for payment (HTTP 402) and none was made. "
@@ -119,6 +120,8 @@ class MCPClient:
         return self.request("tools/list").get("tools", [])
 
     def call_tool(self, name: str, arguments: dict) -> dict:
+        if self.wallet and (name == "recruit" or (arguments or {}).get("action") == "recruit"):
+            raise wallet.PaymentNeeded("Refusing to recruit real respondents from the wallet (real money, provider costs).")
         params = {"name": name, "arguments": arguments}
         try:
             res = self.request("tools/call", params)

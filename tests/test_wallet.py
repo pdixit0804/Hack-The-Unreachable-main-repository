@@ -37,11 +37,26 @@ def fake_server(mode: str, usd: str):
 
         def do_POST(self):
             body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+            if self.path.endswith("/auth/wallet/challenge"):
+                return self._json({"nonce": "n1", "message_to_sign": "flashpoint-mcp-auth:n1", "expires_at": 0})
+            if self.path.endswith("/auth/wallet/token"):
+                from eth_account.messages import encode_defunct
+                who = eth_account.Account.recover_message(encode_defunct(text="flashpoint-mcp-auth:n1"),
+                                                          signature=body["signature"])
+                assert who.lower() == body["address"].lower()
+                return self._json({"token": "wallet-jwt"})
             if "id" not in body:
                 self.send_response(202); self.end_headers(); return
             if body["method"] == "tools/call":
                 params = body["params"]
-                paid_http = bool(self.headers.get("PAYMENT-SIGNATURE"))
+                paid_http = bool(self.headers.get("PAYMENT-SIGNATURE") or self.headers.get("X-PAYMENT"))
+                if mode == "flashpoint" and not paid_http:
+                    acc = requirement(usd)["accepts"][0]
+                    fp_body = {"accepts": [{"scheme": "exact", "network": "base", "asset": wallet.USDC["eip155:8453"],
+                                            "payTo": acc["payTo"], "maxAmountRequired": acc["amount"],
+                                            "resource": "https://api.flashpoint.ai/mcp", "description": "chat"}]}
+                    self.send_response(402); self.send_header("Content-Type", "application/json"); self.end_headers()
+                    self.wfile.write(json.dumps(fp_body).encode()); return
                 paid_meta = "x402/payment" in (params.get("_meta") or {})
                 if mode == "http" and not paid_http:
                     req = base64.b64encode(json.dumps(requirement(usd)).encode()).decode()
@@ -60,6 +75,12 @@ def fake_server(mode: str, usd: str):
             self.send_response(200); self.send_header("Content-Type", "application/json"); self.end_headers()
             self.wfile.write(out)
 
+    def _json(self, obj):
+        out = json.dumps(obj).encode()
+        self.send_response(200); self.send_header("Content-Type", "application/json"); self.end_headers()
+        self.wfile.write(out)
+
+    H._json = _json
     srv = HTTPServer(("127.0.0.1", 0), H)
     threading.Thread(target=srv.serve_forever, daemon=True).start()
     return srv, f"http://127.0.0.1:{srv.server_port}/mcp", seen
@@ -124,6 +145,20 @@ def test_per_run_cap_stops_second_payment(env, monkeypatch):
         c.call_tool("panel", {})  # 0.05 + 0.05 > 0.08 run cap
     srv.shutdown()
     assert seen["paid"] == 1 and len(c.wallet.payments) == 1
+
+
+def test_flashpoint_style_402_on_base(env, monkeypatch):
+    monkeypatch.setenv("X402_ENABLED", "true")
+    monkeypatch.setenv("X402_NETWORK", "eip155:8453")
+    srv, url, seen = fake_server("flashpoint", "0.01")
+    c = fp.MCPClient(url=url)
+    assert c.headers["Authorization"] == "Bearer wallet-jwt"
+    res = c.call_tool("chat", {"message": "pong"})
+    with pytest.raises(wallet.PaymentNeeded):
+        c.call_tool("panel", {"action": "recruit"})
+    srv.shutdown()
+    assert not res.get("isError") and seen["paid"] == 1
+    assert [(p["usd"], p["network"]) for p in c.wallet.payments] == [("0.01", "eip155:8453")]
 
 
 def test_mismatched_address_is_refused(env, monkeypatch):

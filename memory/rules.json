@@ -101,8 +101,46 @@
         "loss_frame",
         "long"
       ]
+    },
+    {
+      "at": "2026-11-14T16:13:45+00:00",
+      "adapter": "mock",
+      "personas": 40,
+      "batches": [
+        "batch1",
+        "batch2"
+      ],
+      "fragile_after_batch1": [
+        "jargon",
+        "loss_frame"
+      ],
+      "fragile_after_batch2": [
+        "jargon",
+        "negation",
+        "loss_frame"
+      ]
+    },
+    {
+      "at": "2026-11-14T16:13:57+00:00",
+      "adapter": "mock",
+      "personas": 40,
+      "batches": [
+        "batch1",
+        "batch2"
+      ],
+      "fragile_after_batch1": [
+        "jargon",
+        "loss_frame",
+        "long"
+      ],
+      "fragile_after_batch2": [
+        "jargon",
+        "negation",
+        "loss_frame",
+        "long"
+      ]
     }
   ],
-  "updated": "2026-11-14T15:55:48+00:00",
+  "updated": "2026-11-14T16:13:57+00:00",
   "n_observations": 55
 }

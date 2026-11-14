@@ -274,7 +274,9 @@ def ensure_panel(segment: str, n: int, log) -> str:
             "action": "create",
             "name": f"Stress-Tester panel {n}",
             "num_respondents": n,
-            "research_objective": "Rate how appealing short consumer-banking offers are, on a 1-10 scale.",
+            # Keep the objective neutral: in the trial, an objective that mentioned a rating made the
+            # generator bake an "appeal rating" attribute into every persona.
+            "research_objective": "Understand how people react to short consumer-banking marketing messages.",
             "context": f"Audience: {segment}.",
         },
         log,
@@ -338,6 +340,35 @@ def start_run(panel_id: str, survey_id: str, log) -> str:
     return jid
 
 
+_DONE = {"completed", "complete", "succeeded", "done"}
+_FAILED = {"failed", "interrupted", "error"}
+
+
+def _all_status(obj: Any, acc: list[str]) -> list[str]:
+    if isinstance(obj, dict):
+        if isinstance(obj.get("status"), str):
+            acc.append(obj["status"].lower())
+        for v in obj.values():
+            _all_status(v, acc)
+    elif isinstance(obj, list):
+        for v in obj:
+            _all_status(v, acc)
+    return acc
+
+
+def job_status(out: Any) -> str:
+    """Flashpoint wraps replies in a task envelope whose own status is "completed" even while the
+    panel job inside is still running, so only call a job done when every status in the reply is done."""
+    found = _all_status(out, [])
+    if not found:
+        return ""
+    if any(s in _FAILED for s in found):
+        return next(s for s in found if s in _FAILED)
+    if all(s in _DONE for s in found):
+        return "completed"
+    return next(s for s in found if s not in _DONE)
+
+
 def wait_jobs(jobs: dict[str, str], log, poll: int = 45, limit_min: int = 45) -> dict[str, Any]:
     done: dict[str, Any] = {}
     t0 = time.time()
@@ -346,7 +377,7 @@ def wait_jobs(jobs: dict[str, str], log, poll: int = 45, limit_min: int = 45) ->
             if sid in done:
                 continue
             out = _call("panel", {"action": "status", "job_id": jid}, log)
-            status = str(_find(out, ("status",)) or "").lower()
+            status = job_status(out)
             if status in ("completed", "complete", "succeeded", "done"):
                 done[sid] = out
             elif status in ("failed", "interrupted", "error"):

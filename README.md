@@ -29,7 +29,7 @@ Same offer, a 1.97-point swing. Asking the original twice moved it only 0.17 (8.
 * **Worst case, C06:** a 2.83-point swing, 3.1× the noise, p < 0.001.
 * **Memory learned one rule:** copy over about 22 words scores about 0.4 points lower (90% interval −0.65 to −0.1).
 * **Memory did not predict which unseen ads would be shaky.** It flagged 0 of the 4 shaky held-out ads in advance. Accuracy was 50%, the same as no memory, and the rank correlation between predicted and actual swing was about −0.05. Jargon and loss framing hurt scores on the simulated panel, where we built those effects in, but showed no clear effect on the live one. So you can't skip the stress test by eyeballing copy.
-* **Rewrites were not re-tested** in the live run (`--skip-rewrites`).
+* **Rewrites were not re-tested** in the live run (`--skip-rewrites`). To get suggested rewrites for the shaky held-out ads without touching the saved results, run `python scripts/rewrite_flagged.py`. It writes `outputs/rewrites_suggested.json` and `outputs/rewrite_requests.csv`. Those rewrites are unscored suggestions until someone runs them on a panel.
 
 | Wording pattern (learned from batch 1) | Simulated panel | Live panel |
 |---|---|---|

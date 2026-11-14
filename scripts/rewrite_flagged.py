@@ -48,7 +48,7 @@ def main() -> None:
     out = []
     for c in targets:
         rw = rewriter.rewrite(c["text"], rules1)
-        status = "no change needed" if rw.get("no_change") else ("rejected: meaning changed" if not rw["same_meaning"] else "accepted")
+        status = "no known fix: test in market" if rw.get("no_change") else ("rejected: meaning changed" if not rw["same_meaning"] else "accepted")
         out.append({
             "id": c["id"],
             "original": c["text"],

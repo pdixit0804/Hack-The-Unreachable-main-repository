@@ -72,7 +72,7 @@ def render(r: dict) -> str:
     caught = sum(bool(o.get("pred")) and o["unstable"] for o in r2)
     n_un2 = sum(bool(o["unstable"]) for o in r2)
     hab = [x for x in rules if x["effect"] < 0 and x["status"] != "not seen yet"]
-    hab_tiles = "".join(f'''<div class="hab{' weak' if x["status"] != "fragile" else ''}"><span class="hn">{E(FEAT.get(x["feature"], x["feature"]))}</span><span class="hx">{E(FEAT_EX.get(x["feature"], ""))}</span><b class="hv">{x["effect"]:+.1f}</b></div>''' for x in hab)
+    hab_tiles = "".join(f'''<div class="hab{' weak' if x["status"] != "fragile" else ''}"><span class="hn">{E(FEAT.get(x["feature"], x["feature"]))}{' <small class="weaktag">weak</small>' if x["status"] != "fragile" else ''}</span><span class="hx">{E(FEAT_EX.get(x["feature"], ""))}</span><b class="hv">{x["effect"]:+.1f}</b></div>''' for x in hab)
 
     page = f'''<title>FlashFeud</title>
     <meta name="claude:viewport-fit-sides" content="cover">
@@ -143,7 +143,7 @@ def render(r: dict) -> str:
     .hab{{border-top:4px solid var(--coral);background:var(--paper-2);padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px}}
     .hn{{font-weight:700}} .hx{{grid-column:1;color:var(--faint);font-size:14px}}
     .hv{{grid-column:2;grid-row:1/3;align-self:center;font-weight:800;font-size:32px;color:var(--coral)}}
-    .hab.weak{{border-top-color:var(--line)}} .hab.weak .hv{{color:var(--faint)}}
+    .weaktag{{font-weight:600;font-size:12px;color:var(--faint);text-transform:uppercase;letter-spacing:.04em;margin-left:6px}} .hab.weak{{border-top-color:var(--line)}} .hab.weak .hv{{color:var(--faint)}}
     .r2{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}}
     .c2{{background:var(--paper-2);padding:12px 14px;border-left:4px solid var(--mint)}} .c2.bad{{border-left-color:var(--coral)}}
     .c2 .top{{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:18px}}

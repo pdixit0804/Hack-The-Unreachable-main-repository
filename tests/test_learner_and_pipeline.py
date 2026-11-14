@@ -62,3 +62,18 @@ def test_offline_variants_have_no_doubled_words_and_can_drop_urgency():
     assert v["plain"].startswith("A savings account paying 4.10%")
     v2 = variants.rule_variants("Open an account today and get a $200 bonus. Limited time only.")
     assert "today" not in v2["alt"] and "Limited" not in v2["alt"]
+
+
+def test_rewrite_scoring_counts_only_actually_unstable_concepts(offline_workspace):
+    res = pipeline.run(adapter="mock", n=40, log=lambda *_: None)
+    b2 = {c["id"]: c for c in res["batch2"]["concepts"]}
+    imp, fa = res["improvement"], res["improvement_false_alarms"]
+    for summary, want_unstable in ((imp, True), (fa, False)):
+        if summary:
+            assert summary["n"] == len(summary["per_concept"])
+            for row in summary["per_concept"]:
+                assert b2[row["id"]]["unstable"] is want_unstable
+                assert row["lift_noise_95"] is None or row["lift_noise_95"] > 0
+    if imp:
+        # On the mock panel the rewrites drop planted fragile patterns, so the chosen wording should not get worse.
+        assert imp["fragile_after"] <= imp["fragile_before"]

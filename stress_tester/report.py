@@ -117,6 +117,7 @@ def _rules_table(rules, planted=None):
 def build(res: dict) -> Path:
     b1, b2 = res["batch1"]["concepts"], res["batch2"]["concepts"]
     ev, imp = res["evaluation"], res["improvement"]
+    fa = res.get("improvement_false_alarms")
     is_mock = res["adapter"] == "mock"
     every = b1 + b2
     hook = max(every, key=lambda r: r["spread"])
@@ -138,9 +139,9 @@ def build(res: dict) -> Path:
   <div class="big">{a['tp']} of {ev['n_unstable_actual']}</div>
   <div class="small">{a['fp']} false alarm(s). Accuracy {a['accuracy']:.0%} vs {bf['accuracy']:.0%} with no memory.
   Rank correlation of predicted vs actual spread: {_fmt(ev['spearman_after'])}.</div></div>
- <div class="card"><div class="muted small">Rewrites of fragile held-out concepts: avg wording spread</div>
-  <div class="big">{_fmt(imp['spread_before']) if imp else '–'} → {_fmt(imp['spread_after']) if imp else '–'}</div>
-  <div class="small">{(str(imp['n']) + ' rewritten, ' + str(imp['still_unstable']) + ' still unstable. Avg appeal ' + _fmt(imp['appeal_before']) + ' → ' + _fmt(imp['appeal_after'])) if imp else 'No concepts needed rewriting.'}</div></div>
+ <div class="card"><div class="muted small">Rewrites of unstable held-out concepts: appeal of the chosen wording</div>
+  <div class="big">{_fmt(imp['appeal_before']) if imp else '–'} → {_fmt(imp['appeal_after']) if imp else '–'}</div>
+  <div class="small">{(str(imp['n']) + ' rewritten; ' + str(imp['n_lift_beyond_noise']) + ' scored higher by more than run-to-run noise. Fragile patterns in the wording: ' + str(imp['fragile_before']) + ' → ' + str(imp['fragile_after']) + '. Wording spread ' + _fmt(imp['spread_before']) + ' → ' + _fmt(imp['spread_after']) + ' (' + str(imp['still_unstable']) + ' still wording-sensitive: the stress test re-adds fragile patterns, so a rewrite fixes the wording, not the idea).') if imp else 'No unstable concepts were rewritten.'}{(' False-alarm rewrites reported separately: ' + str(fa['n']) + '.') if fa else ''}</div></div>
  <div class="card"><div class="muted small">Did the winning concept change with wording?</div>
   <div class="big">{'Yes' if res['batch1']['flips']['winner_changes'] or res['batch2']['flips']['winner_changes'] else 'No'}</div>
   <div class="small">Batch 1 winners by wording set: {e(', '.join(sorted(set(res['batch1']['flips']['winners'].values()))))}. Batch 2: {e(', '.join(sorted(set(res['batch2']['flips']['winners'].values()))))}.</div></div>
@@ -148,7 +149,7 @@ def build(res: dict) -> Path:
   <div class="big">{res['panel_runs']}</div><div class="small">{res['personas']} personas each, {n2 + len(b1)} concepts + rewrites. Mean prediction error on spread: {_fmt(ev['mae_after'])} pts (vs {_fmt(ev['mae_before'])} with no memory).</div></div>
 </div>"""
 
-    market = [r for r in every if r["recommendation"] == "test in market"]
+    market = [r for r in every if "test in market" in r["recommendation"]]
     html_out = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Wording Stress-Tester</title><style>{CSS}</style></head><body><main>
 <h1>Wording Stress-Tester</h1>

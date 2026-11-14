@@ -34,8 +34,12 @@ def main():
     print(f"Memory predicted them before any panel run: {a['tp']} caught, {a['fn']} missed, {a['fp']} false alarms "
           f"(accuracy {a['accuracy']:.0%}; with no memory: {ev['before']['accuracy']:.0%})")
     if imp:
-        print(f"Rewrites: avg wording spread {imp['spread_before']:.2f} -> {imp['spread_after']:.2f} points "
-              f"({imp['still_unstable']} of {imp['n']} still unstable)")
+        print(f"Rewrites of {imp['n']} unstable concepts: appeal {imp['appeal_before']:.2f} -> {imp['appeal_after']:.2f} "
+              f"({imp['n_lift_beyond_noise']} beyond noise); fragile patterns {imp['fragile_before']} -> {imp['fragile_after']}; "
+              f"wording spread {imp['spread_before']:.2f} -> {imp['spread_after']:.2f} ({imp['still_unstable']} still wording-sensitive)")
+    fa = results.get("improvement_false_alarms")
+    if fa:
+        print(f"(Also rewrote {fa['n']} false alarm(s); reported separately, not in the numbers above.)")
     print(f"Report: {path}")
     if args.open:
         webbrowser.open(path.as_uri())

@@ -58,7 +58,8 @@ Covers the stability math, the Flashpoint response parser, the learner (recovers
 | Wording Stability Score (WSS) | spread ÷ noise baseline. ~1 = wording acts like noise; well above 1 = wording moves the answer |
 | Unstable | WSS ≥ 1.5 **and** spread ≥ 1 point **and** permutation p < 0.05 (answers shuffled across wordings 2,000×) |
 | Rules | least-squares fit of each variant's score shift on the features it added/removed; 90% bootstrap CI over concepts |
-| Improvement | on held-out batch 2: did memory flag the unstable concepts before running the panel (vs. no memory)? and are rewrites more stable than originals? |
+| Improvement | on held-out batch 2: did memory flag the unstable concepts before running the panel (vs. no memory)? |
+| Rewrites | scored only on concepts that were actually unstable (false-alarm rewrites reported separately). Headline: appeal of the rewrite vs. the original, beyond 95% run-to-run noise, and fragile patterns removed. Wording spread is also shown, but the stress test re-adds fragile patterns, so a rewrite fixes the chosen wording, not the idea's sensitivity. |
 
 ## Honest limits
 

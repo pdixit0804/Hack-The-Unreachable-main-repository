@@ -93,8 +93,10 @@ _PLAIN = [
     (r"\bFDIC\b", "U.S. government deposit insurance"),
     (r"\b12-month CD\b", "12-month savings certificate"),
     (r"\bCD\b", "savings certificate"),
-    (r"\bcompounded daily\b", "with interest added every day"),
-    (r"\bHigh-yield savings\b", "A savings account paying"),
+    (r",? compounded daily\b", ", with interest added every day"),
+    (r"added every day, with ", "added every day and "),
+    (r"^High-yield savings at\b", "A savings account paying"),
+    (r"\bHigh-yield savings\b", "A savings account that pays a high rate"),
 ]
 _POSITIVE = [
     (r"\bno monthly fees and no minimum balance\b", "$0 monthly fees and a $0 minimum balance"),
@@ -104,6 +106,10 @@ _POSITIVE = [
     (r"\bnever charges you\b", "doesn't charge you"),
     (r"\bDon't let inflation eat your savings\b", "Keep your savings ahead of inflation"),
     (r",? ever\.", " for life."),
+    # dropping time pressure changes the wording, not the offer
+    (r"^Act now:\s*(\w)", lambda m: m.group(1).upper()),
+    (r"\s*Limited time only\.?", ""),
+    (r"\s+today\b", ""),
 ]
 _LOSS_TO_GAIN = [
     (r"^Stop losing money to ([^.]+)\.", r"Keep more of your money: say goodbye to \1."),

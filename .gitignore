@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Wording Stress-Tester: mock panel runs are cheap to regenerate
+outputs/runs/mock/
+outputs/panel_requests.csv

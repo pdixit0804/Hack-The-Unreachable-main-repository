@@ -1,0 +1,104 @@
+{
+  "rules": [
+    {
+      "feature": "jargon",
+      "definition": "uses financial jargon or acronyms (APY, APR, FDIC, CD, compounding, variable rate, yield)",
+      "effect": -0.94,
+      "ci90": [
+        -1.17,
+        -0.72
+      ],
+      "n_variants": 5,
+      "n_concepts": 5,
+      "status": "fragile",
+      "rule": "When a wording adds jargon, synthetic appeal drops by about 0.9 points (90% CI -1.2 to -0.7; 5 variants, 5 concepts).",
+      "advice": "Concepts that depend on jargon are fragile; reword without it or test in market."
+    },
+    {
+      "feature": "negation",
+      "definition": "sells by saying what is NOT there (no fees, never, zero, without, don't)",
+      "effect": -0.44,
+      "ci90": [
+        -0.62,
+        -0.2
+      ],
+      "n_variants": 5,
+      "n_concepts": 4,
+      "status": "fragile",
+      "rule": "When a wording adds negation, synthetic appeal drops by about 0.4 points (90% CI -0.6 to -0.2; 5 variants, 4 concepts).",
+      "advice": "Concepts that depend on negation are fragile; reword without it or test in market."
+    },
+    {
+      "feature": "loss_frame",
+      "definition": "frames the offer as avoiding a loss (stop losing, don't let X eat, miss out, before it's gone)",
+      "effect": -0.73,
+      "ci90": [
+        -0.81,
+        -0.64
+      ],
+      "n_variants": 17,
+      "n_concepts": 16,
+      "status": "fragile",
+      "rule": "When a wording adds loss frame, synthetic appeal drops by about 0.7 points (90% CI -0.8 to -0.6; 17 variants, 16 concepts).",
+      "advice": "Concepts that depend on loss frame are fragile; reword without it or test in market."
+    },
+    {
+      "feature": "many_numbers",
+      "definition": "contains three or more separate numbers or percentages",
+      "effect": 0.33,
+      "ci90": [
+        0.0,
+        0.55
+      ],
+      "n_variants": 1,
+      "n_concepts": 1,
+      "status": "weak evidence"
+    },
+    {
+      "feature": "long",
+      "definition": "longer than about 22 words",
+      "effect": 0.0,
+      "ci90": [
+        0.0,
+        0.0
+      ],
+      "n_variants": 0,
+      "n_concepts": 0,
+      "status": "not seen yet"
+    },
+    {
+      "feature": "urgency",
+      "definition": "pressures the reader on time (today, now, limited time, act now, before rates drop)",
+      "effect": 0.0,
+      "ci90": [
+        0.0,
+        0.0
+      ],
+      "n_variants": 0,
+      "n_concepts": 0,
+      "status": "not seen yet"
+    }
+  ],
+  "history": [
+    {
+      "at": "2026-11-14T15:45:18+00:00",
+      "adapter": "mock",
+      "personas": 40,
+      "batches": [
+        "batch1",
+        "batch2"
+      ],
+      "fragile_after_batch1": [
+        "jargon",
+        "loss_frame"
+      ],
+      "fragile_after_batch2": [
+        "jargon",
+        "negation",
+        "loss_frame"
+      ]
+    }
+  ],
+  "updated": "2026-11-14T15:45:18+00:00",
+  "n_observations": 50
+}

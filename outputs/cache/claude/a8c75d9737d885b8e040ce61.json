@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Explains variable APR as a yearly rate that can change, keeps 19.99%, below national average, and no annual fee. Same facts."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same rate, comparison and no annual fee. 'Keeps more money in your pocket' is promotional framing, not a new fact or condition."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": false,
+      "reason": "'Saves you from the higher national average' implies guaranteed savings, which the original does not promise. 'Never' adds a permanence promise about the annual fee that the original does not make."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Only the order of the clauses changed. All facts and numbers are unchanged."
+    }
+  ]
+}

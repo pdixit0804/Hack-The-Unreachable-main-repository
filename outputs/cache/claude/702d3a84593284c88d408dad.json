@@ -1,0 +1,5 @@
+{
+  "rewrite": "Get 1.5 points per dollar, 3x on dining, 4x on streaming, plus 60,000 bonus points when you spend $4,000 in 3 months.",
+  "changed": "The original had no jargon or loss framing, so those patterns needed no fixes. The main issue was length: it ran 28 words, above the roughly 22-word threshold. I cut it to 23 words by changing \"Earn\" to \"Get,\" dropping the repeated \"points\" after 3x, and turning \"a 60,000-point welcome bonus after you spend\" into \"60,000 bonus points when you spend.\" One trade-off: the \"welcome\" label is gone. Every number, rate, category, spend threshold and time window is kept, so it still sits slightly above 22 words. Getting much shorter would mean removing an essential term.",
+  "same_meaning": true
+}

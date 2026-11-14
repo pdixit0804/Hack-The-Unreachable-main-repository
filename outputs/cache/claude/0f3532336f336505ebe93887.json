@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same mechanism: every card purchase rounded up, difference to savings."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same round-up on every card purchase with extra moved to savings; 'grow' is tone, not a new promise of interest."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Loss framing only; same facts and conditions."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same content reordered; every card purchase rounds up and difference goes to savings."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same rate (4.10% APY), daily compounding, no fees. It drops the 'high-yield' label, but that is descriptive, not a fact."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same 4.10% APY, daily compounding and zero fees. Only the tone changed."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Loss-aversion framing, but the facts are unchanged: 4.10% APY, daily compounding, zero fees. 'None of your savings' growth gets left behind' is rhetorical, not a new condition."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same elements in a different order."
+    }
+  ]
+}

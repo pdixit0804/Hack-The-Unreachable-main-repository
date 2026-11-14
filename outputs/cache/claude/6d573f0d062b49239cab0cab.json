@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": false,
+      "reason": "'Make sure your savings grow as fast as prices' turns the hedged 'help your savings keep pace' into a firmer guarantee, strengthening the promise."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same message: keep savings ahead of rising prices by switching to an account that keeps pace. Only the wording changes."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Loss framing ('eating away at your savings') presents the same idea, and the call to action is unchanged. This is an allowed framing change."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same two elements in reversed order, with the softer 'help' wording kept."
+    }
+  ]
+}

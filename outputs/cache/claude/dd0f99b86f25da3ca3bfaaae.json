@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": false,
+      "reason": "Narrows 'all your accounts' to 'bank accounts' and adds 'on one screen'; 'what you spend on' is close but the account scope changed."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same promise: all accounts in one view and a clear understanding of where money goes. 'Clear picture' is a minor softening of 'exactly' but acceptable wording."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Negative framing of the same two benefits: everything in one place and knowing where money goes. No facts added or dropped."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same facts, only the clause order is changed."
+    }
+  ]
+}

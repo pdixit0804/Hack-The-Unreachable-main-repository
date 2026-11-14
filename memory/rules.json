@@ -3,30 +3,30 @@
     {
       "feature": "jargon",
       "definition": "uses financial jargon or acronyms (APY, APR, FDIC, CD, compounding, variable rate, yield)",
-      "effect": -0.94,
+      "effect": -1.26,
       "ci90": [
-        -1.17,
-        -0.72
+        -1.38,
+        -0.75
       ],
-      "n_variants": 5,
-      "n_concepts": 5,
+      "n_variants": 4,
+      "n_concepts": 4,
       "status": "fragile",
-      "rule": "When a wording adds jargon, synthetic appeal drops by about 0.9 points (90% CI -1.2 to -0.7; 5 variants, 5 concepts).",
-      "advice": "Concepts that depend on jargon are fragile; reword without it or test in market."
+      "rule": "On a synthetic panel, jargon (APY, APR, FDIC) lowered appeal about 1.26 points on 1-10 (90% CI -1.38 to -0.75; 4 variants, 4 concepts); fragile.",
+      "advice": "Prefer plain words over acronyms where possible, but treat this as a tentative signal and test with real customers before making it a rule."
     },
     {
       "feature": "negation",
       "definition": "sells by saying what is NOT there (no fees, never, zero, without, don't)",
-      "effect": -0.44,
+      "effect": -0.55,
       "ci90": [
-        -0.62,
-        -0.2
+        -0.68,
+        -0.46
       ],
-      "n_variants": 5,
-      "n_concepts": 4,
+      "n_variants": 8,
+      "n_concepts": 6,
       "status": "fragile",
-      "rule": "When a wording adds negation, synthetic appeal drops by about 0.4 points (90% CI -0.6 to -0.2; 5 variants, 4 concepts).",
-      "advice": "Concepts that depend on negation are fragile; reword without it or test in market."
+      "rule": "On a synthetic panel, selling by absence (no fees, never, zero) lowered appeal about 0.55 points (90% CI -0.68 to -0.46; 8 variants, 6 concepts); fragile.",
+      "advice": "Try stating what customers get rather than what is missing, and confirm with real-audience testing since the finding is fragile."
     },
     {
       "feature": "loss_frame",
@@ -34,54 +34,56 @@
       "effect": -0.73,
       "ci90": [
         -0.81,
-        -0.64
+        -0.63
       ],
-      "n_variants": 17,
-      "n_concepts": 16,
+      "n_variants": 14,
+      "n_concepts": 10,
       "status": "fragile",
-      "rule": "When a wording adds loss frame, synthetic appeal drops by about 0.7 points (90% CI -0.8 to -0.6; 17 variants, 16 concepts).",
-      "advice": "Concepts that depend on loss frame are fragile; reword without it or test in market."
+      "rule": "On a synthetic panel, loss framing (stop losing, miss out) lowered appeal about 0.73 points (90% CI -0.81 to -0.63; 14 variants, 10 concepts); fragile.",
+      "advice": "Lean toward gain-framed messages over loss or urgency framing, while validating with real customers before treating this as settled."
     },
     {
       "feature": "many_numbers",
       "definition": "contains three or more separate numbers or percentages",
-      "effect": 0.33,
+      "effect": 0.0,
       "ci90": [
         0.0,
-        0.55
+        0.0
       ],
-      "n_variants": 1,
-      "n_concepts": 1,
-      "status": "weak evidence"
+      "n_variants": 0,
+      "n_concepts": 0,
+      "status": "not seen yet"
     },
     {
       "feature": "long",
       "definition": "longer than about 22 words",
-      "effect": 0.0,
+      "effect": -0.42,
       "ci90": [
-        0.0,
-        0.0
+        -0.53,
+        -0.08
       ],
-      "n_variants": 0,
-      "n_concepts": 0,
-      "status": "not seen yet"
+      "n_variants": 7,
+      "n_concepts": 5,
+      "status": "fragile",
+      "rule": "On a synthetic panel, copy over about 22 words lowered appeal about 0.42 points (90% CI -0.53 to -0.08; 7 variants, 5 concepts); fragile, possibly small.",
+      "advice": "Aim for concise copy under roughly 22 words when practical, but the effect may be small, so verify with real-audience tests."
     },
     {
       "feature": "urgency",
       "definition": "pressures the reader on time (today, now, limited time, act now, before rates drop)",
-      "effect": 0.0,
+      "effect": 0.07,
       "ci90": [
-        0.0,
-        0.0
+        -0.4,
+        0.15
       ],
-      "n_variants": 0,
-      "n_concepts": 0,
-      "status": "not seen yet"
+      "n_variants": 1,
+      "n_concepts": 1,
+      "status": "weak evidence"
     }
   ],
   "history": [
     {
-      "at": "2026-11-14T15:45:18+00:00",
+      "at": "2026-11-14T15:55:48+00:00",
       "adapter": "mock",
       "personas": 40,
       "batches": [
@@ -90,15 +92,17 @@
       ],
       "fragile_after_batch1": [
         "jargon",
-        "loss_frame"
+        "loss_frame",
+        "long"
       ],
       "fragile_after_batch2": [
         "jargon",
         "negation",
-        "loss_frame"
+        "loss_frame",
+        "long"
       ]
     }
   ],
-  "updated": "2026-11-14T15:45:18+00:00",
-  "n_observations": 50
+  "updated": "2026-11-14T15:55:48+00:00",
+  "n_observations": 55
 }

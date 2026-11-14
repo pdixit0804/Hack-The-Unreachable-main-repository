@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "All rates, the bonus, the spend threshold, and the timeframe are preserved. 'Restaurants' is a reasonable paraphrase of dining."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Triple and quadruple equal 3x and 4x. 'First 3 months' only makes explicit the usual reading of 'in 3 months'. Bonus and threshold are unchanged."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Loss framing changes the tone but not the facts, numbers, or conditions."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same terms in a different order. 'On everything else' reflects the implied base earn rate."
+    }
+  ]
+}

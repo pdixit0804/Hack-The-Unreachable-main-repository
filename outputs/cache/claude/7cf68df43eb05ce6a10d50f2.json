@@ -1,0 +1,19 @@
+{
+  "rules": [
+    {
+      "feature": "jargon",
+      "rule": "On a synthetic AI panel, financial jargon (APY, FDIC, compounding) lowered appeal by 1.27 points on 1-10 (90% CI -1.38 to -0.99), but only 3 variants across 3 concepts; fragile.",
+      "advice": "Lean toward plain-language alternatives to acronyms and finance terms, but treat this as a hypothesis to test with real customers, not a settled rule."
+    },
+    {
+      "feature": "loss_frame",
+      "rule": "On a synthetic AI panel, loss framing (\"stop losing,\" \"before it's gone\") lowered appeal by 0.81 points (90% CI -0.87 to -0.69), across 6 variants and 5 concepts; fragile.",
+      "advice": "Consider leading with what customers gain rather than what they lose, and confirm with a real-audience test before dropping loss frames entirely."
+    },
+    {
+      "feature": "long",
+      "rule": "On a synthetic AI panel, copy over about 22 words lowered appeal by 0.43 points (90% CI -0.51 to -0.13), across 7 variants and 5 concepts; fragile, small effect.",
+      "advice": "Where possible, trim copy to roughly 22 words or fewer, but don't sacrifice key information; validate with real customers since the effect is small and uncertain."
+    }
+  ]
+}

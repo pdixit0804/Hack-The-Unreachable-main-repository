@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same account, same goal-setting help; 'gets bigger as your life changes' paraphrases 'grows with you'."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": false,
+      "reason": "'Support you all the way to it' strengthens 'help you reach it' into an implied promise of seeing the goal through. Dropping 'account' also blurs what the product is."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": false,
+      "reason": "'Make sure you don't fall short' turns help into something close to a guarantee. 'Won't leave you behind' does not mean the account grows."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same claims and promise, only reordered."
+    }
+  ]
+}

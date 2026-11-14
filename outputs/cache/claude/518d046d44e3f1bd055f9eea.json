@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Explains APY as yearly return with compounding; same rate, no monthly fees, no minimum balance."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same rate, no monthly fees, no minimum balance; only wording changed."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Loss-framed tone, but the facts are the same: 4.25% APY, no monthly fees, no minimum balance."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same three facts in a different order."
+    }
+  ]
+}

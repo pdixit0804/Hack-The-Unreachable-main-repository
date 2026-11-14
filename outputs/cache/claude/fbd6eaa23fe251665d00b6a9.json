@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Rising prices = inflation; 'grows as fast as prices go up' restates 'keeps up'. No facts added or dropped."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "Same promise with different wording: 'keeps pace' = 'keeps up', and 'switch' = 'move'."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Positive framing of the same promise. 'Keeps up with inflation' only makes explicit what the original implied."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same two statements in a different order. Nothing added or removed."
+    }
+  ]
+}

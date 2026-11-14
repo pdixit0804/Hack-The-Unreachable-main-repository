@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same rates, categories, portal condition, and $1,500 cap; 'every three months' equals per quarter."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": false,
+      "reason": "It says the cap is '$1,500 in rewards' each quarter. The original's '$1,500 per quarter' does not say whether the cap applies to rewards or to spending, so the rewrite narrows a condition."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Only the loss-aversion framing is added; all rates, conditions, and the cap are unchanged."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same rates, categories, portal condition, and quarterly cap. 'Every other purchase' only makes explicit the usual non-stacking reading of the base 2% rate."
+    }
+  ]
+}

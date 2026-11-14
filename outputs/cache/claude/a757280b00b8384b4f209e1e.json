@@ -1,0 +1,24 @@
+{
+  "rules": [
+    {
+      "feature": "jargon",
+      "rule": "On a synthetic panel, jargon (APY, APR, FDIC) lowered appeal about 1.26 points on 1-10 (90% CI -1.38 to -0.75; 4 variants, 4 concepts); fragile.",
+      "advice": "Prefer plain words over acronyms where possible, but treat this as a tentative signal and test with real customers before making it a rule."
+    },
+    {
+      "feature": "negation",
+      "rule": "On a synthetic panel, selling by absence (no fees, never, zero) lowered appeal about 0.55 points (90% CI -0.68 to -0.46; 8 variants, 6 concepts); fragile.",
+      "advice": "Try stating what customers get rather than what is missing, and confirm with real-audience testing since the finding is fragile."
+    },
+    {
+      "feature": "loss_frame",
+      "rule": "On a synthetic panel, loss framing (stop losing, miss out) lowered appeal about 0.73 points (90% CI -0.81 to -0.63; 14 variants, 10 concepts); fragile.",
+      "advice": "Lean toward gain-framed messages over loss or urgency framing, while validating with real customers before treating this as settled."
+    },
+    {
+      "feature": "long",
+      "rule": "On a synthetic panel, copy over about 22 words lowered appeal about 0.42 points (90% CI -0.53 to -0.08; 7 variants, 5 concepts); fragile, possibly small.",
+      "advice": "Aim for concise copy under roughly 22 words when practical, but the effect may be small, so verify with real-audience tests."
+    }
+  ]
+}

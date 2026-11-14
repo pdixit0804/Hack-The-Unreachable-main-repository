@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "All rates (1.5x base, 3x dining, 4x streaming), the 60,000-point bonus, and the $4,000-in-3-months condition are preserved. 'Within your first 3 months' is a faithful reading of 'in 3 months'."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "'Triple' and 'quadruple' equal 3x and 4x, and 'restaurants' is a reasonable stand-in for dining. The bonus amount and spend condition are unchanged."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "This is a loss-framed restatement. The forfeit clause applies only to the welcome bonus, which matches the original condition, and all numbers are unchanged."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Only the order changes. 'On everything else' just makes explicit that 1.5x is the base rate for other purchases, and all numbers and conditions are intact."
+    }
+  ]
+}

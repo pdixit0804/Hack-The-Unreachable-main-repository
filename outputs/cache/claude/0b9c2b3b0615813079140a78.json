@@ -1,0 +1,5 @@
+{
+  "rewrite": "Lock in a 12-month CD at 4.5% APY today.",
+  "changed": "Removed the loss frame 'before rates drop' (it implies avoiding a loss and also makes an unstated prediction about future rates). Softened 'Act now' to 'today' to keep a light call to action without urgency pressure. Kept the term (12-month), product (CD), and rate (4.5% APY) unchanged.",
+  "same_meaning": true
+}

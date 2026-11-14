@@ -1,0 +1,24 @@
+{
+  "checks": [
+    {
+      "kind": "plain",
+      "same_meaning": true,
+      "reason": "Same action (open/sign up for account today), same $200 bonus, and 'won't last long' conveys limited time."
+    },
+    {
+      "kind": "alt",
+      "same_meaning": true,
+      "reason": "'Start your account' equals opening one; $200 bonus and limited-time condition preserved."
+    },
+    {
+      "kind": "frame_flip",
+      "same_meaning": true,
+      "reason": "Loss-framed wording only; account opening today, $200 bonus, and limited time all retained."
+    },
+    {
+      "kind": "reordered",
+      "same_meaning": true,
+      "reason": "Same facts reordered; the 'when you open' conditional matches the original's implied condition."
+    }
+  ]
+}

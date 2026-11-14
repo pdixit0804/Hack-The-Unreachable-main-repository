@@ -3,13 +3,13 @@
   "concept": "C01",
   "batch": "batch1",
   "kind": "plain",
-  "delta": 0.8250000000000002,
+  "delta": 1.0250000000000004,
   "x": {
    "jargon": -1,
    "negation": 0,
    "loss_frame": 0,
    "many_numbers": 0,
-   "long": 0,
+   "long": 1,
    "urgency": 0
   }
  },
@@ -17,12 +17,12 @@
   "concept": "C01",
   "batch": "batch1",
   "kind": "alt",
-  "delta": 0.8000000000000007,
+  "delta": 0.30000000000000027,
   "x": {
    "jargon": 0,
-   "negation": -1,
+   "negation": 0,
    "loss_frame": 0,
-   "many_numbers": 1,
+   "many_numbers": 0,
    "long": 0,
    "urgency": 0
   }
@@ -31,7 +31,7 @@
   "concept": "C01",
   "batch": "batch1",
   "kind": "frame_flip",
-  "delta": -0.5249999999999995,
+  "delta": -0.6499999999999995,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -45,13 +45,27 @@
   "concept": "C01",
   "batch": "batch1",
   "kind": "reordered",
-  "delta": 0.22500000000000053,
+  "delta": -0.24999999999999956,
   "x": {
    "jargon": 0,
    "negation": 0,
    "loss_frame": 0,
    "many_numbers": 0,
    "long": 0,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C02",
+  "batch": "batch1",
+  "kind": "plain",
+  "delta": -0.5,
+  "x": {
+   "jargon": 0,
+   "negation": 0,
+   "loss_frame": 0,
+   "many_numbers": 0,
+   "long": 1,
    "urgency": 0
   }
  },
@@ -59,34 +73,6 @@
   "concept": "C02",
   "batch": "batch1",
   "kind": "alt",
-  "delta": -0.27499999999999947,
-  "x": {
-   "jargon": 0,
-   "negation": 0,
-   "loss_frame": 0,
-   "many_numbers": 0,
-   "long": 0,
-   "urgency": 0
-  }
- },
- {
-  "concept": "C02",
-  "batch": "batch1",
-  "kind": "frame_flip",
-  "delta": -0.7999999999999998,
-  "x": {
-   "jargon": 0,
-   "negation": 0,
-   "loss_frame": 1,
-   "many_numbers": 0,
-   "long": 0,
-   "urgency": 0
-  }
- },
- {
-  "concept": "C02",
-  "batch": "batch1",
-  "kind": "reordered",
   "delta": 0.025000000000000355,
   "x": {
    "jargon": 0,
@@ -98,10 +84,24 @@
   }
  },
  {
-  "concept": "C03",
+  "concept": "C02",
   "batch": "batch1",
-  "kind": "alt",
-  "delta": -0.16250000000000053,
+  "kind": "frame_flip",
+  "delta": -1.2749999999999995,
+  "x": {
+   "jargon": 0,
+   "negation": 0,
+   "loss_frame": 1,
+   "many_numbers": 0,
+   "long": 1,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C02",
+  "batch": "batch1",
+  "kind": "reordered",
+  "delta": -0.07499999999999929,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -114,8 +114,22 @@
  {
   "concept": "C03",
   "batch": "batch1",
-  "kind": "frame_flip",
-  "delta": 0.6374999999999993,
+  "kind": "plain",
+  "delta": 0.4874999999999998,
+  "x": {
+   "jargon": 0,
+   "negation": 0,
+   "loss_frame": -1,
+   "many_numbers": 0,
+   "long": 1,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C03",
+  "batch": "batch1",
+  "kind": "alt",
+  "delta": 0.7624999999999993,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -129,7 +143,7 @@
   "concept": "C03",
   "batch": "batch1",
   "kind": "reordered",
-  "delta": 0.08749999999999947,
+  "delta": -0.1875,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -142,8 +156,8 @@
  {
   "concept": "C04",
   "batch": "batch1",
-  "kind": "alt",
-  "delta": -0.5749999999999993,
+  "kind": "plain",
+  "delta": -0.25,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -157,10 +171,10 @@
   "concept": "C04",
   "batch": "batch1",
   "kind": "frame_flip",
-  "delta": -0.4249999999999998,
+  "delta": -1.3999999999999995,
   "x": {
    "jargon": 0,
-   "negation": 0,
+   "negation": 1,
    "loss_frame": 1,
    "many_numbers": 0,
    "long": 0,
@@ -171,7 +185,7 @@
   "concept": "C04",
   "batch": "batch1",
   "kind": "reordered",
-  "delta": 0.10000000000000053,
+  "delta": -0.09999999999999964,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -184,26 +198,12 @@
  {
   "concept": "C05",
   "batch": "batch1",
-  "kind": "alt",
-  "delta": 0.17499999999999982,
+  "kind": "plain",
+  "delta": 0.0,
   "x": {
    "jargon": 0,
    "negation": 0,
    "loss_frame": 0,
-   "many_numbers": 0,
-   "long": 0,
-   "urgency": 0
-  }
- },
- {
-  "concept": "C05",
-  "batch": "batch1",
-  "kind": "frame_flip",
-  "delta": -0.5250000000000004,
-  "x": {
-   "jargon": 0,
-   "negation": 0,
-   "loss_frame": 1,
    "many_numbers": 0,
    "long": 0,
    "urgency": 0
@@ -213,7 +213,7 @@
   "concept": "C05",
   "batch": "batch1",
   "kind": "reordered",
-  "delta": -0.20000000000000018,
+  "delta": 0.024999999999999467,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -227,13 +227,13 @@
   "concept": "C06",
   "batch": "batch1",
   "kind": "plain",
-  "delta": 0.6124999999999998,
+  "delta": 0.7624999999999993,
   "x": {
    "jargon": -1,
    "negation": 0,
    "loss_frame": 0,
    "many_numbers": 0,
-   "long": 0,
+   "long": 1,
    "urgency": 0
   }
  },
@@ -241,27 +241,13 @@
   "concept": "C06",
   "batch": "batch1",
   "kind": "alt",
-  "delta": 0.16249999999999964,
-  "x": {
-   "jargon": 0,
-   "negation": -1,
-   "loss_frame": 0,
-   "many_numbers": 0,
-   "long": 0,
-   "urgency": 0
-  }
- },
- {
-  "concept": "C06",
-  "batch": "batch1",
-  "kind": "frame_flip",
-  "delta": -0.7625000000000002,
+  "delta": -0.5875000000000004,
   "x": {
    "jargon": 0,
    "negation": 0,
-   "loss_frame": 1,
+   "loss_frame": 0,
    "many_numbers": 0,
-   "long": 0,
+   "long": 1,
    "urgency": 0
   }
  },
@@ -269,7 +255,7 @@
   "concept": "C06",
   "batch": "batch1",
   "kind": "reordered",
-  "delta": -0.2625000000000002,
+  "delta": -0.33750000000000036,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -282,8 +268,22 @@
  {
   "concept": "C07",
   "batch": "batch1",
+  "kind": "plain",
+  "delta": -0.36249999999999893,
+  "x": {
+   "jargon": 0,
+   "negation": 1,
+   "loss_frame": 0,
+   "many_numbers": 0,
+   "long": 0,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C07",
+  "batch": "batch1",
   "kind": "alt",
-  "delta": -0.33749999999999947,
+  "delta": -0.037499999999999645,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -297,10 +297,10 @@
   "concept": "C07",
   "batch": "batch1",
   "kind": "frame_flip",
-  "delta": -0.5124999999999993,
+  "delta": -1.2624999999999993,
   "x": {
    "jargon": 0,
-   "negation": 0,
+   "negation": 1,
    "loss_frame": 1,
    "many_numbers": 0,
    "long": 0,
@@ -325,9 +325,23 @@
   "concept": "C08",
   "batch": "batch1",
   "kind": "plain",
-  "delta": 0.9874999999999998,
+  "delta": 0.8624999999999998,
   "x": {
    "jargon": -1,
+   "negation": 0,
+   "loss_frame": 0,
+   "many_numbers": 0,
+   "long": 1,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C08",
+  "batch": "batch1",
+  "kind": "alt",
+  "delta": -0.46250000000000036,
+  "x": {
+   "jargon": 0,
    "negation": 0,
    "loss_frame": 0,
    "many_numbers": 0,
@@ -339,11 +353,11 @@
   "concept": "C08",
   "batch": "batch1",
   "kind": "frame_flip",
-  "delta": -1.0125000000000002,
+  "delta": 0.13750000000000018,
   "x": {
    "jargon": 0,
    "negation": 0,
-   "loss_frame": 1,
+   "loss_frame": 0,
    "many_numbers": 0,
    "long": 0,
    "urgency": 0
@@ -353,7 +367,7 @@
   "concept": "C08",
   "batch": "batch1",
   "kind": "reordered",
-  "delta": 0.16249999999999964,
+  "delta": 0.0625,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -367,9 +381,9 @@
   "concept": "C09",
   "batch": "batch2",
   "kind": "plain",
-  "delta": 1.4625000000000004,
+  "delta": 0.03750000000000053,
   "x": {
-   "jargon": -1,
+   "jargon": 0,
    "negation": 0,
    "loss_frame": 0,
    "many_numbers": 0,
@@ -381,10 +395,10 @@
   "concept": "C09",
   "batch": "batch2",
   "kind": "alt",
-  "delta": 0.6625000000000005,
+  "delta": 0.16250000000000053,
   "x": {
    "jargon": 0,
-   "negation": -1,
+   "negation": 0,
    "loss_frame": 0,
    "many_numbers": 0,
    "long": 0,
@@ -395,7 +409,7 @@
   "concept": "C09",
   "batch": "batch2",
   "kind": "frame_flip",
-  "delta": -1.1124999999999998,
+  "delta": -0.6874999999999996,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -409,7 +423,21 @@
   "concept": "C09",
   "batch": "batch2",
   "kind": "reordered",
-  "delta": 0.33750000000000036,
+  "delta": 0.0625,
+  "x": {
+   "jargon": 0,
+   "negation": 0,
+   "loss_frame": 0,
+   "many_numbers": 0,
+   "long": 0,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C10",
+  "batch": "batch2",
+  "kind": "plain",
+  "delta": -0.08750000000000036,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -423,7 +451,7 @@
   "concept": "C10",
   "batch": "batch2",
   "kind": "alt",
-  "delta": 0.1875,
+  "delta": -0.16250000000000053,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -437,11 +465,11 @@
   "concept": "C10",
   "batch": "batch2",
   "kind": "frame_flip",
-  "delta": -0.8875000000000002,
+  "delta": 0.11249999999999982,
   "x": {
    "jargon": 0,
    "negation": 0,
-   "loss_frame": 1,
+   "loss_frame": 0,
    "many_numbers": 0,
    "long": 0,
    "urgency": 0
@@ -464,8 +492,22 @@
  {
   "concept": "C11",
   "batch": "batch2",
+  "kind": "plain",
+  "delta": 0.16249999999999964,
+  "x": {
+   "jargon": 0,
+   "negation": 0,
+   "loss_frame": 0,
+   "many_numbers": 0,
+   "long": 0,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C11",
+  "batch": "batch2",
   "kind": "alt",
-  "delta": 1.2874999999999996,
+  "delta": 1.3624999999999998,
   "x": {
    "jargon": 0,
    "negation": -1,
@@ -479,7 +521,7 @@
   "concept": "C11",
   "batch": "batch2",
   "kind": "frame_flip",
-  "delta": 1.1124999999999998,
+  "delta": 1.4124999999999996,
   "x": {
    "jargon": 0,
    "negation": -1,
@@ -493,7 +535,7 @@
   "concept": "C11",
   "batch": "batch2",
   "kind": "reordered",
-  "delta": -0.08750000000000036,
+  "delta": -0.1875,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -507,11 +549,11 @@
   "concept": "C12",
   "batch": "batch2",
   "kind": "plain",
-  "delta": -0.08750000000000036,
+  "delta": -0.8375000000000004,
   "x": {
    "jargon": 0,
    "negation": 0,
-   "loss_frame": 0,
+   "loss_frame": 1,
    "many_numbers": 0,
    "long": 0,
    "urgency": 0
@@ -521,7 +563,7 @@
   "concept": "C12",
   "batch": "batch2",
   "kind": "alt",
-  "delta": -0.03750000000000053,
+  "delta": 0.16249999999999964,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -535,10 +577,10 @@
   "concept": "C12",
   "batch": "batch2",
   "kind": "frame_flip",
-  "delta": -0.8875000000000011,
+  "delta": -1.2125000000000008,
   "x": {
    "jargon": 0,
-   "negation": 0,
+   "negation": 1,
    "loss_frame": 1,
    "many_numbers": 0,
    "long": 0,
@@ -549,7 +591,7 @@
   "concept": "C12",
   "batch": "batch2",
   "kind": "reordered",
-  "delta": -0.3125000000000009,
+  "delta": 0.01249999999999929,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -563,7 +605,7 @@
   "concept": "C13",
   "batch": "batch2",
   "kind": "alt",
-  "delta": -0.08749999999999947,
+  "delta": 0.012500000000000178,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -577,7 +619,7 @@
   "concept": "C13",
   "batch": "batch2",
   "kind": "frame_flip",
-  "delta": -0.5874999999999995,
+  "delta": -0.46249999999999947,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -588,10 +630,10 @@
   }
  },
  {
-  "concept": "C14",
+  "concept": "C13",
   "batch": "batch2",
-  "kind": "alt",
-  "delta": -1.0,
+  "kind": "reordered",
+  "delta": 0.0625,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -604,12 +646,40 @@
  {
   "concept": "C14",
   "batch": "batch2",
-  "kind": "frame_flip",
-  "delta": -0.7750000000000004,
+  "kind": "plain",
+  "delta": 0.09999999999999964,
   "x": {
    "jargon": 0,
    "negation": 0,
-   "loss_frame": 1,
+   "loss_frame": 0,
+   "many_numbers": 0,
+   "long": 0,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C14",
+  "batch": "batch2",
+  "kind": "alt",
+  "delta": -0.34999999999999964,
+  "x": {
+   "jargon": 0,
+   "negation": 0,
+   "loss_frame": 0,
+   "many_numbers": 0,
+   "long": 0,
+   "urgency": 0
+  }
+ },
+ {
+  "concept": "C14",
+  "batch": "batch2",
+  "kind": "reordered",
+  "delta": -0.3250000000000002,
+  "x": {
+   "jargon": 0,
+   "negation": 0,
+   "loss_frame": 0,
    "many_numbers": 0,
    "long": 0,
    "urgency": 0
@@ -619,21 +689,21 @@
   "concept": "C15",
   "batch": "batch2",
   "kind": "plain",
-  "delta": 0.9250000000000007,
+  "delta": 1.3750000000000009,
   "x": {
    "jargon": -1,
-   "negation": 0,
-   "loss_frame": 0,
+   "negation": 1,
+   "loss_frame": -1,
    "many_numbers": 0,
    "long": 0,
-   "urgency": 0
+   "urgency": -1
   }
  },
  {
   "concept": "C15",
   "batch": "batch2",
-  "kind": "frame_flip",
-  "delta": 0.3750000000000009,
+  "kind": "alt",
+  "delta": 0.5000000000000009,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -660,8 +730,8 @@
  {
   "concept": "C16",
   "batch": "batch2",
-  "kind": "alt",
-  "delta": 0.0625,
+  "kind": "plain",
+  "delta": -0.6124999999999998,
   "x": {
    "jargon": 0,
    "negation": 0,
@@ -675,11 +745,11 @@
   "concept": "C16",
   "batch": "batch2",
   "kind": "frame_flip",
-  "delta": -1.1124999999999998,
+  "delta": -0.5124999999999993,
   "x": {
    "jargon": 0,
-   "negation": 0,
-   "loss_frame": 1,
+   "negation": 1,
+   "loss_frame": 0,
    "many_numbers": 0,
    "long": 0,
    "urgency": 0
@@ -689,7 +759,7 @@
   "concept": "C16",
   "batch": "batch2",
   "kind": "reordered",
-  "delta": -0.28749999999999964,
+  "delta": -0.0625,
   "x": {
    "jargon": 0,
    "negation": 0,

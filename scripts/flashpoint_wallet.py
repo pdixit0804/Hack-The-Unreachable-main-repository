@@ -49,10 +49,42 @@ def balances(address: str, network: str) -> tuple[str, str]:
         return f"(couldn't read: {type(e).__name__})", "-"
 
 
+def pay_url(w, url: str, allowed: bool) -> int:
+    """GET an x402-protected URL; pay its 402 once (within the cap) only if allowed."""
+    import base64
+
+    import requests
+
+    http = w.session() if allowed else requests.Session()
+    print(f"\n{'PAID TEST' if allowed else 'DRY RUN'}: GET {url}")
+    try:
+        r = http.get(url, timeout=120)
+    except Exception as e:  # noqa: BLE001  (cap refusals land here)
+        print(f"Not paid: {type(e).__name__}: {str(e)[:400]}")
+        return 1
+    print(f"HTTP {r.status_code}\n{r.text[:600]}")
+    receipt = r.headers.get("PAYMENT-RESPONSE") or r.headers.get("X-PAYMENT-RESPONSE")
+    if receipt:
+        try:
+            info = json.loads(base64.b64decode(receipt))
+        except Exception:  # noqa: BLE001
+            info = {"raw": receipt[:200]}
+        print(f"\nReceipt: {json.dumps(info, indent=2)}")
+        tx = info.get("transaction") or info.get("txHash")
+        if tx:
+            scan = "sepolia.basescan.org" if w.network == "eip155:84532" else "basescan.org"
+            print(f"Transaction: https://{scan}/tx/{tx}")
+    if r.status_code == 402 and not allowed:
+        print("\nThis URL wants payment. Add --test-one-paid-call to pay it once.")
+    print(f"\nPaid: {json.dumps(w.payments, indent=2)}" if w.payments else "\nNo payment was made.")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--test-one-paid-call", action="store_true", help="allow ONE payment (otherwise nothing is paid)")
     ap.add_argument("--max-usd", default="0.10", help="most this script may pay, in USD (default 0.10)")
+    ap.add_argument("--url", help="pay ONE x402 web URL (GET) instead of calling Flashpoint; needs --test-one-paid-call")
     ap.add_argument("--tool", help="Flashpoint tool to call (no call without it)")
     ap.add_argument("--args", default="{}", help="tool arguments as JSON")
     a = ap.parse_args()
@@ -69,6 +101,9 @@ def main() -> int:
     print(f"Network {w.network}   balance {usdc}, {eth}")
     print(f"Cap     at most ${cap} in total for this script")
     print(f"Token login: {'set' if os.getenv('FLASHPOINT_TOKEN') else 'not set'}")
+
+    if a.url:
+        return pay_url(w, a.url, a.test_one_paid_call)
 
     client = fp.MCPClient()  # payments OFF: a payment request stops with PaymentNeeded
     if a.test_one_paid_call:

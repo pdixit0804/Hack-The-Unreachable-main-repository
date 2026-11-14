@@ -421,9 +421,51 @@ def _per_question(obj: Any, codes: list[str]) -> dict[str, list[int]]:
     return out
 
 
+def counts_to_answers(obj: Any) -> dict[str, list[int]]:
+    """Find {code: {"1": count, ..., "10": count}} anywhere in a reply (dict, list, or JSON inside text)."""
+    out: dict[str, list[int]] = {}
+
+    def walk(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if re.fullmatch(r"W\d{2}", str(k)) and isinstance(v, dict):
+                    ans: list[int] = []
+                    for val, cnt in v.items():
+                        m = re.fullmatch(r"\s*(10|[1-9])\s*", str(val))
+                        if m and isinstance(cnt, (int, float)):
+                            ans += [int(m.group(1))] * int(cnt)
+                    if ans:
+                        out[k] = ans
+                else:
+                    walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+        elif isinstance(o, str):
+            for m in re.finditer(r"\{.*\}", o, re.S):
+                try:
+                    walk(json.loads(m.group(0)))
+                except json.JSONDecodeError:
+                    pass
+
+    walk(obj)
+    return out
+
+
 def fetch_answers(survey_id: str, status_out: Any, log) -> dict[str, list[int]]:
     codes = list(_state()["survey_codes"][survey_id].keys())
     got = _per_question(status_out, codes)
+    if len(got) == len(codes):
+        return got
+    # Answer COUNTS per question come back whole; a full per-respondent export got cut to
+    # 10 of 30 answers in the live run, so it's only the fallback now.
+    brief = (
+        "For this survey's completed synthetic-panel responses, give the answer counts for every question. "
+        "Reply with ONLY a JSON object, no prose: one key per question code "
+        f"({', '.join(codes)}), each value an object mapping each answer 1..10 to how many respondents chose it."
+    )
+    out, _ = _survey_agent(brief, log, survey_id=survey_id)
+    got = counts_to_answers(out)
     if len(got) == len(codes):
         return got
     brief = (
@@ -431,7 +473,7 @@ def fetch_answers(survey_id: str, status_out: Any, log) -> dict[str, list[int]]:
         f"question code ({', '.join(codes)}), each value a list of the integer answers (1-10), one per respondent."
     )
     out, _ = _survey_agent(brief, log, survey_id=survey_id)
-    got = _per_question(out, codes)
+    got = _per_question(out, codes) or got
     if not got:
         raise RuntimeError(f"Couldn't read answers for survey {survey_id}: {str(out)[:800]}")
     return got

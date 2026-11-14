@@ -43,3 +43,10 @@ def test_job_status_ignores_task_envelope():
     assert job_status(done) == "completed"
     failed = {"status": "completed", "result": {"status": "failed", "error": "x"}}
     assert job_status(failed) == "failed"
+
+
+def test_counts_to_answers():
+    from stress_tester.panel.flashpoint import counts_to_answers
+
+    got = counts_to_answers({"result": {"final_text": 'Here: {"W01": {"1": 2, "7": 3, "10": 1}, "W02": {"5": 4}}'}})
+    assert got == {"W01": [1, 1, 7, 7, 7, 10], "W02": [5, 5, 5, 5]}

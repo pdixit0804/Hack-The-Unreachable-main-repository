@@ -222,3 +222,6 @@ __marimo__/
 # Wording Stress-Tester: mock panel runs are cheap to regenerate
 outputs/runs/mock/
 outputs/panel_requests.csv
+
+# x402 payment log (local record of what this machine paid)
+outputs/x402_payments.jsonl

@@ -12,7 +12,13 @@
     "9aa8d427dcc108d7": "6cd413dc-2e49-47f6-a7da-56a2bae80c15",
     "156e077a37ec2951": "c5696eb6-51e6-4040-869b-cb205adceca8",
     "4c67cb59a00ee91f": "57bf85af-b737-4da5-ba22-5d0aac5f7c81",
-    "dad0b826790cabe4": "25847975-8e2d-4bbb-8268-933a7b5bff56"
+    "dad0b826790cabe4": "25847975-8e2d-4bbb-8268-933a7b5bff56",
+    "ae471409480eb1e4": "665f0a17-af86-4ad3-88a6-9cc156a2b4fc",
+    "7cf629f84e6302b2": "5499049c-9093-42b6-a046-d7d5bf11e078",
+    "7d78842837dbf994": "5398bf56-aca9-4ad8-b9ef-392a5797c479",
+    "8d9ed87cdd22801f": "12b88afd-85ab-4a19-a341-d4551931cca3",
+    "3a6c7045f0cb489c": "89b6222b-658a-430c-bfc8-4de8bcb60728",
+    "27fcb2a0a928a190": "8a909190-fc40-46f3-bc41-32067a0361c1"
   },
   "survey_codes": {
     "8b0783cd-1120-446b-8d12-f6c117e54ec3": {
@@ -170,6 +176,66 @@
       "W09": "Stop missing out on 4.10% APY: daily compounding and zero fees mean none of your savings' growth gets left behind.",
       "W10": "Stop waiting up to two extra days for your pay: use direct deposit.",
       "W11": "Your deposits are FDIC-insured up to $250,000, so you gain the confidence of knowing your money is protected with us."
+    },
+    "665f0a17-af86-4ad3-88a6-9cc156a2b4fc": {
+      "W01": "After 6 months we'll review you for an upgrade; start today with a $200 deposit on a secured card that builds credit.",
+      "W02": "All in one free app: track subscriptions, set budgets, and split bills.",
+      "W03": "No monthly fee and no minimum balance: with ours, you don't pay for a checking account.",
+      "W04": "On balances up to $10,000, earn 3.75% variable after a 6-month intro rate of 5.00% APY.",
+      "W05": "Open a 12-month CD at 4.40% APY today, because rates won't stay this high forever.",
+      "W06": "Right from our app, send money to friends for free, instantly.",
+      "W07": "When you find your lost card, unlock it again; until then, lock it in one tap.",
+      "W08": "With average hold times under 2 minutes, you can talk to a real person 24/7."
+    },
+    "5499049c-9093-42b6-a046-d7d5bf11e078": {
+      "W01": "Build credit with a secured card: start with a $200 deposit, and we'll review you for an upgrade after 6 months.",
+      "W02": "Don't pay for a checking account. Ours has no monthly fee and no minimum balance.",
+      "W03": "Earn a 5.00% APY intro rate for 6 months on balances up to $10,000, then 3.75% variable.",
+      "W04": "Lock your card in one tap if you lose it, and unlock it when you find it.",
+      "W05": "Rates won't stay this high forever. Open a 12-month CD at 4.40% APY today.",
+      "W06": "Send money to friends instantly, free, right from our app.",
+      "W07": "Split bills, set budgets, and track subscriptions, all in one free app.",
+      "W08": "Talk to a real person 24/7, with average hold times under 2 minutes."
+    },
+    "5398bf56-aca9-4ad8-b9ef-392a5797c479": {
+      "W01": "Build credit with a secured card: start with a $200 deposit, and we'll review you for an upgrade after 6 months.",
+      "W02": "Don't pay for a checking account. Ours has no monthly fee and no minimum balance.",
+      "W03": "Earn a 5.00% APY intro rate for 6 months on balances up to $10,000, then 3.75% variable.",
+      "W04": "Lock your card in one tap if you lose it, and unlock it when you find it.",
+      "W05": "Rates won't stay this high forever. Open a 12-month CD at 4.40% APY today.",
+      "W06": "Send money to friends instantly, free, right from our app.",
+      "W07": "Split bills, set budgets, and track subscriptions, all in one free app.",
+      "W08": "Talk to a real person 24/7, with average hold times under 2 minutes."
+    },
+    "12b88afd-85ab-4a19-a341-d4551931cca3": {
+      "W01": "Don't let a lost card put your money at risk: lock it in one tap, and unlock it when you find it.",
+      "W02": "Don't let a thin credit history hold you back: start a secured card with a $200 deposit, and we'll review you for an upgrade after 6 months.",
+      "W03": "Don't settle for a low rate: earn a 5.00% APY intro rate for 6 months on balances up to $10,000, then 3.75% variable.",
+      "W04": "Get a checking account that costs you nothing: $0 monthly fee and a $0 minimum balance.",
+      "W05": "Lock in a high rate while it's here: open a 12-month CD at 4.40% APY today.",
+      "W06": "No more endless hold music or phone bots: talk to a real person 24/7, with average hold times under 2 minutes.",
+      "W07": "Stop losing track of shared bills, budgets and forgotten subscriptions: manage them all in one free app.",
+      "W08": "Stop paying fees or waiting days to send money to friends: do it instantly and free in our app."
+    },
+    "89b6222b-658a-430c-bfc8-4de8bcb60728": {
+      "W01": "Earn 5.00% interest a year for your first 6 months on up to $10,000, then a rate that can change, currently 3.75%.",
+      "W02": "Grow your credit score with a card backed by a $200 deposit, and after 6 months we'll see if you can move up to a regular card.",
+      "W03": "Lost your card? Turn it off with one tap, and turn it back on when you find it.",
+      "W04": "One free app to share bills, plan your spending, and keep an eye on your subscriptions.",
+      "W05": "Our checking account is free: no monthly fee and no minimum balance.",
+      "W06": "Pay your friends in seconds, at no cost, straight from our app.",
+      "W07": "Rates may not stay this high. Open a 12-month savings certificate earning 4.40% a year today.",
+      "W08": "Reach a real person any time, day or night, and usually wait less than 2 minutes."
+    },
+    "8a909190-fc40-46f3-bc41-32067a0361c1": {
+      "W01": "Get an introductory 5.00% APY for 6 months on up to $10,000 in savings, then a variable 3.75%.",
+      "W02": "Misplaced your card? One tap locks it, and you can unlock it once it turns up.",
+      "W03": "Our app lets you send money to friends instantly, and it's free.",
+      "W04": "Our free app lets you split bills, build budgets, and keep tabs on subscriptions in one place.",
+      "W05": "Real people answer 24/7, and the average wait is under 2 minutes.",
+      "W06": "Start building credit with a $200 deposit on a secured card. After 6 months, we'll review your account for an upgrade.",
+      "W07": "Today's high rates won't last forever, so open a 12-month CD at 4.40% APY now.",
+      "W08": "Why pay for checking? Ours comes with no monthly fee and no minimum balance."
     }
   },
   "jobs": {
@@ -182,6 +248,12 @@
     "6cd413dc-2e49-47f6-a7da-56a2bae80c15": "01a1db05-d4ff-7d40-acb2-aa52d8f2c432",
     "c5696eb6-51e6-4040-869b-cb205adceca8": "01a1db05-d521-7243-83c7-d2aa06115cf3",
     "57bf85af-b737-4da5-ba22-5d0aac5f7c81": "01a1db05-d540-79b3-aa50-ee6a1d998837",
-    "25847975-8e2d-4bbb-8268-933a7b5bff56": "01a1db05-d55e-7703-a19f-1e5774bc6038"
+    "25847975-8e2d-4bbb-8268-933a7b5bff56": "01a1db05-d55e-7703-a19f-1e5774bc6038",
+    "665f0a17-af86-4ad3-88a6-9cc156a2b4fc": "01a1db75-1585-7612-bf1a-b9c50f5d333d",
+    "5499049c-9093-42b6-a046-d7d5bf11e078": "01a1db75-15ac-7832-8bef-3d0401f5b106",
+    "5398bf56-aca9-4ad8-b9ef-392a5797c479": "01a1db75-15cf-7f11-b174-e51fb786894c",
+    "12b88afd-85ab-4a19-a341-d4551931cca3": "01a1db75-15f8-7ac3-994c-a4599a3bce91",
+    "89b6222b-658a-430c-bfc8-4de8bcb60728": "01a1db75-1622-72a0-b59b-6048f17caf9a",
+    "8a909190-fc40-46f3-bc41-32067a0361c1": "01a1db75-1650-7503-9f6e-b000042b8b06"
   }
 }
